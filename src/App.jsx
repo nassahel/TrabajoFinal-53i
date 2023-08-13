@@ -1,5 +1,7 @@
 import './App.css'
+import Aside from './components/aside/Aside'
 import Footer from './components/footer/Footer'
+import Main from './components/main/Main'
 import Navbar from './components/navbar/navbar'
 
 function App() {
@@ -7,6 +9,12 @@ function App() {
 return (
   <div>
     <Navbar/>
+    <div class="container-fluid d-flex">
+     <Aside/>
+     <Main/>
+    
+
+    </div>
     <Footer/>
   </div>
 )

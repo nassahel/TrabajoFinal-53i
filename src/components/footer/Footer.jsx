@@ -2,7 +2,7 @@ import React from 'react'
 
 function Footer() {
   return (
-    <div>Footer</div>
+    <div class="container-fluid text-center border">Footer</div>
   )
 }
 
