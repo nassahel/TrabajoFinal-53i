@@ -2,13 +2,13 @@ import React from 'react'
 
 function Aside() {
   return (
-    <div>
+    <div class="container col-3">
         <ul class="list-group">
-  <li class="list-group-item">An item</li>
-  <li class="list-group-item">A second item</li>
-  <li class="list-group-item">A third item</li>
-  <li class="list-group-item">A fourth item</li>
-  <li class="list-group-item">And a fifth one</li>
+  <li class="list-group-item">Entradas</li>
+  <li class="list-group-item">Carnes</li>
+  <li class="list-group-item">Pastas</li>
+  <li class="list-group-item">Pizzas</li>
+  <li class="list-group-item">Bebidas</li>
 </ul>
     </div>
   )

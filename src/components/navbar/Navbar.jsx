@@ -7,7 +7,7 @@ function Navbar() {
   <div class="container-fluid">
     <a class="navbar-brand" href="#">
         <img src="https://png.pngtree.com/png-clipart/20200727/original/pngtree-restaurant-logo-design-vector-template-png-image_5441058.jpg" alt="Logo" width="30" height="24" class="d-inline-block align-text-top" />
-      Bootstrap
+      Gastronova
     </a>
     <form class="d-flex col-5" role="search">
         <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search"/>
