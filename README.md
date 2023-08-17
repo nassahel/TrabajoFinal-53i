@@ -7,11 +7,11 @@ El nombre de tu proyecto, en este caso, el nombre de tu restaurante.
 Una breve descripción del proyecto que explique su propósito y funcionalidades.
 
 ## Tecnologías Utilizadas
-*React
-*Bootstrap
-*Node.js
-*Express
-*MongoDB
+* React
+* Bootstrap
+* Node.js
+* Express
+* MongoDB
 
 ### Instalación
 Proporciona instrucciones claras sobre cómo instalar y configurar el proyecto en local. Por ejemplo:
