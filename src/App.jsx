@@ -8,6 +8,7 @@ function App() {
  
 return (
   <div>
+    <img src="https://w.forfun.com/fetch/71/71bb6cbac943138cae75e91c7402a79d.jpeg" alt="" className='bg_img' />
     <Navbar/>
     <div class="container-fluid d-flex">
      <Aside/>
