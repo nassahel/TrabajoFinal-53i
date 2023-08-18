@@ -1,0 +1,15 @@
+.productos-lista-principal{
+    width: 600px;
+    min-height: 500px;
+    background-color: #EFAC1F;
+    padding: 25px;
+    margin: 10px;
+    border-radius: 26px;
+}
+
+.titulo-productos{
+  color: #fff;
+  font-size: 25px;
+  text-align: center;
+  margin: 20px 0;
+}

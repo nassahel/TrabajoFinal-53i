@@ -4,6 +4,7 @@ import Aside from './components/aside/Aside'
 import Footer from './components/footer/Footer'
 import Main from './components/main/Main'
 import Navbar from './components/navbar/Navbar'
+import Productos from './pages/Admin/Admin'
 
 function App() {
 
@@ -17,6 +18,7 @@ function App() {
 
       </div>
       <Footer />
+      <Productos/>
     </div>
   )
 
