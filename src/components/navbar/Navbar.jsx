@@ -15,9 +15,9 @@ function Navbar() {
           <a className="navbar-brand" href="#">
             <img src="src\assets\img\fav-icon.png" alt="Logo" width="80" className="d-inline-block align-text-top" />
           </a>
-          <form className="d-flex col-5" role="search">
+          <form className="d-flex col-5 ms-5" role="search">
             <input className="form-control me-2" type="search" placeholder="Search" aria-label="Search" />
-            <button className="btn btn-outline-primary" type="submit">Buscar</button>
+            <button className="btn btn-outline-light" type="submit">Buscar</button>
           </form>
           <div>
             <button type="submit" className="btn btn-outline-light" onClick={handleShow}>Entrar</button>

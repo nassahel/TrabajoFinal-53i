@@ -8,6 +8,7 @@ function App() {
 
   return (
     <div className='principal'>
+      <img className='bg_img' src="src\assets\img\body_background.jpeg" alt="" />
       <Navbar />
       <Main />
       <Footer class="footer" />
