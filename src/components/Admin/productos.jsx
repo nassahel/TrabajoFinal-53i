@@ -1,5 +1,5 @@
 import React from "react";
-import './productos.css'
+import '../Admin/styles/productos.css'
 import { AiOutlineCloseCircle } from "react-icons/ai";
 
 function Productos({ texto }) {

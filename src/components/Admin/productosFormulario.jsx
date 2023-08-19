@@ -1,4 +1,5 @@
 import React from "react";
+import './styles/productosFormulario.css'
 
 function ProductoFormulario(props) {
 	return (
@@ -9,7 +10,7 @@ function ProductoFormulario(props) {
 			 name="texto"
 			 placeholder="Agregue un producto"
 			/>
-			<button className="producto-boton">
+			<button className="producto-boton btn btn-dark">
 				Agregar Producto
 			</button>
 		</form>
