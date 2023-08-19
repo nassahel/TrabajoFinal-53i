@@ -1,6 +1,6 @@
 import React from "react";
 import './productos.css'
-import { IconName } from "react-icons/ai";
+import { AiOutlineCloseCircle } from "react-icons/ai";
 
 function Productos({ texto }) {
   return(
@@ -8,8 +8,8 @@ function Productos({ texto }) {
       <div className="producto-texto">
         {texto}
       </div>
-      <div className="producto-icono">
-        Eliminar
+      <div className="producto-iconos-contenedor">
+        <AiOutlineCloseCircle  className="producto-icono" />
       </div>
     </div>
   );
