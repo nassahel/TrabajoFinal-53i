@@ -1,4 +1,6 @@
 import React from "react";
+import './productos.css'
+import { IconName } from "react-icons/ai";
 
 function Productos({ texto }) {
   return(

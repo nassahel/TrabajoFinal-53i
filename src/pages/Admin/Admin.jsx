@@ -6,7 +6,7 @@ function Admin() {
   return (
     <div className="productos-lista-principal">
       <h1 className="titulo-productos">Productos</h1>
-      <Productos/>
+      <Productos texto='Pizza a la napolitana'/>
     </div>
   )
 }
