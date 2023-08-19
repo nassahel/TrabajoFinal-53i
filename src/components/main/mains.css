@@ -1,0 +1,30 @@
+.main-cont {
+    height: 80vh;
+
+}
+
+.slogan {
+    color: white;
+    font-family: 'Courgette', cursive;
+}
+
+.button {
+    padding: 0.5rem 1rem;
+    background-color: #efac1f;
+    border-radius: 50px;
+    font-weight: bold;
+    transition: 300ms ease-out;
+    font-size: 1.2rem;
+}
+
+.button:hover {
+    background-color: #ffbf34;
+    
+}
+
+.button:active {
+    background-color: #c39126;
+    scale: 0.95;
+    
+}
+

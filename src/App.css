@@ -1,6 +1,30 @@
+* {
+    border: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+
+:root {
+    --negro: #21201E;
+    --naranja: #efac1f;
+    --blanco: #ffffff;
+}
+
+.principal {
+background-color: var(--negro);
+display: flex;
+flex-direction: column;
+min-height: 100vh;
+}
+
 .bg_img {
     
     position: absolute;
     width: 100%;
     object-fit:contain;
+}
+
+.footer {
+    margin-top: auto;
 }

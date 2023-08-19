@@ -1,8 +1,14 @@
-.nav_color {
-    color: transparent !important;
+:root {
+    --negro: #21201E;
+    --naranja: #efac1f;
+    --blanco: #ffffff;
 }
 
+.classnav {
+    background-color:transparent;
+}
 
+/* 
 .form-control {
-    opacity: 0.7;
-}
+    opacity: 0.9;
+} */

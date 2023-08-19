@@ -1,22 +1,16 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import './App.css'
-import Aside from './components/aside/Aside'
 import Footer from './components/footer/Footer'
 import Main from './components/main/Main'
-import Navbar from './components/navbar/Navbar'
+import Navbar from './components/navbar/navbar'
 
 function App() {
 
   return (
-    <div>
+    <div className='principal'>
       <Navbar />
-      <div class="container-fluid d-flex">
-        <Aside />
-        <Main />
-
-
-      </div>
-      <Footer />
+      <Main />
+      <Footer class="footer" />
     </div>
   )
 
