@@ -1,7 +1,8 @@
-import { BrowserRouter, Routes, Route } from 'react-router-dom'
+import { Routes, Route } from 'react-router-dom'
 import './App.css'
 import Footer from './components/footer/Footer'
-import Navbar from './components/navbar/navbar'
+import Navbarr from './components/navbar/Navbarr'
+
 import Home from './pages/home/Home'
 import Admin from './pages/admin/Admin'
 import AboutUs from './pages/aboutUs/AboutUs'
@@ -14,7 +15,7 @@ function App() {
   return (
     <div className='principal'>
       <img className='bg_img' src="src\assets\img\body_background.jpeg" alt="" />
-      <Navbar />
+      <Navbarr/>
       <Routes>
         <Route path='/' element={<Home />} />
         <Route path='/admin' element={<Admin/>} />
