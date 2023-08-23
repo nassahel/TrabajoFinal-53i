@@ -1,0 +1,13 @@
+.registro {
+    place-items: center;
+    margin: auto;
+    display: flex;
+    justify-content: center;
+    padding: 1% 7%;
+    background-color: #fff;
+    opacity: 0.9;
+    width: 30%;
+    height: 50%;
+    border-radius: 7%;
+
+}
