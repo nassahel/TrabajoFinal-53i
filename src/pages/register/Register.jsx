@@ -4,6 +4,7 @@ import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import ToggleButton from 'react-bootstrap/ToggleButton';
 import ToggleButtonGroup from 'react-bootstrap/ToggleButtonGroup';
+import { NavLink } from 'react-router-dom';
 
 function Register() {
   return (
@@ -12,10 +13,12 @@ function Register() {
 
       <div className=''>
         <div>
-          <ToggleButtonGroup type="radio" name="options" defaultValue={1}>
+          <NavLink to="/login">
             <ToggleButton id="tbg-radio-2" value={2}>
               Iniciar Sesion
             </ToggleButton>
+          </NavLink>
+          <ToggleButtonGroup type="radio" name="options" defaultValue={1}>
             <ToggleButton id="tbg-radio-3" value={3}>
               Registrarse
             </ToggleButton>
