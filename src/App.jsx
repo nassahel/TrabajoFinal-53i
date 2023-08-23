@@ -22,7 +22,7 @@ function App() {
         <Route path='/about' element={<AboutUs/>} />
         <Route path='/register' element={<Register/>} />
       </Routes>
-      <Footer className="footer" />
+      <Footer className="footer"/>
     </div>
   )
 
