@@ -1,8 +1,15 @@
-.nav_color {
-    color: transparent !important;
+:root {
+    --negro: #21201E;
+    --naranja: #efac1f;
+    --blanco: #ffffff;
 }
 
+.classnav {
+    background: rgb(0,0,0);
+background: linear-gradient(180deg, rgba(0,0,0,1) 4%, rgba(0,212,255,0) 100%);
+}
 
+/* 
 .form-control {
-    opacity: 0.7;
-}
+    opacity: 0.9;
+} */

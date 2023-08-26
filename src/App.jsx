@@ -1,23 +1,30 @@
-import { BrowserRouter, Routes, Route } from 'react-router-dom'
+import { Routes, Route } from 'react-router-dom'
 import './App.css'
-import Aside from './components/aside/Aside'
 import Footer from './components/footer/Footer'
-import Main from './components/main/Main'
-import Navbar from './components/navbar/Navbar'
-import Admin from './pages/Admin/Admin'
+import Navbarr from './components/navbar/Navbarr'
+
+import Home from './pages/home/Home'
+import Admin from './pages/admin/Admin'
+import AboutUs from './pages/aboutUs/AboutUs'
+import Register from './pages/register/Register'
+import Login from './pages/login/Login'
+
+
 
 function App() {
 
   return (
-    <div>
-      <Navbar />
-      <div class="container-fluid d-flex">
-        <Aside />
-        <Main />
-
-
-      </div>
-      <Footer />
+    <div className='principal'>
+      <img className='bg_img' src="src\assets\img\body_background.jpeg" alt="" />
+      <Navbarr />
+      <Routes>
+        <Route path='/' element={<Home />} />
+        <Route path='/admin' element={<Admin />} />
+        <Route path='/about' element={<AboutUs />} />
+        <Route path='/register' element={<Register />} />
+        <Route path='/login' element={<Login />} />
+      </Routes>
+      <Footer className="footer" />
     </div>
   )
 
