@@ -8,18 +8,20 @@ function ListaDeProductos() {
   const[producto, setProducto] = useState([])
 
   const agregarProductos = productos => {
-    console.log(agregarProductos);
-    console.log(productos);
+    if (productos.text.trim()) {
+      productos.text = productos.text.trim()
+      const productoActualizado = [producto, ...producto]
+    }
   }
 
   return (
     <>
-     <ProductoFormulario/> 
+     <ProductoFormulario onSubmit={agregarProductos}/> 
      <div className="lista-productos-contenedor">
       {
         producto.map((productos) =>
         <Productos
-        texto= {productos.text}
+        text= {productos.text}
         />
         )
       }

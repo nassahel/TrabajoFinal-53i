@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import './styles/productosFormulario.css'
+import { v4 as uuidv4 } from "uuid";
 
 function ProductoFormulario(props) {
 
@@ -7,14 +8,16 @@ function ProductoFormulario(props) {
 
 	const manejarCambios = e =>{
 		setInput(e.target.value)
-		console.log(e.target.value);
 	}
 
 	const manejarProducto = e =>{
+		e.preventDefault() // Esto es para que toda la aplicacion no se vuelva a cargar cuando mandamos algo
 		const productoNuevo = {
-			id: '35565',
-			text: 'Hola'
+			id: uuidv4(),
+			text: input
 		}
+
+		props.onSubmit(productoNuevo) 
 	}
 
 	return (
