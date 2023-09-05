@@ -1,0 +1,13 @@
+.botones {
+
+    align-items: center;
+    display: flex;
+    justify-content: center;
+    padding: 5px;
+
+}
+
+.iniciar {
+    margin: 10px;
+    padding-right: 30px;
+}

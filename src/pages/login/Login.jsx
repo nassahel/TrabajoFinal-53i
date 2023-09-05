@@ -44,25 +44,25 @@ function Login() {
     return (
         <div className='registro'>
             <div className=''>
-                <div>
-                    {/* =====================Esto son los botones de iniciar sesion y registrarse =========================0000*/}
+                <div className='botones'>
+
                     <NavLink to="/login">
-                        <ToggleButton id="tbg-radio-2" value={2}>
+                        <ToggleButton className='iniciar' variant='info' id="tbg-radio-2" value={2}>
                             Iniciar Sesion
                         </ToggleButton>
                     </NavLink>
                     <NavLink to="/register">
                         <ToggleButtonGroup type="radio" name="options" defaultValue={1}>
-                            <ToggleButton id="tbg-radio-3" value={3}>
+                            <ToggleButton id="tbg-radio-3" variant='info' value={3}>
                                 Registrarse
                             </ToggleButton>
                         </ToggleButtonGroup>
                     </NavLink>
                 </div>
-                {/* ============================================================================================= */}
+
                 <Form className='' id="miFormulario" onSubmit={botonIniciar}>
                     <div>
-                        <Form.Label >Nombre</Form.Label>
+                        <Form.Label>Nombre:</Form.Label>
                         <Form.Control
                             type="text"
                             placeholder='Ingrese su nombre'
@@ -70,7 +70,7 @@ function Login() {
                         />
                     </div>
                     <div>
-                        <Form.Label>Contraseña</Form.Label>
+                        <Form.Label>Contraseña:</Form.Label>
                         <Form.Control
                             type="password"
                             placeholder='Ingrese su contraseña'
@@ -90,7 +90,7 @@ function Login() {
                             </div>
                         ))}
                     </Form>
-                    <Button type='submit' variant="primary" >Iniciar Sesion</Button>
+                    <Button type='submit' variant="info" >Iniciar Sesion</Button>
                 </Form>
             </div>
         </div >

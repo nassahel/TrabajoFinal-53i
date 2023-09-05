@@ -49,12 +49,12 @@ function Register() {
       <div className=''>
         <div>
           <NavLink to="/login">
-            <ToggleButton id="tbg-radio-2" value={2}>
+            <ToggleButton className='iniciar' variant='info' id="tbg-radio-2" value={2}>
               Iniciar Sesion
             </ToggleButton>
           </NavLink>
           <ToggleButtonGroup type="radio" name="options" defaultValue={1}>
-            <ToggleButton id="tbg-radio-3" value={3}>
+            <ToggleButton id="tbg-radio-3" variant='info' value={3}>
               Registrarse
             </ToggleButton>
           </ToggleButtonGroup>
@@ -70,7 +70,7 @@ function Register() {
             />
           </>
           <div>
-            <Form.Label >Email</Form.Label>
+            <Form.Label >Email:</Form.Label>
             <Form.Control
               type="email"
               aria-describedby="email"
@@ -80,7 +80,7 @@ function Register() {
           </div>
           <div>
             <>
-              <Form.Label >Direccion</Form.Label>
+              <Form.Label>Direccion:</Form.Label>
               <Form.Control
                 type="text"
                 aria-describedby="adress"
@@ -90,7 +90,7 @@ function Register() {
             </>
           </div>
           <>
-            <Form.Label >Contraseña</Form.Label>
+            <Form.Label>Contraseña:</Form.Label>
             <Form.Control
               type="password"
               aria-describedby="passwordHelpBlock"
@@ -114,7 +114,7 @@ function Register() {
             ))}
           </Form>
           <div>
-            <Button type='submit' variant="primary">Registrarse</Button>{' '}
+            <Button type='submit' variant="info">Registrarse</Button>{' '}
           </div>
         </Form>
       </div>
