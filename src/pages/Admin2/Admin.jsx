@@ -2,7 +2,7 @@ import React from 'react'
 import Productos from '../../components/Admin/productos'
 import './admin.css'
 //import ListaDeProductos from '../../components/Admin/listaDeProductos'
-//import AllProductos from '../../components/Admin/allProductos'
+import AllProductos from '../../components/Admin/allProductos'
 
 
 function Admin() {

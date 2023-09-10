@@ -12,7 +12,6 @@
   }
 
 .producto-contenedor{
-    width: 500px;
     min-height: 65px;
     background-color: var(--blanco);
     margin: 5px 0;

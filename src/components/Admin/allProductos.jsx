@@ -1,8 +1,14 @@
 import React, { useEffect, useState } from "react";
 import './styles/allProductos.css';
-import { AiOutlineCloseCircle } from "react-icons/ai"; //Paquete de iconos
 
-function AllProductos() {
+const AllProductos = ({ tareas, setTarea, eliminandoTarea }) => {
+
+  const handleEliminar = (id) => {
+    const respuesta = confirm('¿Desea eliminar el producto?')
+    if (respuesta) {
+      eliminandoTarea(id)
+    }
+  }
 
   const [productos, setProductos] = useState([])
 
@@ -22,11 +28,19 @@ function AllProductos() {
       {productos.map((props) => (
         <div className='card-products'>
           <div className='contenedor-texto'>
-            <p className='titulo'>{props.title}</p>
-            <p className='precio'>${props.price}</p>
+            <p> <span className='fw-semibold'>Nombre:</span> {props.title}</p>
+            <p> <span className='fw-semibold'>Imagen:</span></p>
+            <p> <span className='fw-semibold'>Precio:</span> ${props.price}</p>
+            <p> <span className='fw-semibold'>Activo:</span></p>
+            <p> <span className='fw-semibold'>Descripcion:</span> {props.description}</p>
           </div>
-          <div className="producto-iconos-contenedor"/*  onClick={eliminarProducto(id)} */>
-            <AiOutlineCloseCircle className="producto-icono" />
+          <div className='boton-editar-eliminar'>
+            <button className='mb-2 btn btn-dark' type="button" onClick={() => setTarea(tarea)}>Editar</button>
+            <button
+              className='mb-2 btn btn-dark'
+              onClick={() => { handleEliminar(tarea.id) }} >
+              Eliminar
+            </button>
           </div>
         </div>
       ))}
