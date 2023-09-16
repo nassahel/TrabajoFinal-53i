@@ -37,6 +37,10 @@ function Navbarr() {
             <NavLink to="/register">
               <Button variant="outline-light"> Registrarse </Button>
             </NavLink>
+            <NavLink to="/user/carrito">
+               <Button variant="outline-light">Carrito</Button>
+            </NavLink>
+
 
           </Container>
         </Navbar.Collapse>
