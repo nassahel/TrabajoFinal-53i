@@ -38,16 +38,16 @@ function SearchBar() {
   }, []);
 
   return (
-    <div className='container-fluid d-flex justify-content-center align-items-center'>
-      <Form className="containter-fluid">
+    <div className='container-fluid flex-column d-flex justify-content-center align-items-center'>
+      <Form className="containter-fluid d-flex col-lg-5 col-12 my-4">
         <Form.Control onChange={(e) => setSearch(e.target.value)} value={search}
           type="search"
-          placeholder="Search"
-          className="me-2 "
+          placeholder="Buscar..."
+          className="me-2 form-control-lg"
           aria-label="Search"
           data-bs-theme="light"
         />
-        <Button onClick={handleSearch} variant="outline-light"><BsSearch /></Button>
+        <Button className='bg-dark btn btn-md' onClick={handleSearch} variant="outline-light"><BsSearch size='2rem' /></Button>
       </Form>
 
       <div className='container-fluid d-flex gap-3 flex-wrap'>
