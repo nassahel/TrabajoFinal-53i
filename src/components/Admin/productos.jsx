@@ -1,10 +1,6 @@
-//import '../Admin/styles/productos.css'
 import { useEffect, useState } from 'react'
 import Resultado from './resultado';
 import '../Admin/styles/productos.css'
-import AllProductos from './allProductos';
-//import { AiOutlineCloseCircle } from "react-icons/ai"; //Paquete de iconos
-//en esta componente tengo el texto y el icono del producto
 
 function Productos() {
 
@@ -18,10 +14,8 @@ function Productos() {
   const [nombre, setNombre] = useState('');
   const [descripcion, setdescripcion] = useState('');
   const [imagen, setimagen] = useState('');
-  const [precio, setprecio] = useState('');
-  const [activo, setActivo] = useState('')
-  //ESTADO DE ERROR
-  //const [error, setError] = useState(false)
+  const [precio, setprecio] = useState(Number);
+  const [activo, setActivo] = useState(Boolean);
 
   //LOCAL STORAGE
   useEffect(() => {
@@ -96,14 +90,28 @@ function Productos() {
     setTareas(tareasActualizadas)
   }
 
+  //RECORRIDO DE LA API
+  const [productos, setProductos] = useState([])
+
+  const productList = async () => {
+    const data = await fetch('https://fakestoreapi.com/products')
+    const products = await data.json()
+    setProductos(products)
+
+  }
+
+  useEffect(() => {
+    productList()
+  }, []) // Para que se renderice una sola vez
+
   return (
     <>
       <main>
-        <form className="producto-contenedor d-flex flex-column justify-content-center align-items-center" onSubmit={handleSubmit}>
-          <div className='d-flex flex-column justify-content-center align-items-center'>
-            <label className='mb-2 text-center producto-texto' htmlFor="nombre">Nombre de Producto</label>
+        <form className="producto-contenedor d-flex flex-column align-items-center" onSubmit={handleSubmit}>
+          <div className='me-3 mt-3 d-flex justify-content-center align-items-center'>
+            <label className='ps-3 text-start producto-texto fs-6' htmlFor="nombre">Nombre de Producto</label>
             <input
-              className='w-100 p-1 mb-2 input-nombre rounded border border-black border-opacity-50'
+              className='input-productos w-75 p-1 input-nombre rounded border border-black border-opacity-50'
               type="text"
               name="nombre"
               id="nombre"
@@ -111,11 +119,9 @@ function Productos() {
               value={nombre}
               onChange={(e) => setNombre(e.target.value)}
             />
-          </div>
-          <div className='d-flex flex-column justify-content-center align-items-center'>
-            <label className='mb-2 text-center producto-texto' htmlFor="nombre">Link de Imagen</label>
+            <label className='ps-3 text-center producto-texto fs-6' htmlFor="nombre">Link de Imagen</label>
             <input
-              className='p-1 mb-2 input-nombre rounded border border-black border-opacity-50'
+              className='input-productos w-75 p-1  input-nombre rounded border border-black border-opacity-50'
               type="text"
               name="imagen"
               id="imagen"
@@ -124,10 +130,10 @@ function Productos() {
               onChange={(e) => setimagen(e.target.value)}
             />
           </div>
-          <div className='d-flex flex-column justify-content-center align-items-center'>
-            <label className='mb-2 text-center producto-texto' htmlFor="nombre">Precio del Producto</label>
+          <div className='me-3 mt-3 d-flex justify-content-center align-items-center'>
+            <label className='ps-3 text-center producto-texto fs-6' htmlFor="nombre">Precio del Producto</label>
             <input
-              className='p-1 mb-2 input-nombre rounded border border-black border-opacity-50'
+              className=' input-productos w-75 p-1  input-nombre rounded border border-black border-opacity-50'
               type="text"
               name="precio"
               id="precio"
@@ -135,11 +141,9 @@ function Productos() {
               value={precio}
               onChange={(e) => setprecio(e.target.value)}
             />
-          </div>
-          <div className='d-flex flex-column justify-content-center align-items-center'>
-            <label className='mb-2 text-center producto-texto' htmlFor="descripcion">Producto Activo</label>
+            <label className='ps-3 text-center producto-texto fs-6' htmlFor="descripcion">Producto Activo</label>
             <input
-              className='p-1 mb-2 w-100 mb-3 input-nombre rounded border border-black border-opacity-50'
+              className='input-productos w-75 p-1 input-nombre rounded border border-black border-opacity-50'
               name="activo"
               id="activo"
               placeholder="Producto Activo"
@@ -147,8 +151,8 @@ function Productos() {
               onChange={(e) => setActivo(e.target.value)}
             />
           </div>
-          <div className='d-flex flex-column justify-content-center align-items-center'>
-            <label className='mb-2 text-center producto-texto' htmlFor="descripcion">Descripcion de Producto</label>
+          <div className='mt-3 d-flex flex-column justify-content-center align-items-center'>
+            <label className='mb-2 text-center producto-texto fs-6' htmlFor="descripcion">Descripcion de Producto</label>
             <textarea
               className='w-100 mb-3 input-nombre rounded border border-black border-opacity-50'
               name="descripcion"
@@ -172,29 +176,9 @@ function Productos() {
             setTarea={setTarea}
             eliminandoTarea={eliminandoTarea} />
         </div>
-        <AllProductos
-          tareas={tareas}
-          setTarea={setTarea}
-          eliminandoTarea={eliminandoTarea} />
       </main>
     </>
   )
 }
 
 export default Productos
-
-
-/* function Productos({ texto, id, eliminarProducto }) {
-  return(
-    <div className="producto-contenedor">
-      <div className="producto-texto">
-        {texto}
-      </div>
-      <div className="producto-iconos-contenedor" onClick={eliminarProducto(id)} >
-        <AiOutlineCloseCircle  className="producto-icono" />
-      </div>
-    </div>
-  );
-}
-
-export default Productos */

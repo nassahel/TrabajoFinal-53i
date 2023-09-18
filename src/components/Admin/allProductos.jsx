@@ -1,14 +1,7 @@
 import React, { useEffect, useState } from "react";
 import './styles/allProductos.css';
 
-const AllProductos = ({ tareas, setTarea, eliminandoTarea }) => {
-
-  const handleEliminar = (id) => {
-    const respuesta = confirm('¿Desea eliminar el producto?')
-    if (respuesta) {
-      eliminandoTarea(id)
-    }
-  }
+const AllProductos = () => {
 
   const [productos, setProductos] = useState([])
 
@@ -35,10 +28,9 @@ const AllProductos = ({ tareas, setTarea, eliminandoTarea }) => {
             <p> <span className='fw-semibold'>Descripcion:</span> {props.description}</p>
           </div>
           <div className='boton-editar-eliminar'>
-            <button className='mb-2 btn btn-dark' type="button" onClick={() => setTarea(tarea)}>Editar</button>
+            <button className='mb-2 btn btn-dark' type="button">Editar</button>
             <button
-              className='mb-2 btn btn-dark'
-              onClick={() => { handleEliminar(tarea.id) }} >
+              className='mb-2 btn btn-dark'>
               Eliminar
             </button>
           </div>

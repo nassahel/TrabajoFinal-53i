@@ -1,3 +1,4 @@
+import AllProductos from './allProductos'
 import './styles/resultado.css'
 const Resultado = ({ tareas, setTarea, eliminandoTarea }) => {
 
@@ -38,6 +39,7 @@ const Resultado = ({ tareas, setTarea, eliminandoTarea }) => {
           <p>No hay tareas</p>
         </>
       )}
+          <AllProductos/>
     </div>
   )
 }
