@@ -5,8 +5,7 @@
 }
 
 .classnav {
-background: rgba(1, 1, 1, 1.0);
-background: linear-gradient(180deg, rgba(1, 1, 1, 1.0), rgba(255, 255, 255, 0.0));
+background-color: #21201E;
 
 }
 
@@ -14,3 +13,4 @@ background: linear-gradient(180deg, rgba(1, 1, 1, 1.0), rgba(255, 255, 255, 0.0)
 .form-control {
     opacity: 0.9;
 } */
+
