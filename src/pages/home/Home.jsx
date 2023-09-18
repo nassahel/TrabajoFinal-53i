@@ -1,14 +1,14 @@
 import React from 'react'
 import Main from '../../components/main/Main'
-import MostWanted from '../../components/mostWanted/MostWanted'
+import Spiner from '../../components/spiner/Spiner'
+
 
 
 function Home() {
   return (
     <div>
+    <Main/>     
 
-      <Main />
-      <MostWanted />
     </div>
   )
 }
