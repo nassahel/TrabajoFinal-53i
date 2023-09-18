@@ -5,6 +5,7 @@ import Navbar from "react-bootstrap/Navbar";
 import { NavLink } from "react-router-dom";
 import { BsPersonCircle } from "react-icons/bs";
 import { AiOutlineShoppingCart } from "react-icons/ai";
+import Offcanvas from 'react-bootstrap/Offcanvas';
 import "./navbar.css";
 
 function Navbarr() {
@@ -15,31 +16,44 @@ function Navbarr() {
   }
 
   return (
-    <Navbar expand="lg" className="classnav sticky-top p-3 shadow" data-bs-theme="dark" >
-      <NavLink>
-        <img src="src\assets\img\hnb.png" width="290" className="d-inline-block align-center me-5" alt="React Bootstrap logo" />
-      </NavLink>
-      <Container fluid className="text-end fs-5">
+        <>
+        <Navbar key="lg" expand="lg" className="classnav sticky-top shadow p-3 fs-5 mb-3" data-bs-theme="dark">
+          <Container fluid>
+            <NavLink to="/">
+              <img src="src\assets\img\hnb.png" width="290" className="d-inline-block align-center me-5" alt="React Bootstrap logo" />
+            </NavLink>
+            <Navbar.Toggle aria-controls="offcanvasNavbar-expand-lg classnav" />
+            <Navbar.Offcanvas
+              id="offcanvasNavbar-expand-lg"
+              aria-labelledby="offcanvasNavbarLabel-expand-lg"
+              placement="end"
+              data-bs-theme="dark"
+            >
+              <Offcanvas.Header closeButton>
+                <Offcanvas.Title id="offcanvasNavbarLabel-expand-lg">
+                  Menú
+                </Offcanvas.Title>
+              </Offcanvas.Header>
+              <Offcanvas.Body>
+                <Nav className="justify-content-end flex-grow-1 pe-4 mb-2">
+                  <NavLink to="/" className="nav-link text-light" style={({ isActive }) => (isActive ? activeStyle : undefined)}>Inicio</NavLink>
+                  <NavLink to="/about" className="nav-link text-light" style={({ isActive }) => (isActive ? activeStyle : undefined)}>Nosotros</NavLink>
+                  <NavLink to="/admin" className="nav-link text-light" style={({ isActive }) => (isActive ? activeStyle : undefined)}>Admin</NavLink>
+                </Nav>
+                <NavLink to="/register" className='me-4'>
+                  <BsPersonCircle size='2rem' color="white" />
+                </NavLink >
 
-        <Navbar.Toggle aria-controls="navbarScroll" />
-        <Navbar.Collapse id="navbarScroll">
-          <Nav className="ms-auto my-2 my-lg-0 me-4" style={{ maxHeight: "100px" }} navbarScroll>
-            <NavLink to="/" className="nav-link text-light" style={({ isActive }) => (isActive ? activeStyle : undefined)}>Home</NavLink>
-            <NavLink to="/admin" className="nav-link text-light" style={({ isActive }) => (isActive ? activeStyle : undefined)}>Admin</NavLink>
-            <NavLink to="/about" className="nav-link text-light" style={({ isActive }) => (isActive ? activeStyle : undefined)}>Nosotros</NavLink>
-          </Nav>
+                <NavLink to="#">
+                  <AiOutlineShoppingCart size='2rem' color='white' />
+                </NavLink>
+              </Offcanvas.Body>
+            </Navbar.Offcanvas>
+          </Container>
+        </Navbar>
 
-          <NavLink to="/register" className='me-4'>
-            <BsPersonCircle size='2rem' color="white" />
-          </NavLink >
+      </>
 
-          <NavLink to="#">
-            <AiOutlineShoppingCart size='2rem' color='white' />
-          </NavLink>
-
-        </Navbar.Collapse>
-      </Container>
-    </Navbar>
   );
 }
 
