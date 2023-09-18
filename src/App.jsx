@@ -4,7 +4,7 @@ import Footer from './components/footer/Footer'
 import Navbarr from './components/navbar/Navbarr'
 
 import Home from './pages/home/Home'
-import Admin from './pages/admin/Admin'
+import Admin from './pages/Admin2/Admin'
 import AboutUs from './pages/aboutUs/AboutUs'
 import Register from './pages/register/Register'
 import Login from './pages/login/Login'
