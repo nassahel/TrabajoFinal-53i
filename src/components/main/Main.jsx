@@ -5,35 +5,28 @@ import Spiner from '../spiner/Spiner'
 
 function Main({ products, searchTerm, loading }) {
 
-    
     const filteredProducts = products.filter((product) =>
-    product.title.toLowerCase().includes(searchTerm.toLowerCase()))
-
-
+        product.title.toLowerCase().includes(searchTerm.toLowerCase()))
 
     return (
-        <div className='container-fluid py-4'>
-            <div className='row gap-5 justify-content-center product-list'>
-                <h2 className='text-center mt-3 text-light'>Productos</h2>
+        <div className='container'>
+            <h2 className='text-center mt-3 text-light bg-warning py-2 bg-opacity-75'>Productos</h2>
+            <div className='row row-cols-lg-4 row-cols-1 row-cols-md-2 g-5 my-5'>
+                {loading ? <Spiner /> : filteredProducts.map((product) => (
 
-                { loading ? <Spiner/> : filteredProducts.map((product) => (
-                    <div className="card col-lg-2 col-md-4 shadow align-items-center justify-content-center" key={product.id}>
-                        <div className="image-div d-flex align-items-center justify-content-center">
-                            <img className='img-fluid h-100' src={product.image} alt={product.title} />
+                    <div className="col col-lg-3">
+                        <div className="card text-center border-4 border-dark p-3 h-100" key={product.id}>
+                            <img className='card-img-top w-50 mx-auto' src={product.image} alt={product.title} />
+                            <div className="card-body d-flex flex-column justify-content-end">
+                                <h5 className='card-title'>{product.title} </h5>
+                                <h5 className='card-title'>${product.price}</h5>
+                                <button className='btn btn-outline-warning rounded-0 fw-bold'>Comprar</button>
+                            </div>
                         </div>
-                        <div className="title-div d-flex align-items-center">
-                            <h5 className='text-center text-justify '>{product.title} </h5>
-                        </div>
-                        <div className="product-div">
-                            <h5 className='text-primary border'>${product.price}</h5>
-                        </div>
-                        <div className="button-div">
-                            <button className='btn btn-outline-warning fw-bold'>Comprar</button>
-                        </div>
-
                     </div>
-                )) }
 
+
+                ))}
             </div>
         </div>
     )
