@@ -25,7 +25,7 @@ function Home() {
 
 
   return (
-    <div>
+    <div className='container-fluid home'>
       <SearchBar setSearchTerm={setSearchTerm} />
       <Main loading={loading} products={products} searchTerm={searchTerm} />
 
