@@ -3,7 +3,7 @@ import "./footer.css"
 
 function Footer() {
   return (
-    <div className="container-fluid footer d-flex justify-content-between text-center py-3 px-3" >
+    <div className="container-fluid footer d-flex justify-content-between text-center py-4 px-3" >
       <div className="col-3 text-start">
         <div className="social-media mb-1" >
           <img width="30" src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/51/Facebook_f_logo_%282019%29.svg/2048px-Facebook_f_logo_%282019%29.svg.png" alt="" />
