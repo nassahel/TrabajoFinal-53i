@@ -6,8 +6,9 @@
   }
 
 .producto-contenedor{
+    padding: 3%;
     min-width: 580px;
-    min-height: 65px;
+    height: 300px;
     background-color: var(--blanco);
     border-radius: 7px;
     border: 1px solid var(--negro);
@@ -21,3 +22,21 @@
 .input-productos{
     padding-right: 0 !important;
 }
+
+.input-descripcion{
+    scroll-behavior: unset;
+}
+
+.input-descripcion::-webkit-scrollbar {
+    width: 1px;               /* width of the entire scrollbar */
+  }
+  
+  .input-descripcion::-webkit-scrollbar-track {
+    background: none;        /* color of the tracking area */
+  }
+  
+  .input-descripcion::-webkit-scrollbar-thumb {
+    background-color: none;    /* color of the scroll thumb */
+    border-radius: 20px;       /* roundness of the scroll thumb */
+    border: 3px solid none;  /* creates padding around scroll thumb */
+  }
