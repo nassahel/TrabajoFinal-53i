@@ -33,12 +33,14 @@ function Register() {
       setError(true)
       return
     } else setError(false)
-    navigate("/");
-
-    setError(false)
 
     let miObjeto = { nombre, email, adress, password }
+    // Agrega el nuevo registro al array existente y guarda en localStorage
     setRegistros([...registros, miObjeto]);
+    localStorage.setItem("registros", JSON.stringify([...registros, miObjeto]));
+
+    // Limpia el formulario y redirige
+    navigate("/");
     limpiarFormulario();
   }
 
@@ -50,11 +52,6 @@ function Register() {
     document.getElementById("miFormulario").reset();
   }
 
-  useEffect(() => {
-    localStorage.setItem("registros", JSON.stringify(registros));
-  }, [registros]);
-
-
   return (
     <div className='registro'>
       <div className=''>
@@ -65,7 +62,7 @@ function Register() {
             </ToggleButton>
           </NavLink>
           <ToggleButtonGroup type="radio" name="options" defaultValue={1}>
-            <ToggleButton id="tbg-radio-3" variant='info' value={3}>
+            <ToggleButton className='registrarse' id="tbg-radio-3" variant='info' value={3}>
               Registrarse
             </ToggleButton>
           </ToggleButtonGroup>
@@ -109,8 +106,7 @@ function Register() {
               onChange={(e) => setPassword(e.target.value)}
             />
             <Form.Text id="inputPassword" muted>
-              *Su contraseña debe tener 6 caracteres como minimo.
-
+              *Su contraseña debe tener 6 caracteres como mínimo.
             </Form.Text>
           </>
           <Form>
@@ -130,7 +126,6 @@ function Register() {
         </Form>
         {error && <p>todos los campos son obligatorios.</p>}
       </div>
-
     </div>
   )
 }
