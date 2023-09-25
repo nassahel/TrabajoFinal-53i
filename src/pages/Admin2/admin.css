@@ -1,0 +1,26 @@
+.contenedor-productos{
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+}
+
+.productos-lista-principal{
+    width: 700px;
+    min-height: 500px;
+    background-color: #EFAC1F;
+    opacity: 0.9;
+    padding: 20px;
+    margin: 10px;
+    border-radius: 26px;
+    max-height: 400px;
+    overflow-y: auto; 
+}
+
+.titulo-productos{
+  color: #fff;
+  font-size: 25px;
+  font-family: Roboto, sans-serif;
+  text-align: center;
+  margin: 20px 0;
+}

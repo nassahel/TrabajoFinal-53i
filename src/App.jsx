@@ -3,7 +3,7 @@ import './App.css'
 import Footer from './components/footer/Footer'
 import Navbarr from './components/navbar/Navbarr'
 import Home from './pages/home/Home'
-import Admin from './pages/admin/Admin'
+import Admin from './pages/Admin2/Admin'
 import AboutUs from './pages/aboutUs/AboutUs'
 import Register from './pages/register/Register'
 import Login from './pages/login/Login'
@@ -15,7 +15,7 @@ function App() {
 
   return (
     <div className='principal'>
-      <img className='bg_img' src="src\assets\img\body_background.jpeg" alt="" />
+      {/* <img className='bg-img' src="src/assets/img/santorini-fondo.jpg" alt="" /> */}
       <Navbarr />
       <Routes>
         <Route path='/' element={<Home />} />
