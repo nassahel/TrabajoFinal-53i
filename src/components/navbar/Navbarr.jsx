@@ -6,6 +6,7 @@ import { NavLink } from "react-router-dom";
 import { BsPersonCircle } from "react-icons/bs";
 import { AiOutlineShoppingCart } from "react-icons/ai";
 import Offcanvas from 'react-bootstrap/Offcanvas';
+import logoResto from '../../assets/img/hnb.png'
 import "./navbar.css";
 
 function Navbarr() {
@@ -21,7 +22,7 @@ function Navbarr() {
         <Navbar collapseOnSelect key="lg" expand="lg" className="classnav sticky-top shadow p-3 fs-5 mb-3" data-bs-theme="dark">
           <Container fluid>
             <NavLink to="/">
-              <img src="src\assets\img\hnb.png" width="290" className="d-inline-block align-center me-5" alt="React Bootstrap logo" />
+              <img src={logoResto} width="290" className="d-inline-block align-center me-5" alt="React Bootstrap logo" />
             </NavLink>
             <Navbar.Toggle aria-controls="offcanvasNavbar-expand-lg classnav" />
             <Navbar.Offcanvas
