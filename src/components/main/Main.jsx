@@ -1,4 +1,3 @@
-import { useState, useEffect } from 'react'
 import React from 'react'
 import './mains.css'
 import Spiner from '../spiner/Spiner'
@@ -24,8 +23,8 @@ function Main({ products, searchTerm, loading }) {
                 {loading ? <Spiner /> : catEntradas.map((product) => (
 
                     <div className="col col-lg-3">
-                        <div className="card text-center border-2 border-dark p-3 h-100" key={product.id}>
-                            <img className='card-img-top w-50 mx-auto' src={product.imagen} alt={product.nombre} />
+                        <div className="card text-center border-2 border-dark p-1 h-100" key={product.id}>
+                            <img className='img-fluid mx-auto' src={product.imagen} alt={product.nombre} />
                             <div className="card-body d-flex flex-column justify-content-end">
                                 <h5 className='card-title'>{product.nombre} </h5>
                                 <h5 className='card-title'>${product.precio}</h5>
@@ -43,8 +42,8 @@ function Main({ products, searchTerm, loading }) {
                 {loading ? <Spiner /> : catPizzas.map((product) => (
 
                     <div className="col col-lg-3">
-                        <div className="card text-center border-2 border-dark p-3 h-100" key={product.id}>
-                            <img className='card-img-top w-50 mx-auto' src={product.imagen} alt={product.nombre} />
+                        <div className="card text-center border-2 border-dark p-1 h-100" key={product.id}>
+                            <img className='img-fluid mx-auto' src={product.imagen} alt={product.nombre} />
                             <div className="card-body d-flex flex-column justify-content-end">
                                 <h5 className='card-title'>{product.nombre} </h5>
                                 <h5 className='card-title'>${product.precio}</h5>
@@ -62,8 +61,8 @@ function Main({ products, searchTerm, loading }) {
                 {loading ? <Spiner /> : catCarnes.map((product) => (
 
                     <div className="col col-lg-3">
-                        <div className="card text-center border-2 border-dark p-3 h-100" key={product.id}>
-                            <img className='card-img-top w-50 mx-auto' src={product.imagen} alt={product.nombre} />
+                        <div className="card text-center border-2 border-dark p-1 h-100" key={product.id}>
+                            <img className='img-fluid mx-auto' src={product.imagen} alt={product.nombre} />
                             <div className="card-body d-flex flex-column justify-content-end">
                                 <h5 className='card-title'>{product.nombre} </h5>
                                 <h5 className='card-title'>${product.precio}</h5>
@@ -81,8 +80,8 @@ function Main({ products, searchTerm, loading }) {
                 {loading ? <Spiner /> : catBebidas.map((product) => (
 
                     <div className="col col-lg-3">
-                        <div className="card text-center border-2 border-dark p-3 h-100" key={product.id}>
-                            <img className='card-img-top w-50 mx-auto' src={product.imagen} alt={product.nombre} />
+                        <div className="card text-center border-2 border-dark p-1 h-100" key={product.id}>
+                            <img className='img-fluid mx-auto' src={product.imagen} alt={product.nombre} />
                             <div className="card-body d-flex flex-column justify-content-end">
                                 <h5 className='card-title'>{product.nombre} </h5>
                                 <h5 className='card-title'>${product.precio}</h5>
