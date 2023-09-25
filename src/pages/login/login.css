@@ -1,0 +1,77 @@
+/* Estilos para pantallas grandes */
+.registro {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+}
+
+.registro Button {
+    background-color: yellow;
+    color: black;
+    /* Cambiar el color del texto para que sea legible */
+}
+
+/* Cambiar el color de los botones activos a amarillo */
+.registro Button.active,
+.registro Button:active,
+.registro Button:hover {
+    background-color: yellow;
+}
+
+/* Cambiar el color de los botones "Iniciar Sesión" y "Registrarse" a amarillo */
+.registro .iniciar,
+.registro .registrarse {
+    background-color: yellow;
+    color: black;
+    /* Cambiar el color del texto para que sea legible */
+}
+
+/* Cambiar el color de los botones activos a amarillo */
+.registro .iniciar.active,
+.registro .iniciar:active,
+.registro .iniciar:hover,
+.registro .registrarse.active,
+.registro .registrarse:active,
+.registro .registrarse:hover {
+    background-color: yellow;
+}
+
+.form-container {
+    max-width: 400px;
+    /* Ancho máximo del formulario */
+    width: 100%;
+    /* Asegura que el formulario ocupe todo el ancho disponible */
+    text-align: center;
+}
+
+.input-group {
+    margin-bottom: 20px;
+    /* Espaciado entre los elementos del formulario */
+}
+
+.registro .mb-3 {
+    display: flex;
+    align-items: center;
+    /* Alinea verticalmente el checkbox y el texto */
+    margin-bottom: 10px;
+    /* Ajusta el espaciado entre elementos si es necesario */
+}
+
+.registro .mb-3 .form-check-input {
+    margin-right: 5px;
+    /* Ajusta el espaciado entre el checkbox y el texto */
+}
+
+/* Estilos para pantallas pequeñas (ejemplo: menos de 768px) */
+@media (max-width: 768px) {
+    .registro {
+        padding: 10px;
+        /* Reduce el espaciado en pantallas pequeñas */
+    }
+
+    .form-container {
+        max-width: 100%;
+        /* Ancho máximo del formulario en pantallas pequeñas */
+    }
+}

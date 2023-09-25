@@ -1,0 +1,435 @@
+import { useEffect, useState } from 'react'
+import Resultado from './resultado';
+import '../Admin/styles/productos.css'
+
+function Productos() {
+
+//DEFINO LOS PRODUCTOS 
+const productosBd = [
+  {
+    id: 0,
+    productName: 'Pollo con Papas',
+    productDetail: 'Pollo con papas noisette',
+    productImage: 'https://i.pinimg.com/564x/f7/e0/12/f7e01237dad015937aedb9e3f358ceb1.jpg',
+    productPrice: 2100,
+    activeProduct: true,
+  },
+  {
+    id: 1,
+    productName: 'Pizza Margarita',
+    productDetail: 'Pizza margarita con aceitunas verdes, ocho porciones',
+    productImage: 'https://i.pinimg.com/564x/82/92/9c/82929cc929136c3cf1bdf7d8faa7662a.jpg',
+    productPrice: 2400,
+    activeProduct: true,
+  },
+  {
+    id: 2,
+    productName: 'Milanesa Napolitana',
+    productDetail: 'Milanesa napolitana con porcion de papas fritas',
+    productImage: 'https://i.pinimg.com/564x/c4/0e/0e/c40e0ec7c86a6a5eeee14c23b31da79c.jpg',
+    productPrice: 2000,
+    activeProduct: true,
+  },
+  {
+    id: 3,
+    productName: 'Sandwich de ternera',
+    productDetail: 'Sandwich de ternera y queso con tomate',
+    productImage: 'https://i.pinimg.com/564x/c4/0e/0e/c40e0ec7c86a6a5eeee14c23b31da79c.jpg',
+    productPrice: 1300,
+    activeProduct: true,
+  }
+]
+
+//ESTADO DE PRODUCTO EXISTENTE
+const [productosExis, setProductoExist] = useState(productosBd)
+
+
+  //LOCAL STORAGE
+  const productosLS = JSON.parse(localStorage.getItem('productosRC')) ?? [];
+
+  const [productos, setProductos] = useState(productosLS)
+  const [producto, setProducto] = useState({})
+
+  // VALORES DEL FORM 
+  const [productName, setProductName] = useState(''); //NOMBRE
+  const [productDetail, setProductDetail] = useState('');//DESCRIPCION
+  const [productImage, setProductImage] = useState('');
+  const [productPrice, setProductPrice] = useState(Number);
+  const [activeProduct, setActiveProduct] = useState(Boolean);
+
+  //LOCAL STORAGE
+  useEffect(() => {
+    localStorage.setItem('productosRC', JSON.stringify(productos))
+  }, [productos]);
+
+  //PARA QUE APAREZCA LOS PRODUCTOS EN EL INPUT CUANDO PONGA EDITAR
+  useEffect(() => {
+    if (Object.keys(tarea.length > 0)) {
+      setNombre(tarea.nombre)
+      setdescripcion(tarea.descripcion)
+      setimagen(tarea.imagen)
+      setprecio(tarea.precio)
+      setActivo(tarea.activo)
+    } else {
+      console.log('No hay nada en el array de tarea');
+    }
+  }, [producto])
+
+  //GENERAMOS EL ID DINAMICO
+  const generoIdDinamico = () => {
+    const ran = Math.random()
+    const fecha = Date.now()
+    return ran + fecha
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault()
+
+    if ([nombre, descripcion, imagen, precio, activo].includes('')) {
+      console.log('El campo debe estar completo');
+      return;
+    }
+
+    const objetoTareas = {
+      nombre,
+      descripcion,
+      imagen,
+      precio,
+      activo
+    }
+
+    if (tarea.id) {
+      //EDITAMOS LA TAREA 
+      objetoTareas.id = tarea.id
+
+      const tareasActualizados = tareas.map((tareasState) => {
+        return tareasState.id === tarea.id ? objetoTareas : tareasState
+      })
+
+      setTareas(tareasActualizados)
+      setTarea({})
+
+    } else {
+      //CREAMOS LA TAREA NUEVA
+      console.log('tarea nueva');
+      objetoTareas.id = generoIdDinamico()
+      setTareas([...tareas, objetoTareas])
+    }
+
+    //PARA NO TENER QUE BORRAR EL INPUT A MANO SE REINICIA SOLO
+    setNombre('')
+    setimagen('')
+    setprecio('')
+    setActivo('')
+    setdescripcion('')
+  }
+
+  //PARA ELIMINAR LA TAREA
+  const eliminandoTarea = (id) => {
+    const tareasActualizadas = tareas.filter((tareasState) => tareasState.id !== id)
+    setTareas(tareasActualizadas)
+  }
+
+  return (
+    <>
+      <main>
+        <form className="producto-contenedor d-flex flex-column align-items-center" onSubmit={handleSubmit}>
+          <div className='me-3 mt-3 d-flex justify-content-center align-items-center'>
+            <label className='ps-3 text-start producto-texto fs-6' htmlFor="nombre">Nombre de Producto</label>
+            <input
+              className='input-productos w-75 p-1 input-nombre rounded border border-black border-opacity-50'
+              type="text"
+              name="nombre"
+              id="nombre"
+              placeholder="Nombre"
+              value={nombre}
+              onChange={(e) => setNombre(e.target.value)}
+            />
+            <label className='ps-3 text-center producto-texto fs-6' htmlFor="nombre">Link de Imagen</label>
+            <input
+              className='input-productos w-75 p-1  input-nombre rounded border border-black border-opacity-50'
+              type="text"
+              name="imagen"
+              id="imagen"
+              placeholder="Imagen"
+              value={imagen}
+              onChange={(e) => setimagen(e.target.value)}
+            />
+          </div>
+          <div className='me-3 mt-3 d-flex justify-content-center align-items-center'>
+            <label className='ps-3 text-center producto-texto fs-6' htmlFor="nombre">Precio del Producto</label>
+            <input
+              className=' input-productos w-75 p-1  input-nombre rounded border border-black border-opacity-50'
+              type="text"
+              name="precio"
+              id="precio"
+              placeholder="Precio del Producto"
+              value={precio}
+              onChange={(e) => setprecio(e.target.value)}
+            />
+            <label className='ps-3 text-center producto-texto fs-6' htmlFor="descripcion">Producto Activo</label>
+            <input
+              className='input-productos w-75 p-1 input-nombre rounded border border-black border-opacity-50'
+              name="activo"
+              id="activo"
+              placeholder="Producto Activo"
+              value={activo}
+              onChange={(e) => setActivo(e.target.value)}
+            />
+          </div>
+          <div className='mt-3 d-flex flex-column justify-content-center align-items-center'>
+            <label className='mb-2 text-center producto-texto fs-6' htmlFor="descripcion">Descripcion de Producto</label>
+            <textarea
+              className='w-100 mb-3 input-nombre rounded border border-black border-opacity-50'
+              name="descripcion"
+              id="descripcion"
+              placeholder="Descripcion"
+              value={descripcion}
+              onChange={(e) => setdescripcion(e.target.value)}
+            />
+          </div>
+
+          <input
+            className='mb-2 btn btn-dark'
+            type="submit"
+            value={tarea.id ? 'Editar Producto' : 'Agregar Producto'}
+          />
+        </form>
+
+        <div className="resultado">
+          <Resultado
+            tareas={tareas}
+            setTarea={setTarea}
+            eliminandoTarea={eliminandoTarea}
+            deleteProducto={deleteProducto}
+          />
+        </div>
+      </main>
+    </>
+  )
+}
+
+export default Productos
+
+
+
+import { useEffect, useState } from 'react'
+import Resultado from './resultado';
+import '../Admin/styles/productos.css'
+
+function Productos() {
+
+//DEFINO LOS PRODUCTOS 
+const productosBd = [
+  {
+    id: 0,
+    productName: 'Pollo con Papas',
+    productDetail: 'Pollo con papas noisette',
+    productImage: 'https://i.pinimg.com/564x/f7/e0/12/f7e01237dad015937aedb9e3f358ceb1.jpg',
+    productPrice: 2100,
+    activeProduct: true,
+  },
+  {
+    id: 1,
+    productName: 'Pizza Margarita',
+    productDetail: 'Pizza margarita con aceitunas verdes, ocho porciones',
+    productImage: 'https://i.pinimg.com/564x/82/92/9c/82929cc929136c3cf1bdf7d8faa7662a.jpg',
+    productPrice: 2400,
+    activeProduct: true,
+  },
+  {
+    id: 2,
+    productName: 'Milanesa Napolitana',
+    productDetail: 'Milanesa napolitana con porcion de papas fritas',
+    productImage: 'https://i.pinimg.com/564x/c4/0e/0e/c40e0ec7c86a6a5eeee14c23b31da79c.jpg',
+    productPrice: 2000,
+    activeProduct: true,
+  },
+  {
+    id: 3,
+    productName: 'Sandwich de ternera',
+    productDetail: 'Sandwich de ternera y queso con tomate',
+    productImage: 'https://i.pinimg.com/564x/c4/0e/0e/c40e0ec7c86a6a5eeee14c23b31da79c.jpg',
+    productPrice: 1300,
+    activeProduct: true,
+  }
+]
+
+//ESTADO DE PRODUCTO EXISTENTE
+const [productos, setProducto] = useState(productosBd)
+
+
+  //ELIMINAR UN PRODUCTO EXISTENTE
+  const deleteProducto = (id) => {
+    const filteredProductos = productos.filter((producto) => (producto.id !== id))
+    setProducto(filteredProductos)
+  }
+
+  //LOCAL STORAGE
+  const tareasLS = JSON.parse(localStorage.getItem('tareasRC')) ?? [];
+
+  const [tareas, setTareas] = useState(tareasLS)
+  const [tarea, setTarea] = useState({})
+
+  // VALORES DEL FORM 
+  const [nombre, setNombre] = useState('');
+  const [descripcion, setdescripcion] = useState('');
+  const [imagen, setimagen] = useState('');
+  const [precio, setprecio] = useState(Number);
+  const [activo, setActivo] = useState(Boolean);
+
+  //LOCAL STORAGE
+  useEffect(() => {
+    localStorage.setItem('tareasRC', JSON.stringify(tareas))
+  }, [tareas]);
+
+  //PARA QUE APAREZCA LOS PRODUCTOS EN EL INPUT CUANDO PONGA EDITAR
+  useEffect(() => {
+    if (Object.keys(tarea.length > 0)) {
+      setNombre(tarea.nombre)
+      setdescripcion(tarea.descripcion)
+      setimagen(tarea.imagen)
+      setprecio(tarea.precio)
+      setActivo(tarea.activo)
+    } else {
+      console.log('No hay nada en el array de tarea');
+    }
+  }, [tarea])
+
+  //GENERAMOS EL ID DINAMICO
+  const generoIdDinamico = () => {
+    const ran = Math.random()
+    const fecha = Date.now()
+    return ran + fecha
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault()
+
+    if ([nombre, descripcion, imagen, precio, activo].includes('')) {
+      console.log('El campo debe estar completo');
+      return;
+    }
+
+    const objetoTareas = {
+      nombre,
+      descripcion,
+      imagen,
+      precio,
+      activo
+    }
+
+    if (tarea.id) {
+      //EDITAMOS LA TAREA 
+      objetoTareas.id = tarea.id
+
+      const tareasActualizados = tareas.map((tareasState) => {
+        return tareasState.id === tarea.id ? objetoTareas : tareasState
+      })
+
+      setTareas(tareasActualizados)
+      setTarea({})
+
+    } else {
+      //CREAMOS LA TAREA NUEVA
+      console.log('tarea nueva');
+      objetoTareas.id = generoIdDinamico()
+      setTareas([...tareas, objetoTareas])
+    }
+
+    //PARA NO TENER QUE BORRAR EL INPUT A MANO SE REINICIA SOLO
+    setNombre('')
+    setimagen('')
+    setprecio('')
+    setActivo('')
+    setdescripcion('')
+  }
+
+  //PARA ELIMINAR LA TAREA
+  const eliminandoTarea = (id) => {
+    const tareasActualizadas = tareas.filter((tareasState) => tareasState.id !== id)
+    setTareas(tareasActualizadas)
+  }
+
+  return (
+    <>
+      <main>
+        <form className="producto-contenedor d-flex flex-column align-items-center" onSubmit={handleSubmit}>
+          <div className='me-3 mt-3 d-flex justify-content-center align-items-center'>
+            <label className='ps-3 text-start producto-texto fs-6' htmlFor="nombre">Nombre de Producto</label>
+            <input
+              className='input-productos w-75 p-1 input-nombre rounded border border-black border-opacity-50'
+              type="text"
+              name="nombre"
+              id="nombre"
+              placeholder="Nombre"
+              value={nombre}
+              onChange={(e) => setNombre(e.target.value)}
+            />
+            <label className='ps-3 text-center producto-texto fs-6' htmlFor="nombre">Link de Imagen</label>
+            <input
+              className='input-productos w-75 p-1  input-nombre rounded border border-black border-opacity-50'
+              type="text"
+              name="imagen"
+              id="imagen"
+              placeholder="Imagen"
+              value={imagen}
+              onChange={(e) => setimagen(e.target.value)}
+            />
+          </div>
+          <div className='me-3 mt-3 d-flex justify-content-center align-items-center'>
+            <label className='ps-3 text-center producto-texto fs-6' htmlFor="nombre">Precio del Producto</label>
+            <input
+              className=' input-productos w-75 p-1  input-nombre rounded border border-black border-opacity-50'
+              type="text"
+              name="precio"
+              id="precio"
+              placeholder="Precio del Producto"
+              value={precio}
+              onChange={(e) => setprecio(e.target.value)}
+            />
+            <label className='ps-3 text-center producto-texto fs-6' htmlFor="descripcion">Producto Activo</label>
+            <input
+              className='input-productos w-75 p-1 input-nombre rounded border border-black border-opacity-50'
+              name="activo"
+              id="activo"
+              placeholder="Producto Activo"
+              value={activo}
+              onChange={(e) => setActivo(e.target.value)}
+            />
+          </div>
+          <div className='mt-3 d-flex flex-column justify-content-center align-items-center'>
+            <label className='mb-2 text-center producto-texto fs-6' htmlFor="descripcion">Descripcion de Producto</label>
+            <textarea
+              className='w-100 mb-3 input-nombre rounded border border-black border-opacity-50'
+              name="descripcion"
+              id="descripcion"
+              placeholder="Descripcion"
+              value={descripcion}
+              onChange={(e) => setdescripcion(e.target.value)}
+            />
+          </div>
+
+          <input
+            className='mb-2 btn btn-dark'
+            type="submit"
+            value={tarea.id ? 'Editar Producto' : 'Agregar Producto'}
+          />
+        </form>
+
+        <div className="resultado">
+          <Resultado
+            tareas={tareas}
+            setTarea={setTarea}
+            eliminandoTarea={eliminandoTarea}
+            deleteProducto={deleteProducto}
+            productos={productos}
+          />
+        </div>
+      </main>
+    </>
+  )
+}
+
+export default Productos
+

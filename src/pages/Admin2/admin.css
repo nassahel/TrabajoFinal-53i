@@ -1,0 +1,75 @@
+:root {
+  --negro: #21201E;
+  --blanco: #FFF;
+  --naranja: #EFAC1F;
+  --mi-tipografia: sans-serif;
+}
+
+
+.contenedor-admin {
+  display: flex;
+  justify-content: space-between; /* Espacio uniforme entre los contenedores */
+}
+
+.contenedor-lista {
+  flex: 1; /* Distribuye el espacio disponible de manera uniforme entre los contenedores */
+  border: 1px solid #ccc; /* Puedes agregar bordes u otros estilos según sea necesario */
+  padding: 20px;
+  max-width: 650px !important;
+  min-height: 500px;
+  background-color: #EFAC1F;
+  opacity: 0.9;
+  padding: 20px;
+  margin: 10px;
+  border-radius: 26px;
+  max-height: 400px;
+  overflow-y: auto; 
+}
+
+.contenedor-lista::-webkit-scrollbar {
+  width: 12px;               /* width of the entire scrollbar */
+
+}
+
+.contenedor-lista::-webkit-scrollbar-track {
+  background: none;        /* color of the tracking area */
+}
+
+.contenedor-lista::-webkit-scrollbar-thumb {
+  background-color: var(--negro);    /* color of the scroll thumb */
+  border-radius: 20px;       /* roundness of the scroll thumb */
+  border: 3px solid var(--naranja);  /* creates padding around scroll thumb */
+}
+
+
+
+.titulo {
+  text-align: center;
+}
+
+/* .contenedor-productos{
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+}
+
+.productos-lista-principal{
+    width: 700px;
+    min-height: 500px;
+    background-color: #EFAC1F;
+    opacity: 0.9;
+    padding: 20px;
+    margin: 10px;
+    border-radius: 26px;
+    max-height: 400px;
+    overflow-y: auto; 
+}
+
+.titulo-productos{
+  color: #fff;
+  font-size: 25px;
+  font-family: Roboto, sans-serif;
+  text-align: center;
+  margin: 20px 0;
+} */
