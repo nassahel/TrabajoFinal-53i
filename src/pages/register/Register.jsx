@@ -4,7 +4,7 @@ import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import ToggleButton from 'react-bootstrap/ToggleButton';
 import ToggleButtonGroup from 'react-bootstrap/ToggleButtonGroup';
-import { NavLink } from 'react-router-dom';
+import { NavLink, useNavigate } from 'react-router-dom';
 
 function Register() {
 
@@ -18,14 +18,25 @@ function Register() {
   }
 
   const [registros, setRegistros] = useState(obtenerRegistro());
+  const navigate = useNavigate();
 
   const [nombre, setNombre] = useState("");
   const [email, setEmail] = useState("");
   const [adress, setAdress] = useState("");
   const [password, setPassword] = useState("");
+  const [error, setError] = useState(false)
 
   const botonCrear = (e) => {
     e.preventDefault();
+
+    if (nombre === "" || email === "" || adress === "" || password === "") {
+      setError(true)
+      return
+    } else setError(false)
+    navigate("/");
+
+    setError(false)
+
     let miObjeto = { nombre, email, adress, password }
     setRegistros([...registros, miObjeto]);
     limpiarFormulario();
@@ -98,7 +109,7 @@ function Register() {
               onChange={(e) => setPassword(e.target.value)}
             />
             <Form.Text id="inputPassword" muted>
-              *Su contraseña debe tener entre 8 y 20 caracteres, contener letras y números.
+              *Su contraseña debe tener 6 caracteres como minimo.
 
             </Form.Text>
           </>
@@ -117,7 +128,9 @@ function Register() {
             <Button type='submit' variant="info">Registrarse</Button>{' '}
           </div>
         </Form>
+        {error && <p>todos los campos son obligatorios.</p>}
       </div>
+
     </div>
   )
 }

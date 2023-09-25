@@ -2,12 +2,12 @@ import { Routes, Route } from 'react-router-dom'
 import './App.css'
 import Footer from './components/footer/Footer'
 import Navbarr from './components/navbar/Navbarr'
-
 import Home from './pages/home/Home'
 import Admin from './pages/admin/Admin'
 import AboutUs from './pages/aboutUs/AboutUs'
 import Register from './pages/register/Register'
 import Login from './pages/login/Login'
+
 
 
 

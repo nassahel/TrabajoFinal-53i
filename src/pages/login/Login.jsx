@@ -4,9 +4,13 @@ import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import ToggleButton from 'react-bootstrap/ToggleButton';
 import ToggleButtonGroup from 'react-bootstrap/ToggleButtonGroup';
-import { NavLink } from 'react-router-dom';
+import { NavLink, useNavigate } from 'react-router-dom';
+
+
+
 
 function Login() {
+
 
     const obtenerLogin = () => {
         let datos = localStorage.getItem("registros");
@@ -18,14 +22,23 @@ function Login() {
     }
 
     const [registros, setRegistros] = useState(obtenerLogin());
-
+    const navigate = useNavigate();
 
     const [nombre, setNombre] = useState("");
     const [password, setPassword] = useState("");
-
+    const [error, setError] = useState(false)
 
     const botonIniciar = (e) => {
         e.preventDefault();
+
+        if (nombre === "" || password === "") {
+            setError(true)
+            return
+        } else setError(false)
+        navigate("/");
+
+        setError(false)
+
         let miObjeto = { nombre, password }
         setRegistros([...registros, miObjeto]);
         limpiarFormulario();
@@ -36,9 +49,13 @@ function Login() {
         setPassword("");
         document.getElementById("miFormulario").reset();
     }
+
+
     useEffect(() => {
         localStorage.setItem("registros", JSON.stringify(registros));
+
     }, [registros]);
+
 
 
     return (
@@ -76,7 +93,7 @@ function Login() {
                             placeholder='Ingrese su contraseña'
                             onChange={(e) => setPassword(e.target.value)}
                         />
-                        <h6>  *Su contraseña debe tener entre 8 y 20 caracteres, contener letras y números.</h6>
+                        <h6>  *Su contraseña debe tener un minimo de 6 caracteres.</h6>
                     </div>
 
                     <Form>
@@ -93,10 +110,12 @@ function Login() {
                     <Button type='submit' variant="info" >Iniciar Sesion</Button>
                 </Form>
             </div>
+            {error && <p>todos los campos son obligatorios.</p>}
         </div >
 
     )
 }
+
 export default Login
 
 
