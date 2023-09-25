@@ -5,6 +5,7 @@ import SearchBar from '../../components/searchBar/SearchBar'
 
 
 
+
 function Home() {
 
   const [searchTerm, setSearchTerm] = useState('');
