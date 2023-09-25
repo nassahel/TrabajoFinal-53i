@@ -17,7 +17,9 @@ function Home() {
     const prom = await data.json();
     setProducts(prom);
     setLoading(false);
+    console.log(prom)
   }
+
 
   useEffect(() => {
     productsStore();

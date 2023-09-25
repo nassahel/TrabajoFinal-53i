@@ -1,13 +1,43 @@
-import React, { useState } from "react";
+import React, { useState,useEffect} from "react";
 import Main from "../../components/main/Main";
-import MostWanted from "../../components/mostWanted/MostWanted";
+import { useLocation } from "react-router-dom";
+
 
 function Carrito() {
-  const [items, setItems] = useState([
-    {name:"arroz", costo:1000}, {name: "carne", costo:500}
-  ]);
+  const location = useLocation()
+  const [item, setItem] = useState(null) 
+  const [error, setError] = useState(null)
+  useEffect( ()=> setItem(location.state),[])
+  const confirmar = async() => {
+    setError(null)
+    const fecha = new Date.now()
+   const usuario = localStorage.getItem("registros")
+   if (!usuario){
+    setError("No estas registrado papilo")
+    return
+  } 
 
-  console.log(items.reduce((suma,actual) => {suma + actual.costo}, 0))
+    const data = {
+      usuario ,
+      fecha ,
+      menu: item,
+      estado: "pendiente" ,
+    }
+    const peticion = await fetch('https://fakestoreapi.com/products',
+    {
+      method:"POST",
+      headers:{
+        'Content-Type':'aplication/json'
+      },
+      body:JSON.stringify(data),
+    }
+    );
+    const prom = await peticion.json();
+  }
+ 
+
+
+
 
   return (
     <div className="container-fluid main-cont d-flex flex-column align-items-center">
@@ -17,12 +47,20 @@ function Carrito() {
         alt=""
       />
       <div>
-        <p>{items.reduce((suma,actual) => suma + actual.costo, 0)}</p>
-        {items.length === 0 ? (
-          <p>No hay nada wachin</p>
-        ) : (
-          items.map((i, index) => <p key={index}>{i.name}|{i.costo}</p>)
-        )}
+     
+        {item ? (
+          <div className="col col-lg-3">
+              <div className="card text-center border-4 border-dark p-3 h-100" key={item.id}>
+                  <img className='card-img-top w-50 mx-auto' src={item.image} alt={item.title} />
+                  <div className="card-body d-flex flex-column justify-content-end">
+                      <h5 className='card-title'>{item.title} </h5>
+                      <h5 className='card-title'>${item.price}</h5>
+                      <button className='btn btn-outline-warning rounded-0 fw-bold' onClick={confirmar}>Confirmar compra</button>
+                  </div>
+              </div>
+          </div>
+        ) : <p className="text-danger">No has seleccionado nada</p>}
+        {error && <p className="text-danger">{error}</p>}
       </div>
     </div>
   );
