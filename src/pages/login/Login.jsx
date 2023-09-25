@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Form, Button, ToggleButton, ToggleButtonGroup } from 'react-bootstrap';
 import { useNavigate, NavLink } from 'react-router-dom';
-import './Login.css';
+import './login.css';
 
 function Login() {
     const obtenerLogin = () => {
