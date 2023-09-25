@@ -4,7 +4,7 @@ import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import ToggleButton from 'react-bootstrap/ToggleButton';
 import ToggleButtonGroup from 'react-bootstrap/ToggleButtonGroup';
-import { NavLink } from 'react-router-dom';
+import { NavLink, useNavigate } from 'react-router-dom';
 
 function Register() {
 
@@ -18,16 +18,29 @@ function Register() {
   }
 
   const [registros, setRegistros] = useState(obtenerRegistro());
+  const navigate = useNavigate();
 
   const [nombre, setNombre] = useState("");
   const [email, setEmail] = useState("");
   const [adress, setAdress] = useState("");
   const [password, setPassword] = useState("");
+  const [error, setError] = useState(false)
 
   const botonCrear = (e) => {
     e.preventDefault();
+
+    if (nombre === "" || email === "" || adress === "" || password === "") {
+      setError(true)
+      return
+    } else setError(false)
+
     let miObjeto = { nombre, email, adress, password }
+    // Agrega el nuevo registro al array existente y guarda en localStorage
     setRegistros([...registros, miObjeto]);
+    localStorage.setItem("registros", JSON.stringify([...registros, miObjeto]));
+
+    // Limpia el formulario y redirige
+    navigate("/");
     limpiarFormulario();
   }
 
@@ -39,22 +52,17 @@ function Register() {
     document.getElementById("miFormulario").reset();
   }
 
-  useEffect(() => {
-    localStorage.setItem("registros", JSON.stringify(registros));
-  }, [registros]);
-
-
   return (
     <div className='registro'>
       <div className=''>
         <div>
           <NavLink to="/login">
-            <ToggleButton id="tbg-radio-2" value={2}>
+            <ToggleButton className='iniciar' variant='info' id="tbg-radio-2" value={2}>
               Iniciar Sesion
             </ToggleButton>
           </NavLink>
           <ToggleButtonGroup type="radio" name="options" defaultValue={1}>
-            <ToggleButton id="tbg-radio-3" value={3}>
+            <ToggleButton className='registrarse' id="tbg-radio-3" variant='info' value={3}>
               Registrarse
             </ToggleButton>
           </ToggleButtonGroup>
@@ -70,7 +78,7 @@ function Register() {
             />
           </>
           <div>
-            <Form.Label >Email</Form.Label>
+            <Form.Label >Email:</Form.Label>
             <Form.Control
               type="email"
               aria-describedby="email"
@@ -80,7 +88,7 @@ function Register() {
           </div>
           <div>
             <>
-              <Form.Label >Direccion</Form.Label>
+              <Form.Label>Direccion:</Form.Label>
               <Form.Control
                 type="text"
                 aria-describedby="adress"
@@ -90,7 +98,7 @@ function Register() {
             </>
           </div>
           <>
-            <Form.Label >Contraseña</Form.Label>
+            <Form.Label>Contraseña:</Form.Label>
             <Form.Control
               type="password"
               aria-describedby="passwordHelpBlock"
@@ -98,8 +106,7 @@ function Register() {
               onChange={(e) => setPassword(e.target.value)}
             />
             <Form.Text id="inputPassword" muted>
-              *Su contraseña debe tener entre 8 y 20 caracteres, contener letras y números.
-
+              *Su contraseña debe tener 6 caracteres como mínimo.
             </Form.Text>
           </>
           <Form>
@@ -114,9 +121,10 @@ function Register() {
             ))}
           </Form>
           <div>
-            <Button type='submit' variant="primary">Registrarse</Button>{' '}
+            <Button type='submit' variant="info">Registrarse</Button>{' '}
           </div>
         </Form>
+        {error && <p>todos los campos son obligatorios.</p>}
       </div>
     </div>
   )
