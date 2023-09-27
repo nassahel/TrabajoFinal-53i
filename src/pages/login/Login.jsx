@@ -4,49 +4,55 @@ import { useNavigate, NavLink } from 'react-router-dom';
 import './login.css';
 
 function Login() {
-    const obtenerLogin = () => {
-        let datos = localStorage.getItem("registros");
-        if (datos) {
-            return JSON.parse(datos);
-        } else {
-            return [];
-        }
-    }
-
-    const [registros, setRegistros] = useState(obtenerLogin());
     const navigate = useNavigate();
 
-    const [nombre, setNombre] = useState("");
+    const [correo, setCorreo] = useState("");
     const [password, setPassword] = useState("");
-    const [error, setError] = useState(false)
+    const [error, setError] = useState(false);
 
-    const botonIniciar = (e) => {
+    const botonIniciar = async (e) => {
         e.preventDefault();
 
-        if (nombre === "" || password === "") {
+        if (correo === "" || password === "") {
             setError(true);
             return;
         } else {
             setError(false);
 
-            // Guarda el nombre del usuario en el localStorage
-            localStorage.setItem("nombreUsuario", nombre);
+            try {
+                // Realiza una solicitud a la API para autenticar al usuario y obtener un token
+                const response = await fetch('https://backend-rolling53i.onrender.com/api/auth/login', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ correo, password }),
+                });
 
-            navigate("/");
-            limpiarFormulario();
+                if (response.ok) {
+                    // Usuario ha iniciado sesión correctamente, obtén el token de la respuesta
+                    const data = await response.json();
+                    const token = data.token;
+
+                    // Almacena el token en el almacenamiento local (localStorage)
+                    localStorage.setItem('token', token);
+
+                    // Limpia los campos del formulario
+                    setCorreo("");
+                    setPassword("");
+
+                    // Redirige al usuario a la página de inicio
+                    // navigate('/');
+                    window.location.href = ('/');
+                } else {
+                    // El inicio de sesión falló
+                    console.error('Error al iniciar sesión:', response.statusText);
+                }
+            } catch (error) {
+                console.error('Error al iniciar sesión:', error.message);
+            }
         }
     }
-
-    const limpiarFormulario = () => {
-        setNombre("");
-        setPassword("");
-        document.getElementById("miFormulario").reset();
-    }
-
-    useEffect(() => {
-        localStorage.setItem("registros", JSON.stringify(registros));
-    }, [registros]);
-
     return (
         <div className='registro'>
             <div className='form-container'>
@@ -68,12 +74,12 @@ function Login() {
                 <Form className='miFormulario' id="miFormulario" onSubmit={botonIniciar}>
 
                     <>
-                        <Form.Label>Nombre:</Form.Label>
+                        <Form.Label>Correo:</Form.Label>
                         <Form.Control
                             type="text"
-                            aria-describedby='name'
-                            placeholder='Ingrese su nombre'
-                            onChange={(e) => setNombre(e.target.value)}
+                            aria-describedby='email'
+                            placeholder='Ingrese su email'
+                            onChange={(e) => setCorreo(e.target.value)}
                         />
                     </>
 
@@ -87,17 +93,6 @@ function Login() {
                         />
 
                     </>
-                    <Form>
-                        {['Acepto términos y condiciones'].map((type) => (
-                            <div key={`default-${type}`} className="mb-3">
-                                <Form.Check
-                                    type={'checkbox'}
-                                    id={`default-${type}`}
-                                    label={` ${type}`}
-                                />
-                            </div>
-                        ))}
-                    </Form>
                     <Button type='submit' variant="info">Iniciar Sesión</Button>
                 </Form>
             </div>

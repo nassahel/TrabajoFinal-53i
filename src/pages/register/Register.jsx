@@ -21,7 +21,7 @@ function Register() {
   const navigate = useNavigate();
 
   const [nombre, setNombre] = useState("");
-  const [email, setEmail] = useState("");
+  const [correo, setCorreo] = useState("");
   const [adress, setAdress] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState(false)
@@ -29,12 +29,12 @@ function Register() {
   const botonCrear = (e) => {
     e.preventDefault();
 
-    if (nombre === "" || email === "" || adress === "" || password === "") {
+    if (nombre === "" || correo === "" || adress === "" || password === "") {
       setError(true)
       return
     } else setError(false)
 
-    let miObjeto = { nombre, email, adress, password }
+    let miObjeto = { nombre, correo, adress, password }
     // Agrega el nuevo registro al array existente y guarda en localStorage
     setRegistros([...registros, miObjeto]);
     localStorage.setItem("registros", JSON.stringify([...registros, miObjeto]));
@@ -46,7 +46,7 @@ function Register() {
 
   const limpiarFormulario = () => {
     setNombre("");
-    setEmail("");
+    setCorreo("");
     setAdress("");
     setPassword("");
     document.getElementById("miFormulario").reset();
@@ -78,12 +78,12 @@ function Register() {
             />
           </>
           <div>
-            <Form.Label >Email:</Form.Label>
+            <Form.Label >correo:</Form.Label>
             <Form.Control
-              type="email"
-              aria-describedby="email"
-              placeholder='Ingrese su email'
-              onChange={(e) => setEmail(e.target.value)}
+              type="correo"
+              aria-describedby="correo"
+              placeholder='Ingrese su correo'
+              onChange={(e) => setCorreo(e.target.value)}
             />
           </div>
           <div>
