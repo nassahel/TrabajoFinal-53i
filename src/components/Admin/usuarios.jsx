@@ -31,7 +31,7 @@ function Usuarios() {
     roleUser: 'Admin',
     address: 'Santiago 1064'
   }
-]
+  ]
 
   // Estados para manejar productos
   const [usuarios, setUsuarios] = useState(usuariosBd);
@@ -41,7 +41,7 @@ function Usuarios() {
   const [userName, setUserName] = useState('');
   const [userEmail, setuserEmail] = useState('');
   const [userPassword, setUserPassword] = useState('');
-  const [activeUser, setActiveUser] = useState(Boolean);
+  const [activeUser, setActiveUser] = useState(false); // Establecemos el valor inicial en false
   const [roleUser, setRoleUser] = useState('');
   const [address, setAddress] = useState('');
 
@@ -50,28 +50,28 @@ function Usuarios() {
     e.preventDefault();
 
     // Validar que los campos no estén vacíos
-    if (!userName || !userEmail || !userPassword || !activeUser || !roleUser || !address) {
+    if (!userName || !userEmail || !userPassword || !roleUser || !address) {
       console.log('Todos los campos deben estar completos');
       return;
     }
 
-    // Crear un nuevo producto
+    // Crear un nuevo usuario
     const newUser = {
       userName,
       userEmail,
       userPassword,
       roleUser,
-      activeUser: Boolean(activeUser), // Convertir a booleano
+      activeUser,
       address
     };
 
     if (usuario.id) {
-      // Editar un producto existente
-      const updatedUsuarios = usuarios.map((p) => (p.id === usuario.id ? { ...newUser, id: p.id } : p));
+      // Editar un usuario existente
+      const updatedUsuarios = usuarios.map((u) => (u.id === usuario.id ? { ...newUser, id: u.id } : u));
       setUsuarios(updatedUsuarios);
       setUsuario({});
     } else {
-      // Agregar un nuevo producto
+      // Agregar un nuevo usuario
       newUser.id = generoIdDinamico();
       setUsuarios([...usuarios, newUser]);
     }
@@ -80,7 +80,7 @@ function Usuarios() {
     setUserName('');
     setuserEmail('');
     setUserPassword('');
-    setActiveUser(false);
+    setActiveUser(false); // Establecer el valor predeterminado en false
     setRoleUser('');
     setAddress('');
   };
@@ -105,8 +105,8 @@ function Usuarios() {
   }, []);
 
   useEffect(() => {
-    // Guardar productos en el localStorage cuando cambien
-    localStorage.setItem('usuarios', JSON.stringify(usuariosBd));
+    // Guardar usuarios en el localStorage cuando cambien
+    localStorage.setItem('usuarios', JSON.stringify(usuarios));
   }, [usuarios]);
 
   //PARA QUE APAREZCA LOS PRODUCTOS EN EL INPUT CUANDO PONGA EDITAR
@@ -115,7 +115,7 @@ function Usuarios() {
       setUserName(usuario.userName);
       setuserEmail(usuario.userEmail);
       setUserPassword(usuario.userPassword);
-      setActiveUser(usuario.activeUser);
+      setActiveUser(usuario.activeUser); // Establecer como un booleano
       setRoleUser(usuario.roleUser);
       setAddress(usuario.address);
     } else {
@@ -123,12 +123,13 @@ function Usuarios() {
       setUserName('');
       setuserEmail('');
       setUserPassword('');
-      setActiveUser(false);
+      setActiveUser(false); // Establecer como false
       setRoleUser('');
       setAddress('');
     }
   }, [usuario]);
-  
+
+
 
   // Función para generar un ID dinámico
   const generoIdDinamico = () => {
@@ -139,75 +140,104 @@ function Usuarios() {
 
   return (
     <main>
-      <form className="producto-contenedor d-flex flex-column justify-content-center align-items-center" onSubmit={handleSubmit}>
-        <div className='mt-3 d-flex justify-content-center align-items-center'>
-          <label className='text-center producto-texto fs-6' htmlFor="nombre">Nombre Usuario</label>
-          <input
-            className='input-productos w-75 p-1 input-nombre rounded border border-black border-opacity-50'
-            type="text"
-            name="nombre"
-            id="nombre"
-            placeholder="Nombre"
-            value={userName}
-            onChange={(e) => setUserName(e.target.value)}
-          />
-          <label className='ps-2 text-center producto-texto fs-6' htmlFor="nombre">Email Usuario</label>
-          <input
-            className='input-productos w-75 p-1  input-nombre rounded border border-black border-opacity-50'
-            type="text"
-            name="email"
-            id="email"
-            placeholder="Email"
-            value={userEmail}
-            onChange={(e) => setuserEmail(e.target.value)}
-          />
+      <form className=" producto-contenedor d-flex flex-column justify-content-evenly align-items-center" onSubmit={handleSubmit}>
+        <div className=''>
+          <div className="mt-5 d-flex justify-content-center align-items-center">
+            <div className="form-group me-2">
+              <label className='text-center producto-texto fs-6' htmlFor="nombre">Nombre Usuario</label>
+              <input
+                className='form-control input-productos'
+                type="text"
+                name="nombre"
+                id="nombre"
+                placeholder="Nombre"
+                value={userName}
+                onChange={(e) => setUserName(e.target.value)}
+              />
+            </div>
+            <div className="form-group ms-2 me-2">
+              <label className='text-center producto-texto fs-6' htmlFor="email">Email Usuario</label>
+              <input
+                className='form-control input-productos'
+                type="text"
+                name="email"
+                id="email"
+                placeholder="Email"
+                value={userEmail}
+                onChange={(e) => setuserEmail(e.target.value)}
+              />
+            </div>
+          </div>
         </div>
-        <div className='mt-3 d-flex justify-content-center align-items-center'>
-          <label className='text-center producto-texto fs-6' htmlFor="nombre">Contraseña Usuario</label>
-          <input
-            className=' input-productos w-75 p-1  input-nombre rounded border border-black border-opacity-50'
-            type="text"
-            name="password"
-            id="password"
-            placeholder="Contrañesa"
-            value={userPassword}
-            onChange={(e) => setUserPassword(e.target.value)}
-          />
-          <label className='ps-2 text-center producto-texto fs-6' htmlFor="descripcion">Usuario Activo</label>
-          <input
-            className='input-productos w-75 p-1 input-nombre rounded border border-black border-opacity-50'
-            name="activo"
-            id="activo"
-            placeholder="Usuario Activo"
-            value={activeUser}
-            onChange={(e) => setActiveUser(e.target.value)}
-          />
+
+        <div className='mt-3'>
+          <div className="d-flex justify-content-evenly align-items-center">
+            <div className="form-group ">
+              <label className='text-center producto-texto fs-6' htmlFor="password">Contraseña Usuario</label>
+              <input
+                className='form-control input-productos'
+                type="text"
+                name="password"
+                id="password"
+                placeholder="Contraseña"
+                value={userPassword}
+                onChange={(e) => setUserPassword(e.target.value)}
+              />
+            </div>
+            <div className="form-group ">
+              <label className='text-center producto-texto fs-6' htmlFor="activo">Usuario Activo</label>
+              <select
+                className='form-control input-productos w-xx' // Aumenta la anchura al 50% del contenedor
+                name="activo"
+                id="activo"
+                value={activeUser}
+                onChange={(e) => setActiveUser(e.target.value === 'true')}
+              >
+                <option value={true}>Si</option>
+                <option value={false}>No</option>
+              </select>
+            </div>
+
+          </div>
         </div>
-        <div className='mt-3 d-flex justify-content-start align-items-center'>
-          <label className='text-center producto-texto fs-6' htmlFor="descripcion">Direccion Usuario</label>
-          <input
-            className='input-productos w-75 p-1 input-nombre rounded border border-black border-opacity-50'
-            name="address"
-            id="address"
-            placeholder="Direccion del Usuario"
-            value={address}
-            onChange={(e) => setAddress(e.target.value)}
-          />
-          <label className='ps-2 text-center producto-texto fs-6' htmlFor="descripcion">Rol del Usuario</label>
-          <input
-            className='input-productos w-75 p-1 input-nombre rounded border border-black border-opacity-50'
-            name="role"
-            id="role"
-            placeholder="Rol del Usuario"
-            value={roleUser}
-            onChange={(e) => setRoleUser(e.target.value)}
-          />
+
+        <div className='mt-3'>
+          <div className="d-flex justify-content-start align-items-center">
+            <div className="form-group me-2">
+              <label className='text-center producto-texto fs-6' htmlFor="address">Dirección Usuario</label>
+              <input
+                className='form-control input-productos'
+                name="address"
+                id="address"
+                placeholder="Dirección del Usuario"
+                value={address}
+                onChange={(e) => setAddress(e.target.value)}
+              />
+            </div>
+            <div className="form-group ms-2">
+              <label className='text-center producto-texto fs-6' htmlFor="role">Rol del Usuario</label>
+              <input
+                className='form-control input-productos'
+                name="role"
+                id="role"
+                placeholder="Rol del Usuario"
+                value={roleUser}
+                onChange={(e) => setRoleUser(e.target.value)}
+              />
+            </div>
+          </div>
         </div>
-        <input
-          className="mb-5 btn btn-dark"
-          type="submit"
-          value={usuario.id ? 'Editar Usuario' : 'Agregar Usuario'}
-        />
+
+        <div className=''>
+          <div className="d-flex justify-content-center align-items-center">
+            <button
+              className="mt-3 mb-5 btn btn-dark"
+              type="submit"
+            >
+              {usuario.id ? 'Editar Usuario' : 'Agregar Usuario'}
+            </button>
+          </div>
+        </div>
       </form>
 
       <div className="resultado">
