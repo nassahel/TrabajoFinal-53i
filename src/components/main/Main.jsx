@@ -1,20 +1,17 @@
 import React from 'react'
 import './mains.css'
 import Spiner from '../spiner/Spiner'
-import comidas from './comidas'
+
 
 function Main({ products, searchTerm, loading }) {
 
     const filteredProducts = products.filter((product) =>        //cuando tenga la api abajo en vez de comidas tengo que poner la variable esta
-        product.title.toLowerCase().includes(searchTerm.toLowerCase())) 
+        product.name.toLowerCase().includes(searchTerm.toLowerCase())) 
 
-
-
-      const catEntradas = comidas.filter((comi) => comi.categoria == 'Entradas' )
-      const catPizzas = comidas.filter((comi) => comi.categoria == 'Pizzas' )
-      const catCarnes = comidas.filter((comi) => comi.categoria == 'Carnes' )
-      const catBebidas = comidas.filter((comi) => comi.categoria == 'Bebidas' )
-
+      const catEntradas = filteredProducts.filter((comi) => comi.category == 'Entradas' )
+      const catPizzas = filteredProducts.filter((comi) => comi.category == 'Pizzas' )
+      const catCarnes = filteredProducts.filter((comi) => comi.category == 'Carnes' )
+      const catBebidas = filteredProducts.filter((comi) => comi.category == 'Bebidas' )
 
     return (
         <div className='container'>
@@ -23,17 +20,15 @@ function Main({ products, searchTerm, loading }) {
                 {loading ? <Spiner /> : catEntradas.map((product) => (
 
                     <div className="col col-lg-3">
-                        <div className="card text-center border-2 border-dark p-1 h-100" key={product.id}>
-                            <img className='img-fluid mx-auto' src={product.imagen} alt={product.nombre} />
+                        <div className="card text-center border-2 border-dark p-1 h-100"  key={product.id}>
+                            <img className='img-fluid mx-auto' src={product.image} alt={product.name} />
                             <div className="card-body d-flex flex-column justify-content-end">
-                                <h5 className='card-title'>{product.nombre} </h5>
-                                <h5 className='card-title'>${product.precio}</h5>
+                                <h5 className='card-title'>{product.name}</h5>
+                                <h5 className='card-title'>${product.price}</h5>
                                 <button className='btn btn-outline-warning rounded-0 fw-bold'>Comprar</button>
                             </div>
                         </div>
                     </div>
-
-
                 ))}
             </div>
 
@@ -43,16 +38,14 @@ function Main({ products, searchTerm, loading }) {
 
                     <div className="col col-lg-3">
                         <div className="card text-center border-2 border-dark p-1 h-100" key={product.id}>
-                            <img className='img-fluid mx-auto' src={product.imagen} alt={product.nombre} />
+                            <img className='img-fluid mx-auto' src={product.image} alt={product.name} />
                             <div className="card-body d-flex flex-column justify-content-end">
-                                <h5 className='card-title'>{product.nombre} </h5>
-                                <h5 className='card-title'>${product.precio}</h5>
+                                <h5 className='card-title'>{product.name} </h5>
+                                <h5 className='card-title'>${product.price}</h5>
                                 <button className='btn btn-outline-warning rounded-0 fw-bold'>Comprar</button>
                             </div>
                         </div>
                     </div>
-
-
                 ))}
             </div>
 
@@ -62,15 +55,14 @@ function Main({ products, searchTerm, loading }) {
 
                     <div className="col col-lg-3">
                         <div className="card text-center border-2 border-dark p-1 h-100" key={product.id}>
-                            <img className='img-fluid mx-auto' src={product.imagen} alt={product.nombre} />
+                            <img className='img-fluid mx-auto' src={product.image} alt={product.name} />
                             <div className="card-body d-flex flex-column justify-content-end">
-                                <h5 className='card-title'>{product.nombre} </h5>
-                                <h5 className='card-title'>${product.precio}</h5>
+                                <h5 className='card-title'>{product.name} </h5>
+                                <h5 className='card-title'>${product.price}</h5>
                                 <button className='btn btn-outline-warning rounded-0 fw-bold'>Comprar</button>
                             </div>
                         </div>
                     </div>
-
                 ))}
             </div>
 
@@ -81,16 +73,14 @@ function Main({ products, searchTerm, loading }) {
 
                     <div className="col col-lg-3">
                         <div className="card text-center border-2 border-dark p-1 h-100" key={product.id}>
-                            <img className='img-fluid mx-auto' src={product.imagen} alt={product.nombre} />
+                            <img className='img-fluid mx-auto' src={product.image} alt={product.name} />
                             <div className="card-body d-flex flex-column justify-content-end">
-                                <h5 className='card-title'>{product.nombre} </h5>
-                                <h5 className='card-title'>${product.precio}</h5>
+                                <h5 className='card-title'>{product.name} </h5>
+                                <h5 className='card-title'>${product.price}</h5>
                                 <button className='btn btn-outline-warning rounded-0 fw-bold'>Comprar</button>
                             </div>
                         </div>
                     </div>
-
-
                 ))}
             </div>
         </div>
