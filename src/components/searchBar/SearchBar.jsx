@@ -5,8 +5,6 @@ import { useState } from "react";
 import { BsSearch } from "react-icons/bs";
 import './searchBar.css'
 
-
-
 function SearchBar({ setSearchTerm }) {
  
   const [query, setQuery] = useState('');
@@ -14,7 +12,6 @@ function SearchBar({ setSearchTerm }) {
   const handleSearch = () => {
     setSearchTerm(query);
   }
-
 
   const handleKeyPress = (e) => {
     if (e.key === 'Enter') {
