@@ -35,37 +35,37 @@ function Usuarios() {
     }
   ]  */
 
-    // Estados para manejar productos
-    const [usuarios, setUsuarios] = useState(usuariosBd);
-    const [usuario, setUsuario] = useState({});
-  
-    // Estados para los campos del formulario
-    const [nombre, setNombre] = useState('');
-    const [correo, setCorreo] = useState('');
-    const [password, setPassword] = useState('');
-    const [estado, setEstado] = useState(false); // Establecemos el valor inicial en false
-    const [rol, setRol] = useState('');
-    const [direc, setDirec] = useState('');
- 
-   async function usuariosBd() {
-    const url = 'https://backend-rolling53i.onrender.com/api/usuarios';
-  
+  // Estados para manejar productos
+  const [usuarios, setUsuarios] = useState([]);
+  const [usuario, setUsuario] = useState({});
+
+  // Estados para los campos del formulario
+  const [nombre, setNombre] = useState('');
+  const [correo, setCorreo] = useState('');
+  const [password, setPassword] = useState('');
+  const [estado, setEstado] = useState(false); // Establecemos el valor inicial en false
+  const [rol, setRol] = useState('');
+  const [direc, setDirec] = useState('');
+
+  const obtenerUsuarios = async () => {
     try {
+      const url = 'https://backend-rolling53i.onrender.com/api/usuarios';
       const response = await fetch(url);
-  
+
       if (!response.ok) {
         throw new Error('No se pudo obtener la información');
       }
-  
+
       const data = await response.json();
-      console.log(data);
-  
-      return data;
+      setUsuarios(data.usuarios);
     } catch (error) {
-      console.error('Error al obtener datos:', error);
+      console.error('Error al obtener usuarios:', error);
     }
-  } 
-  console.log(usuarios);
+  };
+
+  useEffect(() => {
+    obtenerUsuarios();
+  }, [usuarios]);
 
   // Función para agregar o editar usuarios
   const handleSubmit = (e) => {
@@ -261,7 +261,7 @@ function Usuarios() {
       <div className="resultado">
         <UsuariosResultado
           usuarios={usuarios}
-          setUsuario={setUsuario}
+          // setUsuario={setUsuario}
           eliminandoUsuario={eliminandoUsuario}
         />
       </div>
