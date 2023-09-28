@@ -5,6 +5,7 @@ import SearchBar from '../../components/searchBar/SearchBar'
 
 
 
+
 function Home() {
 
   const [searchTerm, setSearchTerm] = useState('');
@@ -13,11 +14,16 @@ function Home() {
 
   const productsStore = async () => {
     setLoading(true);
-    const data = await fetch('https://fakestoreapi.com/products');
+    const data = await fetch('https://backend-rolling53i.onrender.com/api/menu');
     const prom = await data.json();
-    setProducts(prom);
+    setProducts(prom.menues);
+    console.log(prom.menues);
     setLoading(false);
+<<<<<<< HEAD
     console.log(prom)
+=======
+
+>>>>>>> develop
   }
 
 

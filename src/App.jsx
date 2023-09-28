@@ -11,11 +11,11 @@ import Login from './pages/login/Login'
 
 
 
+
 function App() {
 
   return (
     <div className='principal'>
-      {/* <img className='bg-img' src="src/assets/img/santorini-fondo.jpg" alt="" /> */}
       <Navbarr />
       <Routes>
         <Route path='/' element={<Home />} />

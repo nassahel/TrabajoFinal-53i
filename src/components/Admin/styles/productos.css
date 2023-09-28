@@ -1,23 +1,69 @@
  :root {
-    --negro: #21201E;
-    --blanco: #FFF;
-    --naranja: #EFAC1F;
-    --mi-tipografia: sans-serif;
-  }
+   --negro: #21201E;
+   --blanco: #FFF;
+   --naranja: #EFAC1F;
+   --mi-tipografia: sans-serif;
+ }
 
-.producto-contenedor{
-    min-width: 580px;
-    min-height: 65px;
-    background-color: var(--blanco);
-    border-radius: 7px;
-    border: 1px solid var(--negro);
-} 
+ .producto-contenedor {
+   padding: 3%;
+   min-width: 580px;
+   height: 320px;
+   background-color: var(--blanco);
+   border-radius: 7px;
+   border: 1px solid var(--negro);
+ }
 
-.producto-texto{
-    width: 100%;
-    height: 100%;
+ .producto-pedidos {
+   padding: 3%;
+   min-width: 580px;
+   height: 200px;
+   background-color: var(--blanco);
+   border-radius: 7px;
+   border: 1px solid var(--negro);
+ }
+
+ .producto-texto {
+   width: 100%;
+   height: 100%;
+ }
+
+ .input-productos {
+   padding-right: 0 !important;
+ }
+
+ .input-descripcion {
+   max-height: 35px !important;
+ }
+
+ .input-descripcion::-webkit-scrollbar {
+   width: 1px;
+   /* width of the entire scrollbar */
+ }
+
+ .input-descripcion::-webkit-scrollbar-track {
+   background: none;
+   /* color of the tracking area */
+ }
+
+ .input-descripcion::-webkit-scrollbar-thumb {
+   background-color: none;
+   /* color of the scroll thumb */
+   border-radius: 20px;
+   /* roundness of the scroll thumb */
+   border: 3px solid none;
+   /* creates padding around scroll thumb */
+ }
+
+ @media (max-width: 576px) { .producto-contenedor {
+  padding: 3%;
+  min-width: 300px;
+  min-height: 550px;
+  background-color: var(--blanco);
+  border-radius: 7px;
+  border: 1px solid var(--negro);
 }
 
-.input-productos{
-    padding-right: 0 !important;
-}
+.producto-pedidos {
+  min-width: 300px;
+}}
