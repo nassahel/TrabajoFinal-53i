@@ -12,6 +12,7 @@ function Productos() {
       productImage: 'https://i.pinimg.com/564x/f7/e0/12/f7e01237dad015937aedb9e3f358ceb1.jpg',
       productPrice: 2100,
       activeProduct: true,
+      productCategory: 'Entradas'
     },
     {
       id: 1,
@@ -20,6 +21,7 @@ function Productos() {
       productImage: 'https://i.pinimg.com/564x/82/92/9c/82929cc929136c3cf1bdf7d8faa7662a.jpg',
       productPrice: 2400,
       activeProduct: true,
+      productCategory: 'Pizzas'
     },
     {
       id: 2,
@@ -28,6 +30,7 @@ function Productos() {
       productImage: 'https://i.pinimg.com/564x/c4/0e/0e/c40e0ec7c86a6a5eeee14c23b31da79c.jpg',
       productPrice: 2000,
       activeProduct: true,
+      productCategory: 'Entradas'
     },
     {
       id: 3,
@@ -36,6 +39,7 @@ function Productos() {
       productImage: 'https://i.pinimg.com/564x/c4/0e/0e/c40e0ec7c86a6a5eeee14c23b31da79c.jpg',
       productPrice: 1300,
       activeProduct: true,
+      productCategory: 'Entradas'
     }
   ];
 
@@ -48,14 +52,15 @@ function Productos() {
   const [productDetail, setProductDetail] = useState('');
   const [productImage, setProductImage] = useState('');
   const [productPrice, setProductPrice] = useState('');
-  const [activeProduct, setActiveProduct] = useState('');
+  const [productCategory, setProductCategory] = useState('');
+  const [activeProduct, setActiveProduct] = useState(false);
 
   // Función para agregar o editar productos
   const handleSubmit = (e) => {
     e.preventDefault();
 
     // Validar que los campos no estén vacíos
-    if (!productName || !productDetail || !productImage || !productPrice || !activeProduct) {
+    if (!productName || !productDetail || !productImage || !productPrice || !productCategory) {
       console.log('Todos los campos deben estar completos');
       return;
     }
@@ -66,7 +71,8 @@ function Productos() {
       productDetail,
       productImage,
       productPrice: Number(productPrice), // Convertir a número
-      activeProduct: Boolean(activeProduct), // Convertir a booleano
+      productCategory,
+      activeProduct
     };
 
     if (producto.id) {
@@ -85,7 +91,8 @@ function Productos() {
     setProductDetail('');
     setProductImage('');
     setProductPrice('');
-    setActiveProduct('');
+    setProductCategory('');
+    setActiveProduct(false);
   };
 
   // Función para eliminar un producto
@@ -103,7 +110,7 @@ function Productos() {
       setProductos(productosGuardados);
     } else {
       // Si no hay productos en el localStorage, establecer los productos iniciales de la base de datos
-      setProductos(productosBd);
+      setProductos(productos);
     }
   }, []);
 
@@ -112,18 +119,19 @@ function Productos() {
     localStorage.setItem('productos', JSON.stringify(productos));
   }, [productos]);
 
-    //PARA QUE APAREZCA LOS PRODUCTOS EN EL INPUT CUANDO PONGA EDITAR
-    useEffect(() => {
-      if (Object.keys(producto.length > 0)) {
-        setProductName(producto.productName)
-        setProductDetail(producto.productDetail)
-        setProductImage(producto.productImage)
-        setProductPrice(producto.productPrice)
-        setActiveProduct(producto.activeProduct)
-      } else {
-        console.log('No hay nada en el array de tarea');
-      }
-    }, [producto])
+  //PARA QUE APAREZCA LOS PRODUCTOS EN EL INPUT CUANDO PONGA EDITAR
+  useEffect(() => {
+    if (Object.keys(producto.length > 0)) {
+      setProductName(producto.productName)
+      setProductDetail(producto.productDetail)
+      setProductImage(producto.productImage)
+      setProductPrice(producto.productPrice)
+      setActiveProduct(producto.activeProduct)
+      setProductCategory(producto.productCategory)
+    } else {
+      console.log('No hay nada en el array de tarea');
+    }
+  }, [producto])
 
   // Función para generar un ID dinámico
   const generoIdDinamico = () => {
@@ -169,16 +177,34 @@ function Productos() {
             onChange={(e) => setProductPrice(e.target.value)}
           />
           <label className='ps-2 text-center producto-texto fs-6' htmlFor="descripcion">Producto Activo</label>
-          <input
+          <select
             className='input-productos w-75 p-1 input-nombre rounded border border-black border-opacity-50'
             name="activo"
             id="activo"
             placeholder="Producto Activo"
             value={activeProduct}
-            onChange={(e) => setActiveProduct(e.target.value)}
-          />
+            onChange={(e) => setActiveProduct(e.target.value === 'true')} // Convertir la cadena en un valor booleano
+          >
+            <option value={true}>Si</option>
+            <option value={false}>No</option>
+          </select>
         </div>
-        <div className='mt-3 d-flex flex-column justify-content-center align-items-center'>
+        <div className='mt-3 d-flex justify-content-center align-items-center'>
+        <label className='ps-2 text-center producto-texto fs-6' htmlFor="descripcion">Producto Categoria</label>
+          <select
+            className='input-productos w-75 p-1 input-nombre rounded border border-black border-opacity-50'
+            name="categoria"
+            id="categoria"
+            placeholder="Producto Categoria"
+            value={productCategory}
+            onChange={(e) => setProductCategory(e.target.value)} // Convertir la cadena en un valor booleano
+          >
+            <option>Pizzas</option>
+            <option>Entradas</option>
+            <option>Carnes</option>
+            <option>Bebidas</option>
+            <option>Pastas</option>
+          </select>
           <label className='text-center producto-texto fs-6' htmlFor="descripcion">Descripcion de Producto</label>
           <textarea
             className='mt-0 input-descripcion w-100 p-2 mb-3 input-nombre rounded border border-black border-opacity-50'

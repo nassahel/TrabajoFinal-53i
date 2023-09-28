@@ -19,7 +19,8 @@ const Resultado = ({ productos, setProducto, eliminandoProducto, eliminandoProdu
                 <p> <span className='fw-semibold'>Nombre:</span> {producto.productName}</p>
                 <p> <span className='fw-semibold'>Imagen:</span> {producto.productImage}</p>
                 <p> <span className='fw-semibold'>Precio:</span> {producto.productPrice}</p>
-                <p> <span className='fw-semibold'>Activo:</span> {producto.activeProduct}</p>
+                <p> <span className='fw-semibold'>Activo:</span> {producto.activeProduct ? 'Si' : 'No'}</p>
+                <p> <span className='fw-semibold'>Categoria:</span> {producto.productCategory}</p>
                 <p> <span className='fw-semibold'>Descripcion:</span> {producto.productDetail}</p>
               </div>
               <div>
