@@ -13,6 +13,8 @@ import "./navbar.css";
 
 function Navbarr() {
 
+  const [isAdmin, setIsAdmin] = useState(false);
+
   const [cerrarSesion, setCerrarSesion] = useState('');
 
   useEffect(() => {
@@ -65,12 +67,10 @@ function Navbarr() {
                 <NavLink to="/" className="nav-link text-light" style={({ isActive }) => (isActive ? activeStyle : undefined)}>Inicio</NavLink>
                 <NavLink to="/about" className="nav-link text-light" style={({ isActive }) => (isActive ? activeStyle : undefined)}>Nosotros</NavLink>
                 <NavLink to="/admin" className="nav-link text-light" style={({ isActive }) => (isActive ? activeStyle : undefined)}>Admin</NavLink>
-                {cerrarSesion ? (
-                  <button onClick={handleLogout}>Cerrar Sesión</button>
-                ) : (
+                {cerrarSesion && (
                   <>
-                    <Link to="/login">Iniciar Sesión</Link>
-                    <Link to="/register">Registrarse</Link>
+                    <button onClick={handleLogout}>Cerrar Sesión</button>
+                    {/* Otros enlaces para usuarios autenticados */}
                   </>
                 )}
               </Nav>
@@ -85,9 +85,7 @@ function Navbarr() {
           </Navbar.Offcanvas>
         </Container>
       </Navbar>
-
     </>
-
   );
 }
 
