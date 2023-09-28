@@ -5,7 +5,7 @@ import '../Admin/styles/productos.css';
 
 function Usuarios() {
   // Definir los productos iniciales de la base de datos
-  const usuariosBd = [
+/*   const usuariosBd = [
     {
       id: 1,
       nombre: 'Pia Lopez',
@@ -33,19 +33,39 @@ function Usuarios() {
       rol: 'Admin',
       direc: 'Santiago 1064'
     }
-  ]
+  ]  */
 
-  // Estados para manejar productos
-  const [usuarios, setUsuarios] = useState(usuariosBd);
-  const [usuario, setUsuario] = useState({});
-
-  // Estados para los campos del formulario
-  const [nombre, setNombre] = useState('');
-  const [correo, setCorreo] = useState('');
-  const [password, setPassword] = useState('');
-  const [estado, setEstado] = useState(false); // Establecemos el valor inicial en false
-  const [rol, setRol] = useState('');
-  const [direc, setDirec] = useState('');
+    // Estados para manejar productos
+    const [usuarios, setUsuarios] = useState(usuariosBd);
+    const [usuario, setUsuario] = useState({});
+  
+    // Estados para los campos del formulario
+    const [nombre, setNombre] = useState('');
+    const [correo, setCorreo] = useState('');
+    const [password, setPassword] = useState('');
+    const [estado, setEstado] = useState(false); // Establecemos el valor inicial en false
+    const [rol, setRol] = useState('');
+    const [direc, setDirec] = useState('');
+ 
+   async function usuariosBd() {
+    const url = 'https://backend-rolling53i.onrender.com/api/usuarios';
+  
+    try {
+      const response = await fetch(url);
+  
+      if (!response.ok) {
+        throw new Error('No se pudo obtener la información');
+      }
+  
+      const data = await response.json();
+      console.log(data);
+  
+      return data;
+    } catch (error) {
+      console.error('Error al obtener datos:', error);
+    }
+  } 
+  console.log(usuarios);
 
   // Función para agregar o editar usuarios
   const handleSubmit = (e) => {
@@ -94,7 +114,7 @@ function Usuarios() {
   };
 
   // Efecto para guardar y cargar productos en el localStorage
-  useEffect(() => {
+/*   useEffect(() => {
     // Cargar usuarios desde el localStorage al montar el componente
     const usuariosGuardados = JSON.parse(localStorage.getItem('usuarios'));
 
@@ -106,7 +126,7 @@ function Usuarios() {
   useEffect(() => {
     // Guardar usuarios en el localStorage cuando cambien
     localStorage.setItem('usuarios', JSON.stringify(usuarios));
-  }, [usuarios]);
+  }, [usuarios]); */
 
   //PARA QUE APAREZCA LOS PRODUCTOS EN EL INPUT CUANDO PONGA EDITAR
   useEffect(() => {
@@ -138,7 +158,121 @@ function Usuarios() {
   };
 
   return (
-    <main>
+<main>
+      <form className="producto-contenedor d-flex flex-column align-items-center" onSubmit={handleSubmit}>
+        <div className='row'>
+          <div className='col-md-6'>
+            <div className='mt-3 text-center'>
+              <label className='producto-texto fs-6' htmlFor="nombre">Nombre Usuario</label>
+              <input
+                className='input-productos w-75 p-1 input-nombre rounded border border-black border-opacity-50'
+                type="text"
+                name="nombre"
+                id="nombre"
+                placeholder="Nombre"
+                value={nombre}
+                onChange={(e) => setNombre(e.target.value)}
+              />
+            </div>
+            <div className='mt-3 text-center'>
+              <label className='producto-texto fs-6' htmlFor="email">Email Usuario</label>
+              <input
+                className='input-productos p-1 w-75 input-nombre rounded border border-black border-opacity-50'
+                type="text"
+                name="email"
+                id="email"
+                placeholder="Email"
+                value={correo}
+                onChange={(e) => setCorreo(e.target.value)}
+              />
+            </div>
+          </div>
+          <div className='col-md-6'>
+            <div className='mt-3 text-center'>
+              <label className='producto-texto fs-6' htmlFor="password">Contraseña Usuario</label>
+              <input
+                className='input-productos w-75 p-1 input-nombre rounded border border-black border-opacity-50'
+                type="text"
+                name="password"
+                id="password"
+                placeholder="Contraseña"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+              />
+            </div>
+            <div className='mt-3 text-center'>
+              <label className='producto-texto fs-6' htmlFor="activo">Usuario Activo</label>
+              <select
+                className='input-productos w-75 p-1 input-nombre rounded border border-black border-opacity-50'
+                name="activo"
+                id="activo"
+                value={estado}
+                onChange={(e) => setEstado(e.target.value === 'true')}
+              >
+                <option value={true}>Si</option>
+                <option value={false}>No</option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+        <div className='row'>
+          <div className='col-md-6'>
+            <div className='mt-3 text-center'>
+              <label className='producto-texto fs-6' htmlFor="direc">Dirección Usuario</label>
+              <input
+                className='input-productos w-75 p-1 input-nombre rounded border border-black border-opacity-50'
+                name="direc"
+                id="direc"
+                placeholder="Dirección del Usuario"
+                value={direc}
+                onChange={(e) => setDirec(e.target.value)}
+              />
+            </div>
+          </div>
+          <div className='col-md-6'>
+            <div className='mt-3 text-center'>
+              <label className='producto-texto fs-6' htmlFor="rol">Rol del Usuario</label>
+              <input
+                className='mt-0 input-descripcion w-75 p-2 input-nombre rounded border border-black border-opacity-50'
+                name="rol"
+                id="rol"
+                placeholder="Rol del Usuario"
+                value={rol}
+                onChange={(e) => setRol(e.target.value)}
+              />
+            </div>
+          </div>
+        </div>
+
+        <div className='row'>
+          <div className='col-md-12'>
+            <div className=' text-center'>
+              <input
+                className="mt-3 mb-5 btn btn-dark"
+                type="submit"
+                value= {usuario.id ? 'Editar Usuario' : 'Agregar Usuario'}
+              />
+            </div>
+          </div>
+        </div>
+      </form>
+
+      <div className="resultado">
+        <UsuariosResultado
+          usuarios={usuarios}
+          setUsuario={setUsuario}
+          eliminandoUsuario={eliminandoUsuario}
+        />
+      </div>
+    </main>
+
+  );
+}
+
+export default Usuarios;
+
+/* <main>
       <form className=" producto-contenedor d-flex flex-column justify-content-evenly align-items-center" onSubmit={handleSubmit}>
         <div className=''>
           <div className="mt-5 d-flex justify-content-center align-items-center">
@@ -170,8 +304,8 @@ function Usuarios() {
         </div>
 
         <div className='mt-3'>
-          <div className="d-flex justify-content-evenly align-items-center">
-            <div className="form-group ">
+          <div className="d-flex justify-content-start align-items-center">
+            <div className="form-group me-5">
               <label className='text-center producto-texto fs-6' htmlFor="password">Contraseña Usuario</label>
               <input
                 className='form-control input-productos'
@@ -183,7 +317,7 @@ function Usuarios() {
                 onChange={(e) => setPassword(e.target.value)}
               />
             </div>
-            <div className="form-group ">
+            <div className="form-group ms-5">
               <label className='text-center producto-texto fs-6' htmlFor="activo">Usuario Activo</label>
               <select
                 className='form-control input-productos w-xx' // Aumenta la anchura al 50% del contenedor
@@ -246,8 +380,4 @@ function Usuarios() {
           eliminandoUsuario={eliminandoUsuario}
         />
       </div>
-    </main>
-  );
-}
-
-export default Usuarios;
+    </main> */
