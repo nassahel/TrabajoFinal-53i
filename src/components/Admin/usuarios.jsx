@@ -2,35 +2,37 @@ import { useEffect, useState } from 'react';
 import UsuariosResultado from './usuariosResultado';
 import '../Admin/styles/productos.css';
 
+
 function Usuarios() {
   // Definir los productos iniciales de la base de datos
-  const usuariosBd = [{
-    id: 1,
-    userName: 'Pia Lopez',
-    userEmail: 'pialopez@gmail.com',
-    userPassword: '123456',
-    activeUser: true,
-    roleUser: 'Admin',
-    address: 'Santiago 1064'
-  },
-  {
-    id: 2,
-    userName: 'Luis',
-    userEmail: 'pialopez@gmail.com',
-    userPassword: '123456',
-    activeUser: true,
-    roleUser: 'Admin',
-    address: 'Santiago 1064'
-  },
-  {
-    id: 3,
-    userName: 'Nassa',
-    userEmail: 'pialopez@gmail.com',
-    userPassword: '123456',
-    activeUser: true,
-    roleUser: 'Admin',
-    address: 'Santiago 1064'
-  }
+  const usuariosBd = [
+    {
+      id: 1,
+      nombre: 'Pia Lopez',
+      correo: 'pialopez@gmail.com',
+      password: '123456',
+      estado: true,
+      rol: 'Admin',
+      direc: 'Santiago 1064'
+    },
+    {
+      id: 2,
+      nombre: 'Luis',
+      correo: 'pialopez@gmail.com',
+      password: '123456',
+      estado: true,
+      rol: 'Admin',
+      direc: 'Santiago 1064'
+    },
+    {
+      id: 3,
+      nombre: 'Nassa',
+      correo: 'pialopez@gmail.com',
+      password: '123456',
+      estado: true,
+      rol: 'Admin',
+      direc: 'Santiago 1064'
+    }
   ]
 
   // Estados para manejar productos
@@ -38,31 +40,31 @@ function Usuarios() {
   const [usuario, setUsuario] = useState({});
 
   // Estados para los campos del formulario
-  const [userName, setUserName] = useState('');
-  const [userEmail, setuserEmail] = useState('');
-  const [userPassword, setUserPassword] = useState('');
-  const [activeUser, setActiveUser] = useState(false); // Establecemos el valor inicial en false
-  const [roleUser, setRoleUser] = useState('');
-  const [address, setAddress] = useState('');
+  const [nombre, setNombre] = useState('');
+  const [correo, setCorreo] = useState('');
+  const [password, setPassword] = useState('');
+  const [estado, setEstado] = useState(false); // Establecemos el valor inicial en false
+  const [rol, setRol] = useState('');
+  const [direc, setDirec] = useState('');
 
   // Función para agregar o editar usuarios
   const handleSubmit = (e) => {
     e.preventDefault();
 
     // Validar que los campos no estén vacíos
-    if (!userName || !userEmail || !userPassword || !roleUser || !address) {
+    if (!nombre || !correo || !password || !rol || !direc) {
       console.log('Todos los campos deben estar completos');
       return;
     }
 
     // Crear un nuevo usuario
     const newUser = {
-      userName,
-      userEmail,
-      userPassword,
-      roleUser,
-      activeUser,
-      address
+      nombre,
+      correo,
+      password,
+      rol,
+      estado,
+      direc
     };
 
     if (usuario.id) {
@@ -77,12 +79,12 @@ function Usuarios() {
     }
 
     // Limpiar los campos del formulario
-    setUserName('');
-    setuserEmail('');
-    setUserPassword('');
-    setActiveUser(false); // Establecer el valor predeterminado en false
-    setRoleUser('');
-    setAddress('');
+    setNombre('');
+    setCorreo('');
+    setPassword('');
+    setEstado(false); // Establecer el valor predeterminado en false
+    setRol('');
+    setDirec('');
   };
 
   // Función para eliminar un producto
@@ -93,14 +95,11 @@ function Usuarios() {
 
   // Efecto para guardar y cargar productos en el localStorage
   useEffect(() => {
-    // Cargar productos desde el localStorage al montar el componente
+    // Cargar usuarios desde el localStorage al montar el componente
     const usuariosGuardados = JSON.parse(localStorage.getItem('usuarios'));
 
     if (usuariosGuardados) {
       setUsuarios(usuariosGuardados);
-    } else {
-      // Si no hay productos en el localStorage, establecer los productos iniciales de la base de datos
-      setUsuarios(usuarios);
     }
   }, []);
 
@@ -112,20 +111,20 @@ function Usuarios() {
   //PARA QUE APAREZCA LOS PRODUCTOS EN EL INPUT CUANDO PONGA EDITAR
   useEffect(() => {
     if (usuario.id) {
-      setUserName(usuario.userName);
-      setuserEmail(usuario.userEmail);
-      setUserPassword(usuario.userPassword);
-      setActiveUser(usuario.activeUser); // Establecer como un booleano
-      setRoleUser(usuario.roleUser);
-      setAddress(usuario.address);
+      setNombre(usuario.nombre);
+      setCorreo(usuario.correo);
+      setPassword(usuario.password);
+      setEstado(usuario.estado); // Establecer como un booleano
+      setRol(usuario.rol);
+      setDirec(usuario.direc);
     } else {
       // Restablecer los campos del formulario cuando no se está editando
-      setUserName('');
-      setuserEmail('');
-      setUserPassword('');
-      setActiveUser(false); // Establecer como false
-      setRoleUser('');
-      setAddress('');
+      setNombre('');
+      setCorreo('');
+      setPassword('');
+      setEstado(false); // Establecer como false
+      setRol('');
+      setDirec('');
     }
   }, [usuario]);
 
@@ -151,8 +150,8 @@ function Usuarios() {
                 name="nombre"
                 id="nombre"
                 placeholder="Nombre"
-                value={userName}
-                onChange={(e) => setUserName(e.target.value)}
+                value={nombre}
+                onChange={(e) => setNombre(e.target.value)}
               />
             </div>
             <div className="form-group ms-2 me-2">
@@ -163,8 +162,8 @@ function Usuarios() {
                 name="email"
                 id="email"
                 placeholder="Email"
-                value={userEmail}
-                onChange={(e) => setuserEmail(e.target.value)}
+                value={correo}
+                onChange={(e) => setCorreo(e.target.value)}
               />
             </div>
           </div>
@@ -180,8 +179,8 @@ function Usuarios() {
                 name="password"
                 id="password"
                 placeholder="Contraseña"
-                value={userPassword}
-                onChange={(e) => setUserPassword(e.target.value)}
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
               />
             </div>
             <div className="form-group ">
@@ -190,8 +189,8 @@ function Usuarios() {
                 className='form-control input-productos w-xx' // Aumenta la anchura al 50% del contenedor
                 name="activo"
                 id="activo"
-                value={activeUser}
-                onChange={(e) => setActiveUser(e.target.value === 'true')}
+                value={estado}
+                onChange={(e) => setEstado(e.target.value === 'true')}
               >
                 <option value={true}>Si</option>
                 <option value={false}>No</option>
@@ -210,8 +209,8 @@ function Usuarios() {
                 name="address"
                 id="address"
                 placeholder="Dirección del Usuario"
-                value={address}
-                onChange={(e) => setAddress(e.target.value)}
+                value={direc}
+                onChange={(e) => setDirec(e.target.value)}
               />
             </div>
             <div className="form-group ms-2">
@@ -221,8 +220,8 @@ function Usuarios() {
                 name="role"
                 id="role"
                 placeholder="Rol del Usuario"
-                value={roleUser}
-                onChange={(e) => setRoleUser(e.target.value)}
+                value={rol}
+                onChange={(e) => setRol(e.target.value)}
               />
             </div>
           </div>

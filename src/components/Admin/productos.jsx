@@ -7,72 +7,73 @@ function Productos() {
   const productosBd = [
     {
       id: 0,
-      productName: 'Pollo con Papas',
-      productDetail: 'Pollo con papas noisette',
-      productImage: 'https://i.pinimg.com/564x/f7/e0/12/f7e01237dad015937aedb9e3f358ceb1.jpg',
-      productPrice: 2100,
-      activeProduct: true,
-      productCategory: 'Entradas'
+      name: 'Pollo con Papas',
+      detail: 'Pollo con papas noisette',
+      image: 'https://i.pinimg.com/564x/f7/e0/12/f7e01237dad015937aedb9e3f358ceb1.jpg',
+      price: 2100,
+      active: true,
+      category: 'Entradas'
     },
     {
       id: 1,
-      productName: 'Pizza Margarita',
-      productDetail: 'Pizza margarita con aceitunas verdes, ocho porciones',
-      productImage: 'https://i.pinimg.com/564x/82/92/9c/82929cc929136c3cf1bdf7d8faa7662a.jpg',
-      productPrice: 2400,
-      activeProduct: true,
-      productCategory: 'Pizzas'
+      name: 'Pizza Margarita',
+      detail: 'Pizza margarita con aceitunas verdes, ocho porciones',
+      image: 'https://i.pinimg.com/564x/82/92/9c/82929cc929136c3cf1bdf7d8faa7662a.jpg',
+      price: 2400,
+      active: true,
+      category: 'Pizzas'
     },
     {
       id: 2,
-      productName: 'Milanesa Napolitana',
-      productDetail: 'Milanesa napolitana con porcion de papas fritas',
-      productImage: 'https://i.pinimg.com/564x/c4/0e/0e/c40e0ec7c86a6a5eeee14c23b31da79c.jpg',
-      productPrice: 2000,
-      activeProduct: true,
-      productCategory: 'Entradas'
+      name: 'Milanesa Napolitana',
+      detail: 'Milanesa napolitana con porcion de papas fritas',
+      image: 'https://i.pinimg.com/564x/c4/0e/0e/c40e0ec7c86a6a5eeee14c23b31da79c.jpg',
+      price: 2000,
+      active: true,
+      category: 'Entradas'
     },
     {
       id: 3,
-      productName: 'Sandwich de ternera',
-      productDetail: 'Sandwich de ternera y queso con tomate',
-      productImage: 'https://i.pinimg.com/564x/c4/0e/0e/c40e0ec7c86a6a5eeee14c23b31da79c.jpg',
-      productPrice: 1300,
-      activeProduct: true,
-      productCategory: 'Entradas'
+      name: 'Sandwich de ternera',
+      detail: 'Sandwich de ternera y queso con tomate',
+      image: 'https://i.pinimg.com/564x/c4/0e/0e/c40e0ec7c86a6a5eeee14c23b31da79c.jpg',
+      price: 1300,
+      active: true,
+      category: 'Entradas'
     }
   ];
+
 
   // Estados para manejar productos
   const [productos, setProductos] = useState(productosBd);
   const [producto, setProducto] = useState({});
 
   // Estados para los campos del formulario
-  const [productName, setProductName] = useState('');
-  const [productDetail, setProductDetail] = useState('');
-  const [productImage, setProductImage] = useState('');
-  const [productPrice, setProductPrice] = useState('');
-  const [productCategory, setProductCategory] = useState('');
-  const [activeProduct, setActiveProduct] = useState(false);
+  const [name, setName] = useState('');
+  const [detail, setDetail] = useState('');
+  const [image, setImage] = useState('');
+  const [price, setPrice] = useState('');
+  const [category, setCategory] = useState('');
+  const [active, setActive] = useState(false);
 
   // Función para agregar o editar productos
   const handleSubmit = (e) => {
     e.preventDefault();
 
     // Validar que los campos no estén vacíos
-    if (!productName || !productDetail || !productImage || !productPrice || !productCategory) {
+    if (!name || !detail || !image || !price || !category) {
       console.log('Todos los campos deben estar completos');
       return;
     }
 
     // Crear un nuevo producto
     const newProduct = {
-      productName,
-      productDetail,
-      productImage,
-      productPrice: Number(productPrice), // Convertir a número
-      productCategory,
-      activeProduct
+      name,
+      detail,
+      image,
+      price: Number(price), // Convertir a número
+      category,
+      active
     };
 
     if (producto.id) {
@@ -87,12 +88,12 @@ function Productos() {
     }
 
     // Limpiar los campos del formulario
-    setProductName('');
-    setProductDetail('');
-    setProductImage('');
-    setProductPrice('');
-    setProductCategory('');
-    setActiveProduct(false);
+    setName('');
+    setDetail('');
+    setImage('');
+    setPrice('');
+    setCategory('');
+    setActive(false);
   };
 
   // Función para eliminar un producto
@@ -122,12 +123,12 @@ function Productos() {
   //PARA QUE APAREZCA LOS PRODUCTOS EN EL INPUT CUANDO PONGA EDITAR
   useEffect(() => {
     if (Object.keys(producto.length > 0)) {
-      setProductName(producto.productName)
-      setProductDetail(producto.productDetail)
-      setProductImage(producto.productImage)
-      setProductPrice(producto.productPrice)
-      setActiveProduct(producto.activeProduct)
-      setProductCategory(producto.productCategory)
+      setName(producto.name)
+      setDetail(producto.detail)
+      setImage(producto.image)
+      setPrice(producto.price)
+      setActive(producto.active)
+      setCategory(producto.category)
     } else {
       console.log('No hay nada en el array de tarea');
     }
@@ -151,8 +152,8 @@ function Productos() {
             name="nombre"
             id="nombre"
             placeholder="Nombre"
-            value={productName}
-            onChange={(e) => setProductName(e.target.value)}
+            value={name}
+            onChange={(e) => setName(e.target.value)}
           />
           <label className='ps-2 text-center producto-texto fs-6' htmlFor="nombre">Link de Imagen</label>
           <input
@@ -161,8 +162,8 @@ function Productos() {
             name="imagen"
             id="imagen"
             placeholder="Imagen"
-            value={productImage}
-            onChange={(e) => setProductImage(e.target.value)}
+            value={image}
+            onChange={(e) => setImage(e.target.value)}
           />
         </div>
         <div className='mt-3 d-flex justify-content-center align-items-center'>
@@ -173,8 +174,8 @@ function Productos() {
             name="precio"
             id="precio"
             placeholder="Precio del Producto"
-            value={productPrice}
-            onChange={(e) => setProductPrice(e.target.value)}
+            value={price}
+            onChange={(e) => setPrice(e.target.value)}
           />
           <label className='ps-2 text-center producto-texto fs-6' htmlFor="descripcion">Producto Activo</label>
           <select
@@ -182,8 +183,8 @@ function Productos() {
             name="activo"
             id="activo"
             placeholder="Producto Activo"
-            value={activeProduct}
-            onChange={(e) => setActiveProduct(e.target.value === 'true')} // Convertir la cadena en un valor booleano
+            value={active}
+            onChange={(e) => setActive(e.target.value === 'true')} // Convertir la cadena en un valor booleano
           >
             <option value={true}>Si</option>
             <option value={false}>No</option>
@@ -196,8 +197,8 @@ function Productos() {
             name="categoria"
             id="categoria"
             placeholder="Producto Categoria"
-            value={productCategory}
-            onChange={(e) => setProductCategory(e.target.value)} // Convertir la cadena en un valor booleano
+            value={category}
+            onChange={(e) => setCategory(e.target.value)} // Convertir la cadena en un valor booleano
           >
             <option>Pizzas</option>
             <option>Entradas</option>
@@ -211,8 +212,8 @@ function Productos() {
             name="descripcion"
             id="descripcion"
             placeholder="Descripcion"
-            value={productDetail}
-            onChange={(e) => setProductDetail(e.target.value)}
+            value={detail}
+            onChange={(e) => setDetail(e.target.value)}
           />
         </div>
         <input
@@ -249,32 +250,32 @@ function Productos() {
       productName: 'Pollo con Papas',
       productDetail: 'Pollo con papas noisette',
       productImage: 'https://i.pinimg.com/564x/f7/e0/12/f7e01237dad015937aedb9e3f358ceb1.jpg',
-      productPrice: 2100,
-      activeProduct: true,
+      price: 2100,
+      active: true,
     },
     {
       id: 1,
       productName: 'Pizza Margarita',
       productDetail: 'Pizza margarita con aceitunas verdes, ocho porciones',
       productImage: 'https://i.pinimg.com/564x/82/92/9c/82929cc929136c3cf1bdf7d8faa7662a.jpg',
-      productPrice: 2400,
-      activeProduct: true,
+      price: 2400,
+      active: true,
     },
     {
       id: 2,
       productName: 'Milanesa Napolitana',
       productDetail: 'Milanesa napolitana con porcion de papas fritas',
       productImage: 'https://i.pinimg.com/564x/c4/0e/0e/c40e0ec7c86a6a5eeee14c23b31da79c.jpg',
-      productPrice: 2000,
-      activeProduct: true,
+      price: 2000,
+      active: true,
     },
     {
       id: 3,
       productName: 'Sandwich de ternera',
       productDetail: 'Sandwich de ternera y queso con tomate',
       productImage: 'https://i.pinimg.com/564x/c4/0e/0e/c40e0ec7c86a6a5eeee14c23b31da79c.jpg',
-      productPrice: 1300,
-      activeProduct: true,
+      price: 1300,
+      active: true,
     }
   ]
 
@@ -294,8 +295,8 @@ function Productos() {
   const [productName, setProductName] = useState(''); //NOMBRE
   const [productDetail, setProductDetail] = useState('');//DESCRIPCION
   const [productImage, setProductImage] = useState('');
-  const [productPrice, setProductPrice] = useState(Number);
-  const [activeProduct, setActiveProduct] = useState(Boolean);
+  const [price, setprice] = useState(Number);
+  const [active, setactive] = useState(Boolean);
 
   //LOCAL STORAGE
   useEffect(() => {
@@ -309,8 +310,8 @@ function Productos() {
       setProductName(producto.productName)
       setProductDetail(producto.productDetail)
       setProductImage(producto.productImage)
-      setProductPrice(producto.productPrice)
-      setActiveProduct(producto.activeProduct)
+      setprice(producto.price)
+      setactive(producto.active)
     } else {
       console.log('No hay nada en el array de tarea');
     }
@@ -327,7 +328,7 @@ function Productos() {
   const handleSubmit = (e) => {
     e.preventDefault()
 
-    if ([productName, productDetail, productImage, productPrice, activeProduct].includes('')) {
+    if ([productName, productDetail, productImage, price, active].includes('')) {
       console.log('El campo debe estar completo');
       return;
     }
@@ -336,8 +337,8 @@ function Productos() {
       productName,
       productDetail,
       productImage,
-      productPrice,
-      activeProduct
+      price,
+      active
     }
 
     if (producto.id) {
@@ -361,8 +362,8 @@ function Productos() {
     //PARA NO TENER QUE BORRAR EL INPUT A MANO SE REINICIA SOLO
     setProductName('')
     setProductImage('')
-    setProductPrice('')
-    setActiveProduct('')
+    setprice('')
+    setactive('')
     setProductDetail('')
   }
 
@@ -412,8 +413,8 @@ function Productos() {
               name="precio"
               id="precio"
               placeholder="Precio del Producto"
-              value={productPrice}
-              onChange={(e) => setProductPrice(e.target.value)}
+              value={price}
+              onChange={(e) => setprice(e.target.value)}
             />
             <label className='text-center producto-texto fs-6' htmlFor="descripcion">Producto Activo</label>
             <input
@@ -421,8 +422,8 @@ function Productos() {
               name="activo"
               id="activo"
               placeholder="Producto Activo"
-              value={activeProduct}
-              onChange={(e) => setActiveProduct(e.target.value)}
+              value={active}
+              onChange={(e) => setactive(e.target.value)}
             />
           </div>
           <div className='mt-3 d-flex flex-column justify-content-center align-items-center'>
