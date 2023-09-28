@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react';
 import './Register.css';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
@@ -7,50 +7,71 @@ import ToggleButtonGroup from 'react-bootstrap/ToggleButtonGroup';
 import { NavLink, useNavigate } from 'react-router-dom';
 
 function Register() {
-
-  const obtenerRegistro = () => {
-    let datos = localStorage.getItem("registros");
-    if (datos) {
-      return JSON.parse(datos);
-    } else {
-      return [];
-    }
-  }
-
-  const [registros, setRegistros] = useState(obtenerRegistro());
   const navigate = useNavigate();
 
   const [nombre, setNombre] = useState("");
   const [correo, setCorreo] = useState("");
-  const [adress, setAdress] = useState("");
+  const [direc, setDirec] = useState("");
   const [password, setPassword] = useState("");
-  const [error, setError] = useState(false)
+  const [confirmPassword, setConfirmPassword] = useState("");
+  const [error, setError] = useState(false);
+  const [rol, setRol] = useState("USER_NORMAL");
 
-  const botonCrear = (e) => {
+  const handleRegister = async (e) => {
     e.preventDefault();
 
-    if (nombre === "" || correo === "" || adress === "" || password === "") {
-      setError(true)
-      return
-    } else setError(false)
+    if (nombre === "" || correo === "" || direc === "" || password === "" || confirmPassword === "") {
+      setError(true);
+      return;
+    } else if (password !== confirmPassword) {
+      setError(true);
+      return;
+    }
+    setError(false);
 
-    let miObjeto = { nombre, correo, adress, password }
-    // Agrega el nuevo registro al array existente y guarda en localStorage
-    setRegistros([...registros, miObjeto]);
-    localStorage.setItem("registros", JSON.stringify([...registros, miObjeto]));
+    try {
+      const response = await fetch('https://backend-rolling53i.onrender.com/api/usuarios', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ nombre, correo, direc, password, rol }),
+      });
 
-    // Limpia el formulario y redirige
-    navigate("/");
-    limpiarFormulario();
-  }
+      if (response.ok) {
+        const data = await response.json();
+
+        // Guarda el token en localStorage
+        localStorage.setItem('token', data.token);
+
+        // Limpia el formulario y redirige
+        limpiarFormulario();
+        window.location.href = ('/');
+      } else {
+        // Maneja errores de registro aquí
+        console.error('Error en el registro:', response.statusText);
+      }
+    } catch (error) {
+      console.error('Error en la solicitud:', error);
+    }
+  };
 
   const limpiarFormulario = () => {
     setNombre("");
     setCorreo("");
-    setAdress("");
+    setDirec("");
     setPassword("");
+    setConfirmPassword("");
     document.getElementById("miFormulario").reset();
-  }
+  };
+
+  const handleLogout = () => {
+    // Elimina el token del almacenamiento local
+    localStorage.removeItem('token');
+    // Redirige al usuario a la página de inicio de sesión
+    navigate('/login');
+  };
+
 
   return (
     <div className='registro'>
@@ -58,7 +79,7 @@ function Register() {
         <div>
           <NavLink to="/login">
             <ToggleButton className='iniciar' variant='info' id="tbg-radio-2" value={2}>
-              Iniciar Sesion
+              Iniciar Sesión
             </ToggleButton>
           </NavLink>
           <ToggleButtonGroup type="radio" name="options" defaultValue={1}>
@@ -67,16 +88,16 @@ function Register() {
             </ToggleButton>
           </ToggleButtonGroup>
         </div>
-        <Form id='miFormulario' onSubmit={botonCrear}>
-          <>
+        <Form id='miFormulario' onSubmit={handleRegister}>
+          <div>
             <Form.Label>Nombre:</Form.Label>
             <Form.Control
-              type="text"
               aria-describedby="name"
+              type="text"
               placeholder='Ingrese su nombre'
               onChange={(e) => setNombre(e.target.value)}
             />
-          </>
+          </div>
           <div>
             <Form.Label >correo:</Form.Label>
             <Form.Control
@@ -87,17 +108,15 @@ function Register() {
             />
           </div>
           <div>
-            <>
-              <Form.Label>Direccion:</Form.Label>
-              <Form.Control
-                type="text"
-                aria-describedby="adress"
-                placeholder='Ingrese su dirección'
-                onChange={(e) => setAdress(e.target.value)}
-              />
-            </>
+            <Form.Label>Direccion:</Form.Label>
+            <Form.Control
+              type="text"
+              aria-describedby="direc"
+              placeholder='Ingrese su dirección'
+              onChange={(e) => setDirec(e.target.value)}
+            />
           </div>
-          <>
+          <div>
             <Form.Label>Contraseña:</Form.Label>
             <Form.Control
               type="password"
@@ -105,26 +124,41 @@ function Register() {
               placeholder='Ingrese su contraseña'
               onChange={(e) => setPassword(e.target.value)}
             />
-            <Form.Text id="inputPassword" muted>
-              *Su contraseña debe tener 6 caracteres como mínimo.
-            </Form.Text>
-          </>
-          <Form>
-            {['Acepto terminos y condiciones'].map((type) => (
-              <div key={`default-${type}`} className="mb-3">
-                <Form.Check
-                  type={'checkbox'}
-                  id={`default-${type}`}
-                  label={` ${type}`}
-                />
-              </div>
-            ))}
-          </Form>
-          <div>
-            <Button type='submit' variant="info">Registrarse</Button>{' '}
           </div>
+          <div>
+            <Form.Label>Repetir Contraseña:</Form.Label>
+            <Form.Control
+              type="password"
+              aria-describedby="confirmPasswordHelpBlock"
+              placeholder='Repetir contraseña'
+              onChange={(e) => setConfirmPassword(e.target.value)}
+            />
+            <Form.Text id="confirmPasswordHelpBlock" muted>
+              *Por favor, repita la misma contraseña.
+            </Form.Text>
+          </div>
+          <div>
+            Acepto terminos y condiciones
+            <Form.Check
+              required
+              name="terminos-condiciones"
+              type={'checkbox'}
+            />
+          </div>
+          <Button type='submit' variant="info">Registrarse</Button>{' '}
         </Form>
+        <div>
+
+          {localStorage.getItem('token') ? (
+            <Button variant="danger" onClick={handleLogout}>
+              Cerrar Sesión
+            </Button>
+          ) : null}
+
+        </div>
+
         {error && <p>todos los campos son obligatorios.</p>}
+
       </div>
     </div>
   )
