@@ -15,12 +15,12 @@ const UsuariosResultado = ({ usuarios, setUsuario, eliminandoUsuario }) => {
           {usuarios.map((usuario, index) => (
             <div key={index} className="contenedor-agregados agregados-texto">
               <div>
-                <p> <span className='fw-semibold'>Nombre:</span> {usuario.userName}</p>
-                <p> <span className='fw-semibold'>Email:</span> {usuario.userEmail}</p>
-                <p> <span className='fw-semibold'>Contraseña:</span> {usuario.userPassword}</p>
-                <p> <span className='fw-semibold'>Activo:</span> {usuario.activeUser ? 'Si' : 'No'}</p>
-                <p> <span className='fw-semibold'>Direccion:</span> {usuario.address}</p>
-                <p> <span className='fw-semibold'>Rol del Usuario:</span> {usuario.roleUser}</p>
+                <p> <span className='fw-semibold'>Nombre:</span> {usuario.nombre}</p>
+                <p> <span className='fw-semibold'>Email:</span> {usuario.correo}</p>
+                <p> <span className='fw-semibold'>Contraseña:</span> {usuario.password}</p>
+                <p> <span className='fw-semibold'>Activo:</span> {usuario.estado ? 'Si' : 'No'}</p>
+                <p> <span className='fw-semibold'>Direccion:</span> {usuario.direc}</p>
+                <p> <span className='fw-semibold'>Rol del Usuario:</span> {usuario.rol}</p>
               </div>
               <div>
               </div>
