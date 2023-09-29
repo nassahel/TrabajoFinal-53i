@@ -40,10 +40,10 @@ function Navbarr() {
 
   return (
     <>
-      <Navbar collapseOnSelect key="lg" expand="lg" className="classnav sticky-top shadow p-3 fs-5 mb-3" data-bs-theme="dark">
+      <Navbar collapseOnSelect key="lg" expand="lg" className="classnav sticky-top shadow p-lg-3 fs-5 mb-3" data-bs-theme="dark">
         <Container fluid>
           <NavLink to="/">
-            <img src={logoResto} width="290" className="d-inline-block align-center me-5" alt="React Bootstrap logo" />
+            <img src={logoResto} width="260" className="d-inline-block align-center" alt="React Bootstrap logo" />
           </NavLink>
           <Navbar.Toggle aria-controls="offcanvasNavbar-expand-lg classnav" />
           <Navbar.Offcanvas
