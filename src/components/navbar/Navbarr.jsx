@@ -4,7 +4,6 @@ import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
 import { NavLink } from "react-router-dom";
 import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
 import { BsPersonCircle } from "react-icons/bs";
 import { AiOutlineShoppingCart } from "react-icons/ai";
 import Offcanvas from 'react-bootstrap/Offcanvas';
@@ -12,8 +11,6 @@ import logoResto from '../../assets/img/hnb.png'
 import "./navbar.css";
 
 function Navbarr() {
-
-  const [isAdmin, setIsAdmin] = useState(false);
 
   const [cerrarSesion, setCerrarSesion] = useState('');
 
@@ -27,8 +24,6 @@ function Navbarr() {
 
     }
   }, [cerrarSesion]);
-
-
 
 
   let activeStyle = {
@@ -70,7 +65,6 @@ function Navbarr() {
                 {cerrarSesion && (
                   <>
                     <button onClick={handleLogout}>Cerrar Sesión</button>
-                    {/* Otros enlaces para usuarios autenticados */}
                   </>
                 )}
               </Nav>
@@ -88,5 +82,5 @@ function Navbarr() {
     </>
   );
 }
-
+s
 export default Navbarr;
