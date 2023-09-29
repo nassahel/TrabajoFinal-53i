@@ -21,7 +21,7 @@ function App() {
       <Routes>
         <Route path='/' element={<Home />} />
         <Route path='/user/orders' element={<Orders />} />
-        <PrivateRoute path='/admin' roleRequired="USER_ADMIN" component={Admin} />
+       
         <Route path='/about' element={<AboutUs />} />
         <Route path='/register' element={<Register />} />
         <Route path='/login' element={<Login />} />
