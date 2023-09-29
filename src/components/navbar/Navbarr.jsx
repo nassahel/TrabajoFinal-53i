@@ -13,15 +13,18 @@ import "./navbar.css";
 function Navbarr() {
 
   const [cerrarSesion, setCerrarSesion] = useState('');
-
+  const [userRole, setUserRole] = useState('USER_NORMAL'); // Cambia el valor inicial según tus necesidades
   useEffect(() => {
 
     const checkeoToken = localStorage.getItem('token');
     if (checkeoToken !== null) {
       setCerrarSesion(true);
-    } else {
-      setCerrarSesion(false)
+      const token = JSON.parse(atob(checkeoToken.split('.')[1])); // Decodifica el token JWT
+      const userRole = token.rol || 'USER_ADMIN';
+      setUserRole(userRole);
 
+    } else {
+      setCerrarSesion(false);
     }
   }, [cerrarSesion]);
 
@@ -61,7 +64,9 @@ function Navbarr() {
               <Nav className="justify-content-end flex-grow-1 pe-4 mb-2">
                 <NavLink to="/" className="nav-link text-light" style={({ isActive }) => (isActive ? activeStyle : undefined)}>Inicio</NavLink>
                 <NavLink to="/about" className="nav-link text-light" style={({ isActive }) => (isActive ? activeStyle : undefined)}>Nosotros</NavLink>
-                <NavLink to="/admin" className="nav-link text-light" style={({ isActive }) => (isActive ? activeStyle : undefined)}>Admin</NavLink>
+                {userRole === 'USER_ADMIN' && (
+                  <NavLink to="/admin">Admin</NavLink>
+                )}
                 {cerrarSesion && (
                   <>
                     <button onClick={handleLogout}>Cerrar Sesión</button>
@@ -82,5 +87,5 @@ function Navbarr() {
     </>
   );
 }
-s
+
 export default Navbarr;
