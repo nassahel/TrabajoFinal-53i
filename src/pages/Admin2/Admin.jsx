@@ -6,8 +6,8 @@ import Pedidos from '../../components/Admin/pedidos'
 
 function Admin() {
   return (
-    <div>
-      <div className='contenedor-admin d-flex flex-row '>
+    <div className='d-flex flex-column justify-content-center align-items-center'>
+      <div className='contenedor-productos-usuarios'>
         <div className='contenedor-lista'>
           <h1 className='titulo fs-2'>Mis Productos</h1>
           <Productos />

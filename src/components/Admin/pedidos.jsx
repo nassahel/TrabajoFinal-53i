@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import PedidosResultado from "./pedidosResultado";
 
 const Pedidos = () => {
@@ -56,11 +56,11 @@ const Pedidos = () => {
 
   return (
     <main>
-      <form className="producto-contenedor d-flex flex-column align-items-center" onSubmit={handleSubmit}>
-        <div className='mt-3 d-flex justify-content-center align-items-center'>
-          <label className='ps-2 text-center producto-texto fs-6' htmlFor="descripcion">Pedido Status</label>
+      <form className="producto-pedidos " onSubmit={handleSubmit}>
+        <div className='mt-3'>
+          <label className='ps-2 producto-texto fs-6' htmlFor="descripcion">Pedido Status</label>
           <select
-            className='input-productos w-75 p-1 input-nombre rounded border border-black border-opacity-50'
+            className='mt-3 input-productos w-50 p-1 input-nombre rounded border border-black border-opacity-50'
             name="status"
             id="status"
             placeholder="Producto status"
@@ -72,7 +72,7 @@ const Pedidos = () => {
           </select>
         </div>
         <input
-          className="mb-5 btn btn-dark"
+          className="mt-3 mb-0 btn btn-dark"
           type="submit"
           value={pedido.id ? 'Editar Pedido' : 'Agregar Pedido'}
         />
