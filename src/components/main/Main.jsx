@@ -6,7 +6,17 @@ import { useNavigate } from 'react-router'
 
 function Main({ products, searchTerm, loading }) {
 
-    const navigate = useNavigate()
+   const button = product => {
+      let orders = JSON.parse(localStorage.getItem("orders"))
+      if (orders){
+        orders.push(product)
+      } else {
+        orders = [product] 
+      }
+      
+      localStorage.setItem("orders", JSON.stringify(orders))
+      window.dispatchEvent( new Event('storage') )
+      }
 
     const filteredProducts = products.filter((product) =>      
         product.name.toLowerCase().includes(searchTerm.toLowerCase())) 
@@ -29,7 +39,7 @@ function Main({ products, searchTerm, loading }) {
                                 <h5 className='card-title'>{product.name}</h5>
                                 <h5 className='card-title'>${product.price}</h5>
                                 <button 
-                                onClick={()=> navigate("/user/orders", { state: product })}
+                                onClick={()=> button(product)}
                                 className='btn btn-outline-warning rounded-0 fw-bold'>Comprar</button>
                             </div>
                         </div>
@@ -47,7 +57,7 @@ function Main({ products, searchTerm, loading }) {
                                 <h5 className='card-title'>{product.name} </h5>
                                 <h5 className='card-title'>${product.price}</h5>
                                 <button 
-                                onClick={()=> navigate("/user/orders", { state: product })}
+                               onClick={()=> button(product)}
                                 className='btn btn-outline-warning rounded-0 fw-bold'>Comprar</button>
                             </div>
                         </div>
@@ -66,7 +76,7 @@ function Main({ products, searchTerm, loading }) {
                                 <h5 className='card-title'>{product.name} </h5>
                                 <h5 className='card-title'>${product.price}</h5>
                                 <button 
-                                onClick={()=> navigate("/user/orders", { state: product })}
+                               onClick={()=> button(product)}
                                 className='btn btn-outline-warning rounded-0 fw-bold'>Comprar</button>
                             </div>
                         </div>
@@ -86,7 +96,7 @@ function Main({ products, searchTerm, loading }) {
                                 <h5 className='card-title'>{product.name} </h5>
                                 <h5 className='card-title'>${product.price}</h5>
                                 <button 
-                                onClick={()=> navigate("/user/carrito", { state: product })}
+                                onClick={()=> button(product)}
                                 className='btn btn-outline-warning rounded-0 fw-bold'>Comprar</button>
                             </div>
                         </div>

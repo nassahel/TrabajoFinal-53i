@@ -6,29 +6,31 @@ import { useLocation, useNavigate } from "react-router-dom";
 function Orders() {
   const location = useLocation()
   const navigate = useNavigate()
-  const [item, setItem] = useState(null) 
+  const [order, setOrder] = useState(null) 
   const [error, setError] = useState(null)
   useEffect( ()=> {
-    console.log(location.state)
-    setItem(location.state)
+    const order = JSON.parse(localStorage.getItem("orders"))
+    setOrder(order)
   },[])
   
   const confirmar = async () => {
     setError(null) // Sacar los errores para empezar de 0
-    const fecha = Date.now() // Obtiene la fecha del momento del pedido
+    const fecha = new Date(Date.now()) // Obtiene la fecha del momento del pedido
 
-    const usuario = JSON.parse(localStorage.getItem("registros")) // Checkea que estas logueado y guarda el usuario
-    if (!usuario){
+    const token = localStorage.getItem("token")
+    if (!token){
       setError("No estas registrado papilo")
       return
     }
-
+   
+    const total = order.reduce((total, actual) => total + actual.price, 0)
+    console.log(total)
     const data = { // Armar el objeto para enviar al API
-      user: usuario,
+      user: token,
       date: fecha,
-      order: item,
-      status: "pendiente",
-      totalCost: Number(item.price)
+      order: order,
+      status: false,
+      totalCost: total
     }
     console.log(data)
     try { // Hacer la peticion POST con un try/catch para manejar errores
@@ -36,18 +38,22 @@ function Orders() {
         {
           method: "POST",
           headers:{
-            'Content-Type':'aplication/json',
-            // Authentication: 'Bearer {token}'
+            "Content-Type":"aplication/json;  charset=UTF-8",
+            "Authentication": `Bearer ${token}`,
           },
           body: JSON.stringify(data),
         }
       );
-      if (!peticion) {
+      console.log(peticion)
+      if (!peticion.ok) {
         throw new Error("Error prueba mas tarde")
       }
+      localStorage.removeItem("orders")
+      window.dispatchEvent( new Event('storage') )
       navigate("/")
     } catch (e) {
-      setError(e)
+      setError(e.message)
+      
     }
   }
  
@@ -63,21 +69,21 @@ function Orders() {
         alt=""
       />
       <div>
-     
-        {item ? (
-          <div className="col col-lg-3 w-100">
-              <div className="card text-center border-4 border-dark p-3 h-100 w-100 my-3" key={item.id}>
+      <button className='btn btn-outline-warning rounded-0 fw-bold' onClick={confirmar}>Confirmar compra</button>
+      {error && <p className="text-danger">{error}</p>} 
+        {order ? order.map( (item) => (
+          <div className="col col-lg-3 w-100" key={item.id}>
+              <div className="card text-center border-4 border-dark p-3 h-100 w-100 my-3" >
                   <img className='card-img-top w-50 mx-auto' src={item.image} alt={item.name} />
                   <div className="card-body d-flex flex-column justify-content-end">
                     <h5 className="card-title" >{item.name}</h5>
                       <h5 className='card-title'>{item.category} </h5>
                       <h5 className='card-title'>${item.price}</h5>
-                      <button className='btn btn-outline-warning rounded-0 fw-bold' onClick={confirmar}>Confirmar compra</button>
                   </div>
               </div>
           </div>
-        ) : <p className="text-danger">No has seleccionado nada</p>}
-        {error && <p className="text-danger">{error}</p>}
+        )) : <p className="text-danger">No has seleccionado nada</p>}
+        
       </div>
     </div>
   );

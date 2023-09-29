@@ -17,6 +17,15 @@ function Navbarr() {
 
   const [cerrarSesion, setCerrarSesion] = useState('');
 
+  const [orders, setOrders] = useState(JSON.parse(localStorage.getItem("orders"))
+  )
+   
+ 
+    window.addEventListener('storage', () => {
+      setOrders(JSON.parse(localStorage.getItem('orders')) )
+   });
+   
+
   useEffect(() => {
 
     const checkeoToken = localStorage.getItem('token');
@@ -28,6 +37,7 @@ function Navbarr() {
     }
   }, [cerrarSesion]);
 
+ 
 
 
 
@@ -78,8 +88,9 @@ function Navbarr() {
                 <BsPersonCircle size='2rem' color='white' />
               </NavLink >
 
-              <NavLink to="#">
-                <AiOutlineShoppingCart size='2rem' color='white' />
+              <NavLink to='/user/orders'>
+                <AiOutlineShoppingCart size='2rem' color='white' />  
+                {orders && orders.length}
               </NavLink>
             </Offcanvas.Body>
           </Navbar.Offcanvas>
