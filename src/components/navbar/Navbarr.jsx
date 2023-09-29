@@ -47,23 +47,17 @@ function Navbarr() {
     console.log(usuarios);    // ID obtenida de DB
 
     const usuarioFind = usuarios.find(item => item._id === token.uid);
-  
+
     if (usuarioFind) {
       console.log('Se encontró el ID', token.uid);
     } else {
       console.log('No se encontró el ID');
     }
-    
+
     if (checkeoToken !== null) {
       setCerrarSesion(true);
     }
   }, []);
-
-  const checkAdminUser = () => {
-    
-  };
-
-
   let activeStyle = {
     textDecoration: 'underline',
     textDecorationColor: '#FFC107',
