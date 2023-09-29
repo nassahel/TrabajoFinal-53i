@@ -4,7 +4,6 @@ import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
 import { NavLink } from "react-router-dom";
 import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
 import { BsPersonCircle } from "react-icons/bs";
 import { AiOutlineShoppingCart } from "react-icons/ai";
 import Offcanvas from 'react-bootstrap/Offcanvas';
@@ -13,22 +12,56 @@ import "./navbar.css";
 
 function Navbarr() {
 
-  const [isAdmin, setIsAdmin] = useState(false);
-
+  const [userRole, setUserRole] = useState('USER_NORMAL'); // Cambia el valor inicial según tus necesidades
   const [cerrarSesion, setCerrarSesion] = useState('');
 
-  useEffect(() => {
+  const [usuarios, setUsuarios] = useState([]); // Inicializa 'usuarios' como un arreglo vacío
 
+  useEffect(() => {
     const checkeoToken = localStorage.getItem('token');
+
+    const token = JSON.parse(atob(checkeoToken.split('.')[1]));
+    const apiUrl = 'https://backend-rolling53i.onrender.com/api/usuarios';
+
+    const usuariosGet = async () => {
+      try {
+        const response = await fetch(apiUrl);
+
+        if (!response.ok) {
+          throw new Error(`La solicitud falló con código de estado: ${response.status}`);
+        }
+
+        const data = await response.json();
+        console.log('Datos recibidos:', data);
+
+        setUsuarios(data.usuarios);
+      } catch (error) {
+        console.error('Error:', error.message);
+      }
+    }
+
+    usuariosGet();
+
+    // Para ver que me trae del TOKEN y la DB
+    console.log(token.uid)        // ID obtenida de token
+    console.log(usuarios);    // ID obtenida de DB
+
+    const usuarioFind = usuarios.find(item => item._id === token.uid);
+  
+    if (usuarioFind) {
+      console.log('Se encontró el ID', token.uid);
+    } else {
+      console.log('No se encontró el ID');
+    }
+    
     if (checkeoToken !== null) {
       setCerrarSesion(true);
-    } else {
-      setCerrarSesion(false)
-
     }
-  }, [cerrarSesion]);
+  }, []);
 
-
+  const checkAdminUser = () => {
+    
+  };
 
 
   let activeStyle = {
@@ -66,11 +99,12 @@ function Navbarr() {
               <Nav className="justify-content-end flex-grow-1 pe-4 mb-2">
                 <NavLink to="/" className="nav-link text-light" style={({ isActive }) => (isActive ? activeStyle : undefined)}>Inicio</NavLink>
                 <NavLink to="/about" className="nav-link text-light" style={({ isActive }) => (isActive ? activeStyle : undefined)}>Nosotros</NavLink>
-                <NavLink to="/admin" className="nav-link text-light" style={({ isActive }) => (isActive ? activeStyle : undefined)}>Admin</NavLink>
+                {userRole === 'USER_ADMIN' && (
+                  <NavLink to="/admin">Admin</NavLink>
+                )}
                 {cerrarSesion && (
                   <>
                     <button onClick={handleLogout}>Cerrar Sesión</button>
-                    {/* Otros enlaces para usuarios autenticados */}
                   </>
                 )}
               </Nav>
