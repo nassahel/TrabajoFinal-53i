@@ -1,6 +1,7 @@
 import './styles/resultado.css';
+import React from 'react';
 
-const UsuariosResultado = ({ usuarios, setUsuario, eliminandoUsuario }) => {
+const UsuariosResultado = ({ usuarios, eliminandoUsuario }) => {
   const handleEliminar = (id) => {
     const respuesta = confirm('¿Desea eliminar el usuario?');
     if (respuesta) {
@@ -10,19 +11,18 @@ const UsuariosResultado = ({ usuarios, setUsuario, eliminandoUsuario }) => {
 
   return (
     <div>
-      {usuarios && usuarios.length ? (
+      { (
         <>
-          {usuarios.map((usuario, index) => (
-            <div key={index} className="contenedor-agregados agregados-texto">
+          {
+           usuarios.map((usuario) => (
+            <div key={usuario.id} className="contenedor-agregados agregados-texto">
               <div>
-                <p> <span className='fw-semibold'>Nombre:</span> {usuario.userName}</p>
-                <p> <span className='fw-semibold'>Email:</span> {usuario.userEmail}</p>
-                <p> <span className='fw-semibold'>Contraseña:</span> {usuario.userPassword}</p>
-                <p> <span className='fw-semibold'>Activo:</span> {usuario.activeUser ? 'Si' : 'No'}</p>
-                <p> <span className='fw-semibold'>Direccion:</span> {usuario.address}</p>
-                <p> <span className='fw-semibold'>Rol del Usuario:</span> {usuario.roleUser}</p>
-              </div>
-              <div>
+                <p> <span className='fw-semibold'>Nombre:</span> {usuario.nombre}</p>
+                <p> <span className='fw-semibold'>Email:</span> {usuario.correo}</p>
+                <p> <span className='fw-semibold'>Contraseña:</span> {usuario.password}</p>
+                <p> <span className='fw-semibold'>Activo:</span> {usuario.estado ? 'Si' : 'No'}</p>
+                <p> <span className='fw-semibold'>Direccion:</span> {usuario.direc}</p>
+                <p> <span className='fw-semibold'>Rol del Usuario:</span> {usuario.rol}</p>
               </div>
               <div className='boton-editar-eliminar'>
                 <button className='mb-2 btn btn-dark' type="button" onClick={() => setUsuario(usuario)}>Editar</button>
@@ -34,10 +34,6 @@ const UsuariosResultado = ({ usuarios, setUsuario, eliminandoUsuario }) => {
               </div>
             </div>
           ))}
-        </>
-      ) : (
-        <>
-          <p>No hay Usuarios</p>
         </>
       )}
     </div>
