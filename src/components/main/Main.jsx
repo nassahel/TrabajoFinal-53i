@@ -5,7 +5,7 @@ import Spiner from '../spiner/Spiner'
 
 function Main({ products, searchTerm, loading }) {
 
-    const filteredProducts = products.filter((product) =>        //cuando tenga la api abajo en vez de comidas tengo que poner la variable esta
+    const filteredProducts = products.filter((product) =>      
         product.name.toLowerCase().includes(searchTerm.toLowerCase())) 
 
       const catEntradas = filteredProducts.filter((comi) => comi.category == 'Entradas' )
@@ -35,7 +35,6 @@ function Main({ products, searchTerm, loading }) {
             <h2 className='text-center mt-3 bg-warning py-3'>Pizzas</h2>
             <div className='row row-cols-lg-4 row-cols-1 row-cols-md-2 g-5 my-5'>
                 {loading ? <Spiner /> : catPizzas.map((product, index) => (
-
                     <div className="col col-lg-3" key={product.id || index}>
                         <div className="card text-center border-2 border-dark p-1 h-100" >
                             <img className='img-fluid mx-auto' src={product.image} alt={product.name} />
