@@ -19,89 +19,49 @@ function Navbarr() {
 
   useEffect(() => {
     const checkeoToken = localStorage.getItem('token');
+
+    const token = JSON.parse(atob(checkeoToken.split('.')[1]));
+    const apiUrl = 'https://backend-rolling53i.onrender.com/api/usuarios';
+
+    const usuariosGet = async () => {
+      try {
+        const response = await fetch(apiUrl);
+
+        if (!response.ok) {
+          throw new Error(`La solicitud falló con código de estado: ${response.status}`);
+        }
+
+        const data = await response.json();
+        console.log('Datos recibidos:', data);
+
+        setUsuarios(data.usuarios);
+      } catch (error) {
+        console.error('Error:', error.message);
+      }
+    }
+
+    usuariosGet();
+
+    // Para ver que me trae del TOKEN y la DB
+    console.log(token.uid)        // ID obtenida de token
+    console.log(usuarios);    // ID obtenida de DB
+
+    const usuarioFind = usuarios.find(item => item._id === token.uid);
+  
+    if (usuarioFind) {
+      console.log('Se encontró el ID', token.uid);
+    } else {
+      console.log('No se encontró el ID');
+    }
     
     if (checkeoToken !== null) {
       setCerrarSesion(true);
-      const token = JSON.parse(atob(checkeoToken.split('.')[1]));
-      const apiUrl = 'https://backend-rolling53i.onrender.com/api/usuarios';
-
-      const usuariosGet = async () => {
-        try {
-          const response = await fetch(apiUrl);
-
-          if (!response.ok) {
-            throw new Error(`La solicitud falló con código de estado: ${response.status}`);
-          }
-
-          const data = await response.json();
-          console.log('Datos recibidos:', data);
-
-          setUsuarios(data.usuarios);
-
-          // Para ver que me trae del TOKEN y la DB
-          console.log(token.uid)        // ID obtenida de token
-          console.log(usuarios._id);    // ID obtenida de DB
-
-          const usuarioFind = usuarios.find(item => item.id === token.uid);
-        
-          if (usuarioFind) {
-            console.log('Se encontró el ID', token.id);
-          } else {
-            console.log('No se encontró el ID');
-          }
-        } catch (error) {
-          console.error('Error:', error.message);
-        }
-      }
-
-      usuariosGet();
     }
-  }, []); 
+  }, []);
 
-  /*const [usuarios, setUsuarios] = useState('[]')
-  
-  useEffect(() => {
-
-    const checkeoToken = localStorage.getItem('token');
-    if (checkeoToken !== null) {
-      setCerrarSesion(true);
-      const token = JSON.parse(atob(checkeoToken.split('.')[1]));
-
-      const apiUrl = 'https://backend-rolling53i.onrender.com/api/usuarios';
-
-      const usuariosGet = async () => {
-        try {
-          const response = await fetch(apiUrl);
-
-          if (!response.ok) {
-            throw new Error(`La solicitud falló con código de estado: ${response.status}`);
-          }
-
-          const data = await response.json();
-          console.log('Datos recibidos:', data);
-          setUsuarios([data.usuarios])
-          console.log(usuarios);
-        } catch (error) {
-          console.error('Error:', error.message);
-        }
-      }
-
-      usuariosGet();
-
-      if (Array.isArray(usuarios)) {
-        const usuarioFind = usuarios.find(item => item.id === token.id);
-      
-        if (usuarioFind) {
-          console.log('Se encontró el ID', token.id);
-        } else {
-          console.log('No se encontró el ID');
-        }
-      }
-
-    } else {
-      setCerrarSesion(false);
-    }
-  }, [cerrarSesion]);*/
+  const checkAdminUser = () => {
+    
+  };
 
 
   let activeStyle = {
