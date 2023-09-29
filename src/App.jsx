@@ -1,4 +1,5 @@
 import { Routes, Route } from 'react-router-dom'
+import PrivateRoute from './components/routes/Rutas';
 import './App.css'
 import Footer from './components/footer/Footer'
 import Navbarr from './components/navbar/Navbarr'
@@ -19,8 +20,8 @@ function App() {
       <Navbarr />
       <Routes>
         <Route path='/' element={<Home />} />
-        <Route path='/user/orders' element={<Orders/>}/>
-        <Route path='/admin' element={<Admin />} />
+        <Route path='/user/orders' element={<Orders />} />
+       
         <Route path='/about' element={<AboutUs />} />
         <Route path='/register' element={<Register />} />
         <Route path='/login' element={<Login />} />
