@@ -19,13 +19,8 @@ function Home() {
     setProducts(prom.menues);
     console.log(prom.menues);
     setLoading(false);
-<<<<<<< HEAD
-    console.log(prom)
-=======
 
->>>>>>> develop
   }
-
 
   useEffect(() => {
     productsStore();
