@@ -32,10 +32,10 @@ function AboutUs() {
 
 
 
-      <p className='text-start fs-5 mt-4'>Gracias por elegirnos. Esperamos verte pronto en Santorini Restaurant.</p> 
+      <p className=' fs-5 mt-4'>Gracias por elegirnos. Esperamos verte pronto en Santorini Restaurant.</p> 
 
       
-     <p className='text-start fs-5 mt-4 text-warning'>¡Buen provecho!</p> 
+     <p className=' fs-5 mt-4 text-warning'>¡Buen provecho!</p> 
     </div>
   )
 }
