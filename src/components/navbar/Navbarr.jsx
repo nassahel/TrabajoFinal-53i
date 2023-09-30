@@ -62,33 +62,48 @@ function Navbarr() {
   };
 
   return (
-    <Navbar collapseOnSelect expand="md" className="classnav sticky-top shadow p-lg-3 fs-5 mb-3" data-bs-theme="dark">
-      <Container fluid>
-        <NavLink to="/">
-          <img src={logoResto} width="260" className="d-inline-block align-center" alt="React Bootstrap logo" />
-        </NavLink>
-        <Navbar.Toggle aria-controls="responsive-navbar-nav classnav" />
-        <Navbar.Collapse id="responsive-navbar-nav">
-          <Nav className="justify-content-end flex-grow-1 pe-4 mb-2">
-            <NavLink to="/" className="nav-link text-light" style={({ isActive }) => (isActive ? activeStyle : undefined)}>Inicio</NavLink>
-            <NavLink to="/about" className="nav-link text-light" style={({ isActive }) => (isActive ? activeStyle : undefined)}>Nosotros</NavLink>
-            <NavLink to="/admin" className="nav-link text-light" style={({ isActive }) => (isActive ? activeStyle : undefined)}>Admin</NavLink>
-           
-          </Nav>
-          <NavLink to="/register" className='me-4' >
-             {cerrarSesion && (
-                <button className="btn btn-outline-light btn-sm" onClick={handleLogout}>Cerrar Sesión</button>
-               )}
-            <BsPersonCircle size='2rem' color='white' />
-          </NavLink >
-
-          <NavLink to="#">
-            <AiOutlineShoppingCart size='2rem' color='white' />
-          </NavLink>
-        </Navbar.Collapse>
-      </Container>
-    </Navbar>
-
+    <>
+      {userRole && (
+        <Navbar collapseOnSelect key="lg" expand="lg" className="classnav sticky-top shadow p-lg-3 fs-5 mb-3" data-bs-theme="dark">
+          <Container fluid>
+            <NavLink to="/">
+              <img src={logoResto} width="260" className="d-inline-block align-center" alt="React Bootstrap logo" />
+            </NavLink>
+            <Navbar.Toggle aria-controls="offcanvasNavbar-expand-lg classnav" />
+            <Navbar.Offcanvas
+              id="offcanvasNavbar-expand-lg"
+              aria-labelledby="offcanvasNavbarLabel-expand-lg"
+              placement="end"
+              data-bs-theme="dark"
+            >
+              <Offcanvas.Header closeButton>
+                <Offcanvas.Title id="offcanvasNavbarLabel-expand-lg">
+                  Menú
+                </Offcanvas.Title>
+              </Offcanvas.Header>
+              <Offcanvas.Body>
+                <Nav className="justify-content-end flex-grow-1 pe-4 mb-2">
+                  <NavLink to="/" className="nav-link text-light">Inicio</NavLink>
+                  <NavLink to="/about" className="nav-link text-light">Nosotros</NavLink>
+                  {userRole === 'USER_ADMIN' && (
+                    <NavLink to="/admin" className="nav-link text-light">Administración</NavLink>
+                  )}
+                  {cerrarSesion && (
+                    <button onClick={handleLogout} className="btn btn-danger">Cerrar Sesión</button>
+                  )}
+                </Nav>
+                <NavLink to="/register" className='me-4' >
+                  <BsPersonCircle size='2rem' color='white' />
+                </NavLink >
+                <NavLink to="#">
+                  <AiOutlineShoppingCart size='2rem' color='white' />
+                </NavLink>
+              </Offcanvas.Body>
+            </Navbar.Offcanvas>
+          </Container>
+        </Navbar>
+      )}
+    </>
   );
 }
 
