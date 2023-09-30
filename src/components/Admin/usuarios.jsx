@@ -1,73 +1,147 @@
 import { useEffect, useState } from 'react';
-import UsuariosResultado from './usuariosResultado';
+import UsuariosResultado from './UsuariosResultado';
 import '../Admin/styles/productos.css';
 
-
 function Usuarios() {
-  // Definir los productos iniciales de la base de datos
-/*   const usuariosBd = [
-    {
-      id: 1,
-      nombre: 'Pia Lopez',
-      correo: 'pialopez@gmail.com',
-      password: '123456',
-      estado: true,
-      rol: 'Admin',
-      direc: 'Santiago 1064'
-    },
-    {
-      id: 2,
-      nombre: 'Luis',
-      correo: 'pialopez@gmail.com',
-      password: '123456',
-      estado: true,
-      rol: 'Admin',
-      direc: 'Santiago 1064'
-    },
-    {
-      id: 3,
-      nombre: 'Nassa',
-      correo: 'pialopez@gmail.com',
-      password: '123456',
-      estado: true,
-      rol: 'Admin',
-      direc: 'Santiago 1064'
-    }
-  ]  */
-
-  // Estados para manejar productos
+  // Estados para manejar usuarios y campos del formulario
   const [usuarios, setUsuarios] = useState([]);
   const [usuario, setUsuario] = useState({});
-
-  // Estados para los campos del formulario
   const [nombre, setNombre] = useState('');
   const [correo, setCorreo] = useState('');
   const [password, setPassword] = useState('');
-  const [estado, setEstado] = useState(false); // Establecemos el valor inicial en false
+  const [estado, setEstado] = useState(false);
   const [rol, setRol] = useState('');
   const [direc, setDirec] = useState('');
 
-  const obtenerUsuarios = async () => {
+
+  // Obtener el token de localStorage y asegurarse de que sea una cadena JSON válida
+  const tokenString = localStorage.getItem('token');
+  let token;
+
+  if (tokenString) {
     try {
+      token = JSON.parse(tokenString);
+      console.log('token almacenado', token);
+    } catch (error) {
+      console.error('Error al analizar el token:', error);
+    }
+  }
+  
+
+   const obtenerUsuarios = async () => {
+      try {
+        const url = 'https://backend-rolling53i.onrender.com/api/usuarios';
+        const response = await fetch(url);
+  
+        if (!response.ok) {
+          throw new Error('No se pudo obtener la información');
+        }
+        localStorage.setItem('token', token);
+  
+        const data = await response.json();
+        setUsuarios(data.usuarios);
+      } catch (error) {
+        console.error('Error al obtener usuarios:', error);
+      }
+    };
+  
+    useEffect(() => {
+      obtenerUsuarios();
+    }, []);  // Este efecto solo se ejecuta una vez al cargar la página
+
+  // Función para agregar un nuevo usuario
+   const agregarUsuario = async () => {
+    try {
+      const newUser = {
+        nombre,
+        correo,
+        password,
+        rol,
+        estado,
+        direc,
+      };
+
       const url = 'https://backend-rolling53i.onrender.com/api/usuarios';
-      const response = await fetch(url);
+      const response = await fetch(url, {
+        method: 'POST',
+        headers: {
+          'Content-type': 'application/json; charset=UTF-8',
+          'x-token': token, // Asegurarse de que token sea un objeto válido
+        },
+        body: JSON.stringify(newUser),
+      });
 
       if (!response.ok) {
-        throw new Error('No se pudo obtener la información');
+        throw new Error('No se pudo agregar el usuario');
       }
 
-      const data = await response.json();
-      setUsuarios(data.usuarios);
+      console.log('Usuario agregado con éxito');
+      obtenerUsuarios(); // Actualizar la lista de usuarios
     } catch (error) {
-      console.error('Error al obtener usuarios:', error);
+      console.error('Error al agregar el usuario:', error);
     }
   };
 
-  useEffect(() => {
-    obtenerUsuarios();
-  }, [usuarios]);
+   // Función para editar un usuario existente
+   const editarUsuario = async () => {
+    try {
+      const updatedUser = {
+        id: usuario.id, // Usar el ID del usuario que se está editando
+        nombre,
+        correo,
+        password,
+        rol,
+        estado,
+        direc,
+      };
 
-  // Función para agregar o editar usuarios
+      const url = `https://backend-rolling53i.onrender.com/api/usuarios/${usuario.id}`; // Incluir el ID en la URL
+      const response = await fetch(url, {
+        method: 'PUT',
+        headers: {
+          'Content-type': 'application/json; charset=UTF-8',
+          'x-token': token,
+        },
+        body: JSON.stringify(updatedUser),
+      });
+
+      if (!response.ok) {
+        throw new Error('No se pudo editar el usuario');
+      }
+
+      console.log('Usuario editado con éxito');
+      obtenerUsuarios(); // Actualizar la lista de usuarios
+    } catch (error) {
+      console.error('Error al editar el usuario:', error);
+    }
+  };
+  
+
+  // Función para eliminar un usuario
+  const eliminarUsuario = async (id) => {
+    try {
+      const url = `https://backend-rolling53i.onrender.com/api/usuarios/${id}`; // Incluir el ID en la URL
+      const response = await fetch(url, {
+        method: 'DELETE',
+        headers: {
+          'Content-type': 'application/json; charset=UTF-8',
+          'x-token': token,
+        },
+      });
+  
+      if (!response.ok) {
+        throw new Error('No se pudo eliminar el usuario');
+      }
+  
+      console.log('Usuario eliminado con éxito');
+      obtenerUsuarios(); // Actualizar la lista de usuarios
+    } catch (error) {
+      console.error('Error al eliminar el usuario:', error);
+    }
+  };
+  
+
+  // Manejar el envío del formulario
   const handleSubmit = (e) => {
     e.preventDefault();
 
@@ -77,88 +151,26 @@ function Usuarios() {
       return;
     }
 
-    // Crear un nuevo usuario
-    const newUser = {
-      nombre,
-      correo,
-      password,
-      rol,
-      estado,
-      direc
-    };
-
     if (usuario.id) {
       // Editar un usuario existente
-      const updatedUsuarios = usuarios.map((u) => (u.id === usuario.id ? { ...newUser, id: u.id } : u));
-      setUsuarios(updatedUsuarios);
-      setUsuario({});
+      editarUsuario();
     } else {
       // Agregar un nuevo usuario
-      newUser.id = generoIdDinamico();
-      setUsuarios([...usuarios, newUser]);
+      agregarUsuario();
     }
 
     // Limpiar los campos del formulario
     setNombre('');
     setCorreo('');
     setPassword('');
-    setEstado(false); // Establecer el valor predeterminado en false
+    setEstado(false);
     setRol('');
     setDirec('');
-  };
-
-  // Función para eliminar un producto
-  const eliminandoUsuario = (id) => {
-    const updatedUser = usuarios.filter((p) => p.id !== id);
-    setUsuarios(updatedUser);
-  };
-
-  // Efecto para guardar y cargar productos en el localStorage
-/*   useEffect(() => {
-    // Cargar usuarios desde el localStorage al montar el componente
-    const usuariosGuardados = JSON.parse(localStorage.getItem('usuarios'));
-
-    if (usuariosGuardados) {
-      setUsuarios(usuariosGuardados);
-    }
-  }, []);
-
-  useEffect(() => {
-    // Guardar usuarios en el localStorage cuando cambien
-    localStorage.setItem('usuarios', JSON.stringify(usuarios));
-  }, [usuarios]); */
-
-  //PARA QUE APAREZCA LOS PRODUCTOS EN EL INPUT CUANDO PONGA EDITAR
-  useEffect(() => {
-    if (usuario.id) {
-      setNombre(usuario.nombre);
-      setCorreo(usuario.correo);
-      setPassword(usuario.password);
-      setEstado(usuario.estado); // Establecer como un booleano
-      setRol(usuario.rol);
-      setDirec(usuario.direc);
-    } else {
-      // Restablecer los campos del formulario cuando no se está editando
-      setNombre('');
-      setCorreo('');
-      setPassword('');
-      setEstado(false); // Establecer como false
-      setRol('');
-      setDirec('');
-    }
-  }, [usuario]);
-
-
-
-  // Función para generar un ID dinámico
-  const generoIdDinamico = () => {
-    const ran = Math.random();
-    const fecha = Date.now();
-    return ran + fecha;
+    setUsuario({}); // Limpiar el estado de usuario
   };
 
   return (
-<main>
+    <main>
       <form className="producto-contenedor d-flex flex-column align-items-center" onSubmit={handleSubmit}>
         <div className='row'>
           <div className='col-md-6'>
@@ -251,7 +263,7 @@ function Usuarios() {
               <input
                 className="mt-3 mb-5 btn btn-dark"
                 type="submit"
-                value= {usuario.id ? 'Editar Usuario' : 'Agregar Usuario'}
+                value={usuario.id ? 'Editar Usuario' : 'Agregar Usuario'}
               />
             </div>
           </div>
@@ -261,25 +273,165 @@ function Usuarios() {
       <div className="resultado">
         <UsuariosResultado
           usuarios={usuarios}
-          // setUsuario={setUsuario}
-          eliminandoUsuario={eliminandoUsuario}
+          setUsuario={setUsuario}
+          eliminarUsuario={eliminarUsuario} // Pasar la función eliminarUsuario como prop
         />
       </div>
     </main>
-
   );
 }
 
 export default Usuarios;
 
-/* <main>
-      <form className=" producto-contenedor d-flex flex-column justify-content-evenly align-items-center" onSubmit={handleSubmit}>
-        <div className=''>
-          <div className="mt-5 d-flex justify-content-center align-items-center">
-            <div className="form-group me-2">
-              <label className='text-center producto-texto fs-6' htmlFor="nombre">Nombre Usuario</label>
+
+
+/* import { useEffect, useState } from 'react';
+import UsuariosResultado from './usuariosResultado';
+import '../Admin/styles/productos.css';
+
+
+function Usuarios() {
+
+
+  // Estados para manejar productos
+  const [usuarios, setUsuarios] = useState([]);
+  const [usuario, setUsuario] = useState({});
+
+  // Estados para los campos del formulario
+  const [nombre, setNombre] = useState('');
+  const [correo, setCorreo] = useState('');
+  const [password, setPassword] = useState('');
+  const [estado, setEstado] = useState(false); // Establecemos el valor inicial en false
+  const [rol, setRol] = useState('');
+  const [direc, setDirec] = useState('');
+
+  const obtenerUsuarios = async () => {
+    try {
+      const url = 'https://backend-rolling53i.onrender.com/api/usuarios';
+      const response = await fetch(url);
+
+      if (!response.ok) {
+        throw new Error('No se pudo obtener la información');
+      }
+
+      const data = await response.json();
+      setUsuarios(data.usuarios);
+    } catch (error) {
+      console.error('Error al obtener usuarios:', error);
+    }
+  };
+
+  useEffect(() => {
+    obtenerUsuarios();
+  }, [usuarios]);
+
+  // Función para agregar o editar usuarios
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    // Validar que los campos no estén vacíos
+    if (!nombre || !correo || !password || !rol || !direc) {
+      console.log('Todos los campos deben estar completos');
+      return;
+    }
+
+    // Crear un nuevo usuario
+    const newUser = {
+      nombre,
+      correo,
+      password,
+      rol,
+      estado,
+      direc
+    };
+
+
+    if (usuario.id) {
+      // Editar un usuario existente
+      const updatedUsuarios = usuarios.map((u) => (u.id === usuario.id ? { ...newUser, id: u.id } : u));
+      setUsuarios(updatedUsuarios);
+      setUsuario({});
+    } else {
+      // Agregar un nuevo usuario
+      newUser.id = generoIdDinamico();
+      setUsuarios([...usuarios, newUser]);
+    }
+
+    // Limpiar los campos del formulario
+    setNombre('');
+    setCorreo('');
+    setPassword('');
+    setEstado(false); // Establecer el valor predeterminado en false
+    setRol('');
+    setDirec('');
+  };
+
+  // Función para eliminar un producto
+  const eliminandoUsuario = async (id) => {
+    const url = `https://backend-rolling53i.onrender.com/api/usuarios/${id}`;
+
+    try {
+      const response = await fetch(url, {
+        method: 'DELETE',
+        headers: {
+          'Content-Type': 'application/json',
+          // Puedes incluir otros encabezados si es necesario, como tokens de autenticación
+        },
+      });
+
+      if (!response.ok) {
+        throw new Error('No se pudo eliminar el usuario');
+      }
+
+      console.log('Usuario eliminado con éxito');
+    } catch (error) {
+      console.error('Error al eliminar el usuario:', error);
+    }
+  }; */
+
+/*   const eliminandoUsuario = (id) => {
+    const updatedUser = usuarios.filter((p) => p.id !== id);
+    setUsuarios(updatedUser);
+  }; */
+
+//PARA QUE APAREZCA LOS PRODUCTOS EN EL INPUT CUANDO PONGA EDITAR
+/* useEffect(() => {
+  if (usuario.id) {
+    setNombre(usuario.nombre);
+    setCorreo(usuario.correo);
+    setPassword(usuario.password);
+    setEstado(usuario.estado); // Establecer como un booleano
+    setRol(usuario.rol);
+    setDirec(usuario.direc);
+  } else {
+    // Restablecer los campos del formulario cuando no se está editando
+    setNombre('');
+    setCorreo('');
+    setPassword('');
+    setEstado(false); // Establecer como false
+    setRol('');
+    setDirec('');
+  }
+}, [usuario]); */
+
+
+
+// Función para generar un ID dinámico
+/*   const generoIdDinamico = () => {
+    const ran = Math.random();
+    const fecha = Date.now();
+    return ran + fecha;
+  };
+
+  return (
+    <main>
+      <form className="producto-contenedor d-flex flex-column align-items-center" onSubmit={handleSubmit}>
+        <div className='row'>
+          <div className='col-md-6'>
+            <div className='mt-3 text-center'>
+              <label className='producto-texto fs-6' htmlFor="nombre">Nombre Usuario</label>
               <input
-                className='form-control input-productos'
+                className='input-productos w-75 p-1 input-nombre rounded border border-black border-opacity-50'
                 type="text"
                 name="nombre"
                 id="nombre"
@@ -288,10 +440,10 @@ export default Usuarios;
                 onChange={(e) => setNombre(e.target.value)}
               />
             </div>
-            <div className="form-group ms-2 me-2">
-              <label className='text-center producto-texto fs-6' htmlFor="email">Email Usuario</label>
+            <div className='mt-3 text-center'>
+              <label className='producto-texto fs-6' htmlFor="email">Email Usuario</label>
               <input
-                className='form-control input-productos'
+                className='input-productos p-1 w-75 input-nombre rounded border border-black border-opacity-50'
                 type="text"
                 name="email"
                 id="email"
@@ -301,14 +453,11 @@ export default Usuarios;
               />
             </div>
           </div>
-        </div>
-
-        <div className='mt-3'>
-          <div className="d-flex justify-content-start align-items-center">
-            <div className="form-group me-5">
-              <label className='text-center producto-texto fs-6' htmlFor="password">Contraseña Usuario</label>
+          <div className='col-md-6'>
+            <div className='mt-3 text-center'>
+              <label className='producto-texto fs-6' htmlFor="password">Contraseña Usuario</label>
               <input
-                className='form-control input-productos'
+                className='input-productos w-75 p-1 input-nombre rounded border border-black border-opacity-50'
                 type="text"
                 name="password"
                 id="password"
@@ -317,10 +466,10 @@ export default Usuarios;
                 onChange={(e) => setPassword(e.target.value)}
               />
             </div>
-            <div className="form-group ms-5">
-              <label className='text-center producto-texto fs-6' htmlFor="activo">Usuario Activo</label>
+            <div className='mt-3 text-center'>
+              <label className='producto-texto fs-6' htmlFor="activo">Usuario Activo</label>
               <select
-                className='form-control input-productos w-xx' // Aumenta la anchura al 50% del contenedor
+                className='input-productos w-75 p-1 input-nombre rounded border border-black border-opacity-50'
                 name="activo"
                 id="activo"
                 value={estado}
@@ -330,29 +479,30 @@ export default Usuarios;
                 <option value={false}>No</option>
               </select>
             </div>
-
           </div>
         </div>
 
-        <div className='mt-3'>
-          <div className="d-flex justify-content-start align-items-center">
-            <div className="form-group me-2">
-              <label className='text-center producto-texto fs-6' htmlFor="address">Dirección Usuario</label>
+        <div className='row'>
+          <div className='col-md-6'>
+            <div className='mt-3 text-center'>
+              <label className='producto-texto fs-6' htmlFor="direc">Dirección Usuario</label>
               <input
-                className='form-control input-productos'
-                name="address"
-                id="address"
+                className='input-productos w-75 p-1 input-nombre rounded border border-black border-opacity-50'
+                name="direc"
+                id="direc"
                 placeholder="Dirección del Usuario"
                 value={direc}
                 onChange={(e) => setDirec(e.target.value)}
               />
             </div>
-            <div className="form-group ms-2">
-              <label className='text-center producto-texto fs-6' htmlFor="role">Rol del Usuario</label>
+          </div>
+          <div className='col-md-6'>
+            <div className='mt-3 text-center'>
+              <label className='producto-texto fs-6' htmlFor="rol">Rol del Usuario</label>
               <input
-                className='form-control input-productos'
-                name="role"
-                id="role"
+                className='mt-0 input-descripcion w-75 p-2 input-nombre rounded border border-black border-opacity-50'
+                name="rol"
+                id="rol"
                 placeholder="Rol del Usuario"
                 value={rol}
                 onChange={(e) => setRol(e.target.value)}
@@ -361,14 +511,15 @@ export default Usuarios;
           </div>
         </div>
 
-        <div className=''>
-          <div className="d-flex justify-content-center align-items-center">
-            <button
-              className="mt-3 mb-5 btn btn-dark"
-              type="submit"
-            >
-              {usuario.id ? 'Editar Usuario' : 'Agregar Usuario'}
-            </button>
+        <div className='row'>
+          <div className='col-md-12'>
+            <div className=' text-center'>
+              <input
+                className="mt-3 mb-5 btn btn-dark"
+                type="submit"
+                value={usuario.id ? 'Editar Usuario' : 'Agregar Usuario'}
+              />
+            </div>
           </div>
         </div>
       </form>
@@ -380,4 +531,9 @@ export default Usuarios;
           eliminandoUsuario={eliminandoUsuario}
         />
       </div>
-    </main> */
+    </main>
+
+  );
+}
+
+export default Usuarios;  */

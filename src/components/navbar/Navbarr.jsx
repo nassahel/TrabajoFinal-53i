@@ -1,78 +1,64 @@
-
+import React, { useState, useEffect } from 'react';
+import { NavLink } from "react-router-dom";
+import { BsPersonCircle } from "react-icons/bs";
+import { AiOutlineShoppingCart } from "react-icons/ai";
+import Offcanvas from 'react-bootstrap/Offcanvas';
 import Container from "react-bootstrap/Container";
 import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
-import { NavLink } from "react-router-dom";
-import React, { useState, useEffect } from 'react';
-import { BsPersonCircle } from "react-icons/bs";
-import { AiOutlineShoppingCart } from "react-icons/ai";
 import logoResto from '../../assets/img/hnb.png'
 import "./navbar.css";
 
 function Navbarr() {
-
-  const [userRole, setUserRole] = useState('USER_NORMAL'); // Cambia el valor inicial según tus necesidades
-  const [cerrarSesion, setCerrarSesion] = useState('');
-
-  const [usuarios, setUsuarios] = useState([]); // Inicializa 'usuarios' como un arreglo vacío
+  const [userRole, setUserRole] = useState('USER_NORMAL');
+  const [cerrarSesion, setCerrarSesion] = useState(false);
+  const [usuarios, setUsuarios] = useState([]);
 
   useEffect(() => {
     const checkeoToken = localStorage.getItem('token');
 
-    const token = JSON.parse(atob(checkeoToken.split('.')[1]));
-    const apiUrl = 'https://backend-rolling53i.onrender.com/api/usuarios';
 
-    const usuariosGet = async () => {
-      try {
-        const response = await fetch(apiUrl);
+    if (checkeoToken) {
+      const tokenData = JSON.parse(atob(checkeoToken.split('.')[1])); //problema solucionado 
+      const tokenUserId = tokenData.uid;
 
-        if (!response.ok) {
-          throw new Error(`La solicitud falló con código de estado: ${response.status}`);
+
+      const apiUrl = 'https://backend-rolling53i.onrender.com/api/usuarios';
+
+      const usuariosGet = async () => {
+        try {
+          const response = await fetch(apiUrl);
+
+          if (!response.ok) {
+            throw new Error(`La solicitud falló con código de estado: ${response.status}`);
+          }
+
+          const data = await response.json();
+          setUsuarios(data.usuarios);
+
+          const usuarioFind = data.usuarios.find(item => item._id === tokenUserId);
+
+          if (usuarioFind) {
+            if (usuarioFind.rol === 'USER_ADMIN') {
+              setUserRole('USER_ADMIN');
+            }
+          }
+
+
+          setCerrarSesion(true);
+        } catch (error) {
+          console.error('Error:', error.message);
         }
-
-        const data = await response.json();
-        console.log('Datos recibidos:', data);
-
-        setUsuarios(data.usuarios);
-      } catch (error) {
-        console.error('Error:', error.message);
       }
-    }
 
-    usuariosGet();
-
-    // Para ver que me trae del TOKEN y la DB
-    console.log(token.uid)        // ID obtenida de token
-    console.log(usuarios);    // ID obtenida de DB
-
-    const usuarioFind = usuarios.find(item => item._id === token.uid);
-  
-    if (usuarioFind) {
-      console.log('Se encontró el ID', token.uid);
-    } else {
-      console.log('No se encontró el ID');
-    }
-    
-    if (checkeoToken !== null) {
-      setCerrarSesion(true);
+      usuariosGet();
     }
   }, []);
 
-  const checkAdminUser = () => {
-    
-  };
 
-
-  let activeStyle = {
-    textDecoration: 'underline',
-    textDecorationColor: '#FFC107',
-    fontWeight: 'bold'
-  }
   const handleLogout = () => {
-    // Eliminar el token del almacenamiento local (localStorage)
     localStorage.removeItem('token');
-    // Redirigir al usuario a la página de inicio de sesión
-    window.location.href = '/login'; // Redirigir a la página de inicio de sesión
+    window.location.href = '/login';
   };
 
   return (
@@ -107,3 +93,4 @@ function Navbarr() {
 }
 
 export default Navbarr;
+
