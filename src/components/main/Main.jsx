@@ -30,7 +30,7 @@ function Main({ products, searchTerm, loading }) {
                                 <h5 className='card-title'>${product.price}</h5>
                                 <button 
                                 onClick={()=> navigate("/user/orders", { state: product })}
-                                className='btn btn-outline-warning rounded-0 fw-bold'>Comprar</button>
+                                className='btn btn-outline-warning rounded-0 fw-bold'>Agregar al carrito</button>
                             </div>
                         </div>
                     </div>
@@ -48,7 +48,7 @@ function Main({ products, searchTerm, loading }) {
                                 <h5 className='card-title'>${product.price}</h5>
                                 <button 
                                 onClick={()=> navigate("/user/orders", { state: product })}
-                                className='btn btn-outline-warning rounded-0 fw-bold'>Comprar</button>
+                                className='btn btn-outline-warning rounded-0 fw-bold'>Agregar al carrito</button>
                             </div>
                         </div>
                     </div>
@@ -67,7 +67,7 @@ function Main({ products, searchTerm, loading }) {
                                 <h5 className='card-title'>${product.price}</h5>
                                 <button 
                                 onClick={()=> navigate("/user/orders", { state: product })}
-                                className='btn btn-outline-warning rounded-0 fw-bold'>Comprar</button>
+                                className='btn btn-outline-warning rounded-0 fw-bold'>Agregar al carrito</button>
                             </div>
                         </div>
                     </div>
@@ -87,7 +87,7 @@ function Main({ products, searchTerm, loading }) {
                                 <h5 className='card-title'>${product.price}</h5>
                                 <button 
                                 onClick={()=> navigate("/user/carrito", { state: product })}
-                                className='btn btn-outline-warning rounded-0 fw-bold'>Comprar</button>
+                                className='btn btn-outline-warning rounded-0 fw-bold'>Agregar al carrito</button>
                             </div>
                         </div>
                     </div>
