@@ -156,9 +156,7 @@ function Register() {
           ) : null}
 
         </div>
-
         {error && <p>todos los campos son obligatorios.</p>}
-
       </div>
     </div>
   )

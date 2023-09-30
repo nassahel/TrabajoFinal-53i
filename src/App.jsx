@@ -7,6 +7,7 @@ import Admin from './pages/Admin2/Admin'
 import AboutUs from './pages/aboutUs/AboutUs'
 import Register from './pages/register/Register'
 import Login from './pages/login/Login'
+import Orders from './pages/orders/Orders'
 
 
 
@@ -18,6 +19,7 @@ function App() {
       <Navbarr />
       <Routes>
         <Route path='/' element={<Home />} />
+        <Route path='/user/orders' element={<Orders />} />
         <Route path='/admin' element={<Admin />} />
         <Route path='/about' element={<AboutUs />} />
         <Route path='/register' element={<Register />} />
