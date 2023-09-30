@@ -21,6 +21,7 @@ function Navbarr() {
     const checkeoToken = localStorage.getItem('token');
 
     const token = JSON.parse(atob(checkeoToken.split('.')[1]));
+
     const apiUrl = 'https://backend-rolling53i.onrender.com/api/usuarios';
 
     const usuariosGet = async () => {
@@ -47,21 +48,18 @@ function Navbarr() {
     console.log(usuarios);    // ID obtenida de DB
 
     const usuarioFind = usuarios.find(item => item._id === token.uid);
-  
+
     if (usuarioFind) {
       console.log('Se encontró el ID', token.uid);
     } else {
       console.log('No se encontró el ID');
     }
-    
+
     if (checkeoToken !== null) {
       setCerrarSesion(true);
     }
   }, []);
 
-  const checkAdminUser = () => {
-    
-  };
 
 
   let activeStyle = {
