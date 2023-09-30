@@ -4,7 +4,7 @@ import logoResto from '../../assets/img/hnb.png'
 function AboutUs() {
   return (
     <div className='container bg-dark text-center bg-opacity-75 text-light p-4 my-4'>
-      <img src={logoResto} width={500} alt="logo" className='pb-4'/>
+      <img src={logoResto} width={500} alt="logo" className='pb-4 img-fluid'/>
       <br />
       <br />
       <h2 className='text-warning mb-3'>Sobre Nosotros</h2>
