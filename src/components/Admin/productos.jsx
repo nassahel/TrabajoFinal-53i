@@ -4,44 +4,44 @@ import '../Admin/styles/productos.css';
 
 function Productos() {
   // Definir los productos iniciales de la base de datos
-/*   const productosBd = [
-    {
-      id: 0,
-      name: 'Pollo con Papas',
-      detail: 'Pollo con papas noisette',
-      image: 'https://i.pinimg.com/564x/f7/e0/12/f7e01237dad015937aedb9e3f358ceb1.jpg',
-      price: 2100,
-      active: true,
-      category: 'Entradas'
-    },
-    {
-      id: 1,
-      name: 'Pizza Margarita',
-      detail: 'Pizza margarita con aceitunas verdes, ocho porciones',
-      image: 'https://i.pinimg.com/564x/82/92/9c/82929cc929136c3cf1bdf7d8faa7662a.jpg',
-      price: 2400,
-      active: true,
-      category: 'Pizzas'
-    },
-    {
-      id: 2,
-      name: 'Milanesa Napolitana',
-      detail: 'Milanesa napolitana con porcion de papas fritas',
-      image: 'https://i.pinimg.com/564x/c4/0e/0e/c40e0ec7c86a6a5eeee14c23b31da79c.jpg',
-      price: 2000,
-      active: true,
-      category: 'Entradas'
-    },
-    {
-      id: 3,
-      name: 'Sandwich de ternera',
-      detail: 'Sandwich de ternera y queso con tomate',
-      image: 'https://i.pinimg.com/564x/c4/0e/0e/c40e0ec7c86a6a5eeee14c23b31da79c.jpg',
-      price: 1300,
-      active: true,
-      category: 'Entradas'
-    }
-  ]; */
+  /*   const productosBd = [
+      {
+        id: 0,
+        name: 'Pollo con Papas',
+        detail: 'Pollo con papas noisette',
+        image: 'https://i.pinimg.com/564x/f7/e0/12/f7e01237dad015937aedb9e3f358ceb1.jpg',
+        price: 2100,
+        active: true,
+        category: 'Entradas'
+      },
+      {
+        id: 1,
+        name: 'Pizza Margarita',
+        detail: 'Pizza margarita con aceitunas verdes, ocho porciones',
+        image: 'https://i.pinimg.com/564x/82/92/9c/82929cc929136c3cf1bdf7d8faa7662a.jpg',
+        price: 2400,
+        active: true,
+        category: 'Pizzas'
+      },
+      {
+        id: 2,
+        name: 'Milanesa Napolitana',
+        detail: 'Milanesa napolitana con porcion de papas fritas',
+        image: 'https://i.pinimg.com/564x/c4/0e/0e/c40e0ec7c86a6a5eeee14c23b31da79c.jpg',
+        price: 2000,
+        active: true,
+        category: 'Entradas'
+      },
+      {
+        id: 3,
+        name: 'Sandwich de ternera',
+        detail: 'Sandwich de ternera y queso con tomate',
+        image: 'https://i.pinimg.com/564x/c4/0e/0e/c40e0ec7c86a6a5eeee14c23b31da79c.jpg',
+        price: 1300,
+        active: true,
+        category: 'Entradas'
+      }
+    ]; */
 
 
   // Estados para manejar productos
@@ -56,40 +56,121 @@ function Productos() {
   const [category, setCategory] = useState('');
   const [active, setActive] = useState(false);
 
-/*   const tokenString = localStorage.getItem("token");
-  let token;
-  const url='https://backend-rolling53i.onrender.com/api/menu'
- */
-/* if (tokenString) {
-  try {
-    token = JSON.parse(tokenString);
-  } catch (error) {
-    console.error("Error al analizar el token:", error);
+  let token = localStorage.getItem('token');
+
+  //TRAER PRODUCTOS DEL BACKEND
+  const productsStore = async () => {
+
+    const data = await fetch('https://backend-rolling53i.onrender.com/api/menu');
+    const prom = await data.json();
+    console.log(prom);
+    setProductos(prom.menues);
+
   }
-} */
-/* 
-  const obtenerProductos = async () => {
+
+  useEffect(() => {
+    productsStore();
+  }, []);
+
+
+  //AGREGAR PRODUCTOS AL BACKEND
+  const agregarProductos = async () => {
     try {
-      const resp = await fetch(url,{
-        method: "GET",
-  
+      const newProduct = {
+        name,
+        detail,
+        image,
+        price: Number(price), // Convertir a número
+        category,
+        active
+      };
+
+      const url = 'https://backend-rolling53i.onrender.com/api/menu';
+      const response = await fetch(url, {
+        method: 'POST',
+        headers: {
+          'Content-type': 'application/json; charset=UTF-8',
+          'x-token': token, // Asegurarse de que token sea un objeto válido
+        },
+        body: JSON.stringify(newProduct),
+      });
+
+      if (!response.ok) {
+        throw new Error('No se pudo agregar el usuario');
+      }
+
+      console.log('Producto agregado con éxito');
+      productsStore(); // Actualizar la lista de productos
+    } catch (error) {
+      console.error('Error al agregar el usuario:', error);
+    }
+  };
+
+  //EDITAR PRODUCTOS DEL BACKEND
+
+  const editarProducto = async () => {
+    try {
+      const updatedProduct = {
+        _id: productos.id, // Usar el ID del usuario que se está editando
+        name,
+        detail,
+        image,
+        price,
+        category,
+        active
+      };
+
+      const url = `https://backend-rolling53i.onrender.com/api/menu`; // Incluir el ID en la URL
+      const response = await fetch(url + "/" + id, {
+        method: 'PUT',
+        headers: {
+          'Content-type': 'application/json; charset=UTF-8',
+          'x-token': token,
+        },
+        body: JSON.stringify(updatedProduct),
+      });
+
+      if (!response.ok) {
+        throw new Error('No se pudo editar el usuario');
+      }
+
+      console.log('Usuario editado con éxito');
+      productsStore(); // Actualizar la lista de usuarios
+    } catch (error) {
+      console.error('Error al editar el usuario:', error);
+    }
+  };
+
+
+  //ELIMINAR LOS PRODUCTOS DEL BACKEND
+/*   const eliminarProducto = async (id) => {
+    try {
+      const url = `https://backend-rolling53i.onrender.com/api/menu`;
+      const resp = await fetch(url + "/" + id, {
+        method: "DELETE",
         headers: {
           "Content-type": "application/json; charset=UTF-8",
           "x-token": token,
         },
       });
+  
       const data = await resp.json();
+  
       return data;
     } catch (error) {
       console.log(error);
-      throw new Error("No se pudo obtener la info");
+      return { msg: "No se conectó con backend" };
     }
   };
 
+  
   useEffect(() => {
-    obtenerProductos();
-  }, []);
- */
+    eliminarProducto();
+  }, []); */
+
+  
+
+
   // Función para agregar o editar productos
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -101,24 +182,16 @@ function Productos() {
     }
 
     // Crear un nuevo producto
-    const newProduct = {
-      name,
-      detail,
-      image,
-      price: Number(price), // Convertir a número
-      category,
-      active
-    };
 
     if (producto.id) {
       // Editar un producto existente
-      const updatedProducts = productos.map((p) => (p.id === producto.id ? { ...newProduct, id: p.id } : p));
+      editarProducto()
+      /* const updatedProducts = productos.map((p) => (p.id === producto.id ? { ...newProduct, id: p.id } : p));
       setProductos(updatedProducts);
-      setProducto({});
+      setProducto({}); */
     } else {
       // Agregar un nuevo producto
-      newProduct.id = generoIdDinamico();
-      setProductos([...productos, newProduct]);
+      agregarProductos()
     }
 
     // Limpiar los campos del formulario
@@ -131,42 +204,42 @@ function Productos() {
   };
 
   // Función para eliminar un producto
-  const eliminandoProducto = (id) => {
-    const updatedProducts = productos.filter((p) => p.id !== id);
-    setProductos(updatedProducts);
-  };
+  /*   const eliminandoProducto = (id) => {
+      const updatedProducts = productos.filter((p) => p.id !== id);
+      setProductos(updatedProducts);
+    }; */
 
   // Efecto para guardar y cargar productos en el localStorage
-  useEffect(() => {
-    // Cargar productos desde el localStorage al montar el componente
-    const productosGuardados = JSON.parse(localStorage.getItem('productos'));
+  /*   useEffect(() => {
+      // Cargar productos desde el localStorage al montar el componente
+      const productosGuardados = JSON.parse(localStorage.getItem('productos'));
+  
+      if (productosGuardados) {
+        setProductos(productosGuardados);
+      } else {
+        // Si no hay productos en el localStorage, establecer los productos iniciales de la base de datos
+        setProductos(productos);
+      }
+    }, []); */
 
-    if (productosGuardados) {
-      setProductos(productosGuardados);
-    } else {
-      // Si no hay productos en el localStorage, establecer los productos iniciales de la base de datos
-      setProductos(productos);
-    }
-  }, []);
-
-  useEffect(() => {
-    // Guardar productos en el localStorage cuando cambien
-    localStorage.setItem('productos', JSON.stringify(productos));
-  }, [productos]);
+  /*   useEffect(() => {
+      // Guardar productos en el localStorage cuando cambien
+      localStorage.setItem('productos', JSON.stringify(productos));
+    }, [productos]); */
 
   //PARA QUE APAREZCA LOS PRODUCTOS EN EL INPUT CUANDO PONGA EDITAR
-  useEffect(() => {
-    if (Object.keys(producto.length > 0)) {
-      setName(producto.name)
-      setDetail(producto.detail)
-      setImage(producto.image)
-      setPrice(producto.price)
-      setActive(producto.active)
-      setCategory(producto.category)
-    } else {
-      console.log('No hay nada en el array de tarea');
-    }
-  }, [producto])
+   useEffect(() => {
+      if (Object.keys(producto.length > 0)) {
+        setName(producto.name)
+        setDetail(producto.detail)
+        setImage(producto.image)
+        setPrice(producto.price)
+        setActive(producto.active)
+        setCategory(producto.category)
+      } else {
+        console.log('No hay nada en el array de tarea');
+      }
+    }, [producto])
 
   // Función para generar un ID dinámico
   const generoIdDinamico = () => {
@@ -287,7 +360,7 @@ function Productos() {
         <Resultado
           productos={productos}
           setProducto={setProducto}
-          eliminandoProducto={eliminandoProducto}
+          //eliminarProducto={eliminarProducto}
         />
       </div>
     </main>

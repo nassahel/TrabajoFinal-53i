@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import UsuariosResultado from './UsuariosResultado';
+import UsuariosResultado from './usuariosResultado';
 import '../Admin/styles/productos.css';
 
 function Usuarios() {
@@ -129,7 +129,6 @@ function Usuarios() {
       console.error('Error al eliminar el usuario:', error);
     }
   };
-
 
   // Manejar el envío del formulario
   const handleSubmit = (e) => {

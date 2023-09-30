@@ -22,7 +22,7 @@ const UsuariosResultado = ({ usuarios, setUsuario, eliminarUsuario }) => {
             <p> <span className='fw-semibold'>Rol del Usuario:</span> {usuario.rol}</p>
           </div>
           <div className='boton-editar-eliminar'>
-            <button className='mb-2 btn btn-dark' type="button" onClick={() => setUsuario(usuario)}>Editar</button>
+            <button className='mb-2 btn btn-dark' type="button" onClick={() => setUsuario(usuario.id)}>Editar</button>
             <button
               className='mb-2 btn btn-dark'
               onClick={() => handleEliminar(usuario.id)} // Utiliza la función handleEliminar para eliminar usuarios

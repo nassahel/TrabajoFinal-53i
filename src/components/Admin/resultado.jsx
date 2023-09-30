@@ -1,17 +1,16 @@
 import './styles/resultado.css'
-const Resultado = ({ productos, setProducto, eliminandoProducto, eliminandoProductoExistente }) => {
+const Resultado = ({ productos, setProducto, eliminarProductos }) => {
+
   const handleEliminar = (id) => {
     const respuesta = confirm('¿Desea eliminar el producto?')
     if (respuesta) {
-      eliminandoProducto(id)
-      eliminandoProductoExistente(id)
+      eliminarProductos(id)
     }
   }
 
 
   return (
     <div>
-      {productos && productos.length ? (
         <>
           {productos.map((producto, index) => (
             <div key={index} className="contenedor-agregados agregados-texto">
@@ -26,21 +25,16 @@ const Resultado = ({ productos, setProducto, eliminandoProducto, eliminandoProdu
               <div>
               </div>
               <div className='boton-editar-eliminar'>
-                <button className='mb-2 btn btn-dark h-25' type="button" onClick={() => setProducto(producto)}>Editar</button>
+                <button className='mb-2 btn btn-dark h-25' type="button" onClick={() => setProducto(producto.id)}>Editar</button>
                 <button
                   className='mb-2 btn btn-dark w-100'
-                  onClick={() => { handleEliminar(producto.id) }} >
+                  onClick={() => { handleEliminar(producto._id) }} >
                   Eliminar
                 </button>
               </div>
             </div>
           ))}
         </>
-      ) : (
-        <>
-          <p>No hay tareas</p>
-        </>
-      )}
     </div>
   )
 }
