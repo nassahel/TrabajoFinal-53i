@@ -82,7 +82,6 @@ function Login() {
                             onChange={(e) => setCorreo(e.target.value)}
                         />
                     </>
-
                     <>
                         <Form.Label>Contraseña:</Form.Label>
                         <Form.Control

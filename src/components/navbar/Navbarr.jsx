@@ -1,4 +1,4 @@
-
+w
 import Container from "react-bootstrap/Container";
 import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
@@ -21,6 +21,7 @@ function Navbarr() {
     const checkeoToken = localStorage.getItem('token');
 
     const token = JSON.parse(atob(checkeoToken.split('.')[1]));
+
     const apiUrl = 'https://backend-rolling53i.onrender.com/api/usuarios';
 
     const usuariosGet = async () => {
@@ -58,6 +59,9 @@ function Navbarr() {
       setCerrarSesion(true);
     }
   }, []);
+
+
+
   let activeStyle = {
     textDecoration: 'underline',
     textDecorationColor: '#FFC107',
