@@ -6,32 +6,28 @@ const Pedidos = () => {
     {
       user: 'Nassahel Elias',
       id: 1,
-      status: 'Pendiente'
+      status: false // Cambiado a booleano (Pendiente)
     },
     {
       user: 'Pia Lopez',
       id: 2,
-      status: 'Realizado'
+      status: true // Cambiado a booleano (Realizado)
     },
     {
       user: 'Luis Chehin',
       id: 3,
-      status: 'Pendiente'
+      status: false // Cambiado a booleano (Pendiente)
     },
   ];
 
   const [pedidos, setPedidos] = useState(pedidosBd);
   const [pedido, setPedido] = useState({});
-  const [status, setStatus] = useState('');
+  const [status, setStatus] = useState(false); // Inicializado con false (Pendiente)
 
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    // Validar que los campos no estén vacíos
-    if (!status) {
-      console.log('El campo de estado debe estar completo');
-      return;
-    }
+    // Validar que los campos no estén vacíos (ya que status es un booleano, no necesitas esta validación)
 
     // Buscar el índice del pedido a editar
     const pedidoIndex = pedidos.findIndex((p) => p.id === pedido.id);
@@ -51,7 +47,7 @@ const Pedidos = () => {
     }
 
     // Limpiar el campo de estado
-    setStatus('');
+    setStatus(false);
   };
 
   return (
@@ -64,11 +60,11 @@ const Pedidos = () => {
             name="status"
             id="status"
             placeholder="Producto status"
-            value={status}
-            onChange={(e) => setStatus(e.target.value)} // Actualizar el estado del campo de estado
+            value={status} // El valor de status debe ser false (Pendiente) o true (Realizado)
+            onChange={(e) => setStatus(e.target.value === 'true')} // Actualizar el estado del campo de estado
           >
-            <option>Pendiente</option>
-            <option>Realizado</option>
+            <option value={false}>Pendiente</option>
+            <option value={true}>Realizado</option>
           </select>
         </div>
         <input
@@ -89,4 +85,3 @@ const Pedidos = () => {
 }
 
 export default Pedidos;
-
