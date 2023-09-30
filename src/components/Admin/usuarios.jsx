@@ -15,42 +15,32 @@ function Usuarios() {
 
 
   // Obtener el token de localStorage y asegurarse de que sea una cadena JSON válida
-  const tokenString = localStorage.getItem('token');
-  let token;
+  let token = localStorage.getItem('token');
 
-  if (tokenString) {
+
+  const obtenerUsuarios = async () => {
     try {
-      token = JSON.parse(tokenString);
-      console.log('token almacenado', token);
-    } catch (error) {
-      console.error('Error al analizar el token:', error);
-    }
-  }
-  
+      const url = 'https://backend-rolling53i.onrender.com/api/usuarios';
+      const response = await fetch(url);
 
-   const obtenerUsuarios = async () => {
-      try {
-        const url = 'https://backend-rolling53i.onrender.com/api/usuarios';
-        const response = await fetch(url);
-  
-        if (!response.ok) {
-          throw new Error('No se pudo obtener la información');
-        }
-        localStorage.setItem('token', token);
-  
-        const data = await response.json();
-        setUsuarios(data.usuarios);
-      } catch (error) {
-        console.error('Error al obtener usuarios:', error);
+      if (!response.ok) {
+        throw new Error('No se pudo obtener la información');
       }
-    };
-  
-    useEffect(() => {
-      obtenerUsuarios();
-    }, []);  // Este efecto solo se ejecuta una vez al cargar la página
+      localStorage.setItem('token', token);
+
+      const data = await response.json();
+      setUsuarios(data.usuarios);
+    } catch (error) {
+      console.error('Error al obtener usuarios:', error);
+    }
+  };
+
+  useEffect(() => {
+    obtenerUsuarios();
+  }, []);  // Este efecto solo se ejecuta una vez al cargar la página
 
   // Función para agregar un nuevo usuario
-   const agregarUsuario = async () => {
+  const agregarUsuario = async () => {
     try {
       const newUser = {
         nombre,
@@ -82,8 +72,8 @@ function Usuarios() {
     }
   };
 
-   // Función para editar un usuario existente
-   const editarUsuario = async () => {
+  // Función para editar un usuario existente
+  const editarUsuario = async () => {
     try {
       const updatedUser = {
         id: usuario.id, // Usar el ID del usuario que se está editando
@@ -115,7 +105,7 @@ function Usuarios() {
       console.error('Error al editar el usuario:', error);
     }
   };
-  
+
 
   // Función para eliminar un usuario
   const eliminarUsuario = async (id) => {
@@ -128,18 +118,18 @@ function Usuarios() {
           'x-token': token,
         },
       });
-  
+
       if (!response.ok) {
         throw new Error('No se pudo eliminar el usuario');
       }
-  
+
       console.log('Usuario eliminado con éxito');
       obtenerUsuarios(); // Actualizar la lista de usuarios
     } catch (error) {
       console.error('Error al eliminar el usuario:', error);
     }
   };
-  
+
 
   // Manejar el envío del formulario
   const handleSubmit = (e) => {

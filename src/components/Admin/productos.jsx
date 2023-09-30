@@ -56,18 +56,18 @@ function Productos() {
   const [category, setCategory] = useState('');
   const [active, setActive] = useState(false);
 
-  const tokenString = localStorage.getItem("token");
+/*   const tokenString = localStorage.getItem("token");
   let token;
   const url='https://backend-rolling53i.onrender.com/api/menu'
-
-if (tokenString) {
+ */
+/* if (tokenString) {
   try {
     token = JSON.parse(tokenString);
   } catch (error) {
     console.error("Error al analizar el token:", error);
   }
-}
-
+} */
+/* 
   const obtenerProductos = async () => {
     try {
       const resp = await fetch(url,{
@@ -89,7 +89,7 @@ if (tokenString) {
   useEffect(() => {
     obtenerProductos();
   }, []);
-
+ */
   // Función para agregar o editar productos
   const handleSubmit = (e) => {
     e.preventDefault();
