@@ -1,5 +1,4 @@
 import React from 'react'
-import spinner from '../../assets/img/loading-gif.gif'
 import Spinner from 'react-bootstrap/Spinner';
 import './spiner.css'
 
