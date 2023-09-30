@@ -4,7 +4,7 @@ import '../Admin/styles/productos.css';
 
 function Productos() {
   // Definir los productos iniciales de la base de datos
-  const productosBd = [
+/*   const productosBd = [
     {
       id: 0,
       name: 'Pollo con Papas',
@@ -41,11 +41,11 @@ function Productos() {
       active: true,
       category: 'Entradas'
     }
-  ];
+  ]; */
 
 
   // Estados para manejar productos
-  const [productos, setProductos] = useState(productosBd);
+  const [productos, setProductos] = useState([]);
   const [producto, setProducto] = useState({});
 
   // Estados para los campos del formulario
@@ -55,6 +55,40 @@ function Productos() {
   const [price, setPrice] = useState('');
   const [category, setCategory] = useState('');
   const [active, setActive] = useState(false);
+
+  const tokenString = localStorage.getItem("token");
+  let token;
+  const url='https://backend-rolling53i.onrender.com/api/menu'
+
+if (tokenString) {
+  try {
+    token = JSON.parse(tokenString);
+  } catch (error) {
+    console.error("Error al analizar el token:", error);
+  }
+}
+
+  const obtenerProductos = async () => {
+    try {
+      const resp = await fetch(url,{
+        method: "GET",
+  
+        headers: {
+          "Content-type": "application/json; charset=UTF-8",
+          "x-token": token,
+        },
+      });
+      const data = await resp.json();
+      return data;
+    } catch (error) {
+      console.log(error);
+      throw new Error("No se pudo obtener la info");
+    }
+  };
+
+  useEffect(() => {
+    obtenerProductos();
+  }, []);
 
   // Función para agregar o editar productos
   const handleSubmit = (e) => {

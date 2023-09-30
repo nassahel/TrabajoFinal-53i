@@ -17,9 +17,11 @@ function Navbarr() {
   useEffect(() => {
     const checkeoToken = localStorage.getItem('token');
 
+
     if (checkeoToken) {
       const tokenData = JSON.parse(atob(checkeoToken.split('.')[1])); //problema solucionado 
       const tokenUserId = tokenData.uid;
+
 
       const apiUrl = 'https://backend-rolling53i.onrender.com/api/usuarios';
 
@@ -42,6 +44,7 @@ function Navbarr() {
             }
           }
 
+
           setCerrarSesion(true);
         } catch (error) {
           console.error('Error:', error.message);
@@ -51,6 +54,7 @@ function Navbarr() {
       usuariosGet();
     }
   }, []);
+
 
   const handleLogout = () => {
     localStorage.removeItem('token');
