@@ -1,4 +1,3 @@
-w
 import Container from "react-bootstrap/Container";
 import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
@@ -59,21 +58,6 @@ function Navbarr() {
       setCerrarSesion(true);
     }
   }, []);
-
-
-
-  let activeStyle = {
-    textDecoration: 'underline',
-    textDecorationColor: '#FFC107',
-    fontWeight: 'bold'
-  }
-  const handleLogout = () => {
-    // Eliminar el token del almacenamiento local (localStorage)
-    localStorage.removeItem('token');
-    // Redirigir al usuario a la página de inicio de sesión
-    window.location.href = '/login'; // Redirigir a la página de inicio de sesión
-  };
-
   return (
     <>
       <Navbar collapseOnSelect key="lg" expand="lg" className="classnav sticky-top shadow p-lg-3 fs-5 mb-3" data-bs-theme="dark">
