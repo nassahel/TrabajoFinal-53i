@@ -4,10 +4,10 @@ import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import ToggleButton from 'react-bootstrap/ToggleButton';
 import ToggleButtonGroup from 'react-bootstrap/ToggleButtonGroup';
-import { NavLink, useNavigate, Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 function Register() {
-  const navigate = useNavigate();
+
 
   const [nombre, setNombre] = useState("");
   const [correo, setCorreo] = useState("");
@@ -35,22 +35,18 @@ function Register() {
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ nombre, correo, direc, password, rol }),
+        body: JSON.stringify({ nombre, correo, direc, password, rol, estado: true }),
       });
 
-      if (response.ok) {
-        const data = await response.json();
-
-        // Guarda el token en localStorage
-        localStorage.setItem('token', data.token);
-
-        // Limpia el formulario y redirige
-        limpiarFormulario();
-        window.location.href = ('/');
-      } else {
-        // Maneja errores de registro aquí
+      if (!response.ok) {
         console.error('Error en el registro:', response.statusText);
       }
+
+      alert('Cuenta creada con éxito.\nInicie sesión')
+
+      limpiarFormulario();
+      window.location.href = ('/login');
+
     } catch (error) {
       console.error('Error en la solicitud:', error);
     }
@@ -65,60 +61,57 @@ function Register() {
     document.getElementById("miFormulario").reset();
   };
 
-  const handleLogout = () => {
-    // Elimina el token del almacenamiento local
-    localStorage.removeItem('token');
-    // Redirige al usuario a la página de inicio de sesión
-    navigate('/login');
-  };
-
-
   return (
-    <div className='registro col-sm-6 col-md-5 col-lg-3'>
-      <div className=''>
-        <div className='mb-3'>
+    <div className='mx-auto my-auto bg-dark bg-opacity-75 rounded border border-success col-sm-6 col-md-6 col-lg-5'>
+      <div className='form-container mx-auto py-2'>
+        <div className='mb-3 justify-content-center'>
           <h3 className='text-white'>Registra tu cuenta</h3>
         </div>
         <Form id='miFormulario' onSubmit={handleRegister}>
           <div>
             <Form.Label className='text-white' >Nombre:</Form.Label>
             <Form.Control
+              required
               aria-describedby="name"
               type="text"
               placeholder='Ingrese su nombre'
               onChange={(e) => setNombre(e.target.value)}
             />
           </div>
-          <div>
-            <Form.Label className='text-white' >correo:</Form.Label>
+          <div className='mt-1'>
+            <Form.Label className='text-white' >Correo:</Form.Label>
             <Form.Control
-              type="correo"
+              required
+              type="email"
               aria-describedby="correo"
               placeholder='Ingrese su correo'
               onChange={(e) => setCorreo(e.target.value)}
             />
           </div>
-          <div>
+          <div className='mt-1'>
             <Form.Label className='text-white'>Direccion:</Form.Label>
             <Form.Control
+              required
               type="text"
               aria-describedby="direc"
               placeholder='Ingrese su dirección'
               onChange={(e) => setDirec(e.target.value)}
             />
           </div>
-          <div>
+          <div className='mt-1'>
             <Form.Label className='text-white'>Contraseña:</Form.Label>
             <Form.Control
+              required
               type="password"
               aria-describedby="passwordHelpBlock"
               placeholder='Ingrese su contraseña'
               onChange={(e) => setPassword(e.target.value)}
             />
           </div>
-          <div>
+          <div className='mt-1'>
             <Form.Label className='text-white'>Repetir Contraseña:</Form.Label>
             <Form.Control
+              required
               type="password"
               aria-describedby="confirmPasswordHelpBlock"
               placeholder='Repetir contraseña'
@@ -137,23 +130,17 @@ function Register() {
             <p className='ms-2'>Acepto terminos y condiciones</p>
 
           </div>
-          <div className='d-flex justify-content-center'>
+          <div className='mb-3 d-flex justify-content-center'>
             <Button type='submit' variant="info">Registrarse</Button>
           </div>
 
         </Form>
 
-        <Link className='text-decoration-none fw-normal fs-6 text-secondary' to="/login">¿Ya tenes cuenta? Inicia Sesion</Link>
-        <div>
+        <Link className='text-decoration-none fw-normal fs-6 text-secondary' to="/login">¿Ya tenes cuenta? <span className='fw-bold'>Inicia Sesion</span></Link>
 
-          {localStorage.getItem('token') ? (
-            <Button variant="danger" onClick={handleLogout}>
-              Cerrar Sesión
-            </Button>
-          ) : null}
-
-        </div>
-        {error && <p>todos los campos son obligatorios.</p>}
+        {
+          error && <p className='mt-3 fw-semibold text-danger mb-0'>Todos los campos son obligatorios.</p>
+        }
       </div>
     </div>
   )
