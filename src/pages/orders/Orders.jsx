@@ -16,8 +16,9 @@ function Orders() {
   const confirmar = async () => {
     setError(null) // Sacar los errores para empezar de 0
     const fecha = new Date(Date.now()) // Obtiene la fecha del momento del pedido
-
+0
     const token = localStorage.getItem("token")
+    console.log(token)
     if (!token){
       setError("No estas registrado papilo")
       return
@@ -39,7 +40,7 @@ function Orders() {
           method: "POST",
           headers:{
             "Content-Type":"aplication/json;  charset=UTF-8",
-            "Authentication": `Bearer ${token}`,
+           // "x-token": `${token}`,
           },
           body: JSON.stringify(data),
         }
