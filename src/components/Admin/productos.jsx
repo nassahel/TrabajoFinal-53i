@@ -49,12 +49,16 @@ function Productos() {
   const [producto, setProducto] = useState({});
 
   // Estados para los campos del formulario
+  const [idProducto, setidProduct] = useState()
   const [name, setName] = useState('');
   const [detail, setDetail] = useState('');
   const [image, setImage] = useState('');
   const [price, setPrice] = useState('');
   const [category, setCategory] = useState('');
   const [active, setActive] = useState(false);
+
+
+  const [editProduct, setEditProduct] = useState(false)
 
   let token = localStorage.getItem('token');
 
@@ -63,7 +67,6 @@ function Productos() {
 
     const data = await fetch('https://backend-rolling53i.onrender.com/api/menu');
     const prom = await data.json();
-    console.log(prom);
     setProductos(prom.menues);
 
   }
@@ -107,21 +110,37 @@ function Productos() {
   };
 
   //EDITAR PRODUCTOS DEL BACKEND
+  const datosEdicion = (id) =>{
+    const productoFind = productos.find((producto) => producto._id === id);
+    console.log(id);
+    console.log(productoFind);
+    if (productoFind) {
+      setidProduct(productoFind._id)
+      setEditProduct(true)
+      setName(productoFind.name)
+      setDetail(productoFind.detail)
+      setImage(productoFind.image)
+      setPrice(productoFind.price)
+      setCategory(productoFind.category)
+      setActive(productoFind.active)
+    }
+  }
 
   const editarProducto = async () => {
     try {
       const updatedProduct = {
-        _id: productos.id, // Usar el ID del usuario que se está editando
-        name,
-        detail,
-        image,
-        price,
-        category,
-        active
+        name: name,
+        detail: detail,
+        image: image,
+        price: price,
+        category: category,
+        active: active
       };
-
-      const url = `https://backend-rolling53i.onrender.com/api/menu`; // Incluir el ID en la URL
-      const response = await fetch(url + "/" + id, {
+     
+      const editIdProduct = idProducto
+      
+      const url = `https://backend-rolling53i.onrender.com/api/menu/${editIdProduct}`; // Incluir el ID en la URL
+      const response = await fetch(url, {
         method: 'PUT',
         headers: {
           'Content-type': 'application/json; charset=UTF-8',
@@ -129,22 +148,25 @@ function Productos() {
         },
         body: JSON.stringify(updatedProduct),
       });
-
+      console.log("hola", updatedProduct);
       if (!response.ok) {
         throw new Error('No se pudo editar el usuario');
       }
 
       console.log('Usuario editado con éxito');
       productsStore(); // Actualizar la lista de usuarios
+      setEditProduct(false)
     } catch (error) {
-      console.error('Error al editar el usuario:', error);
+      console.error('Error al editar el Producto:', error);
     }
   };
 
 
   //ELIMINAR LOS PRODUCTOS DEL BACKEND
-/*   const eliminarProducto = async (id) => {
+  const eliminarProducto = async (id) => {
+
     try {
+      console.log("llegue");
       const url = `https://backend-rolling53i.onrender.com/api/menu`;
       const resp = await fetch(url + "/" + id, {
         method: "DELETE",
@@ -153,22 +175,16 @@ function Productos() {
           "x-token": token,
         },
       });
-  
+
       const data = await resp.json();
-  
+      productsStore();
       return data;
     } catch (error) {
-      console.log(error);
+
       return { msg: "No se conectó con backend" };
     }
   };
 
-  
-  useEffect(() => {
-    eliminarProducto();
-  }, []); */
-
-  
 
 
   // Función para agregar o editar productos
@@ -183,12 +199,9 @@ function Productos() {
 
     // Crear un nuevo producto
 
-    if (producto.id) {
+    if (editProduct) {
       // Editar un producto existente
       editarProducto()
-      /* const updatedProducts = productos.map((p) => (p.id === producto.id ? { ...newProduct, id: p.id } : p));
-      setProductos(updatedProducts);
-      setProducto({}); */
     } else {
       // Agregar un nuevo producto
       agregarProductos()
@@ -203,50 +216,20 @@ function Productos() {
     setActive(false);
   };
 
-  // Función para eliminar un producto
-  /*   const eliminandoProducto = (id) => {
-      const updatedProducts = productos.filter((p) => p.id !== id);
-      setProductos(updatedProducts);
-    }; */
-
-  // Efecto para guardar y cargar productos en el localStorage
-  /*   useEffect(() => {
-      // Cargar productos desde el localStorage al montar el componente
-      const productosGuardados = JSON.parse(localStorage.getItem('productos'));
-  
-      if (productosGuardados) {
-        setProductos(productosGuardados);
-      } else {
-        // Si no hay productos en el localStorage, establecer los productos iniciales de la base de datos
-        setProductos(productos);
-      }
-    }, []); */
-
-  /*   useEffect(() => {
-      // Guardar productos en el localStorage cuando cambien
-      localStorage.setItem('productos', JSON.stringify(productos));
-    }, [productos]); */
-
   //PARA QUE APAREZCA LOS PRODUCTOS EN EL INPUT CUANDO PONGA EDITAR
-   useEffect(() => {
-      if (Object.keys(producto.length > 0)) {
-        setName(producto.name)
-        setDetail(producto.detail)
-        setImage(producto.image)
-        setPrice(producto.price)
-        setActive(producto.active)
-        setCategory(producto.category)
-      } else {
-        console.log('No hay nada en el array de tarea');
-      }
-    }, [producto])
+  const cargarProductos = () => {
+    if (Object.keys(producto.length > 0)) {
+      setName(producto.name)
+      setDetail(producto.detail)
+      setImage(producto.image)
+      setPrice(producto.price)
+      setActive(producto.active)
+      setCategory(producto.category)
+    } else {
+      console.log('No hay nada en el array de tarea');
+    }
+  }
 
-  // Función para generar un ID dinámico
-  const generoIdDinamico = () => {
-    const ran = Math.random();
-    const fecha = Date.now();
-    return ran + fecha;
-  };
 
   return (
     <main>
@@ -349,7 +332,7 @@ function Productos() {
               <input
                 className="mt-3 mb-5 btn btn-dark"
                 type="submit"
-                value={producto.id ? 'Editar Producto' : 'Agregar Producto'}
+                value={editProduct ? 'Editar Producto' : 'Agregar Producto'}
               />
             </div>
           </div>
@@ -359,8 +342,8 @@ function Productos() {
       <div className="resultado">
         <Resultado
           productos={productos}
-          setProducto={setProducto}
-          //eliminarProducto={eliminarProducto}
+          editarProducto={datosEdicion}
+          eliminarProducto={eliminarProducto} // Cambia "eliminarProductos" a "eliminarProducto"
         />
       </div>
     </main>
