@@ -11,6 +11,7 @@ function Orders() {
   const [order, setOrder] = useState(null)
   const [error, setError] = useState(null)
   const [prodCount, setProdCount] = useState(0);
+  const [emptyCart, setEmptyCart] = useState(false);
 
   const aumentar = () => {
     if (prodCount >= 0) {
@@ -27,8 +28,16 @@ function Orders() {
 
   useEffect(() => {
     const order = JSON.parse(localStorage.getItem("orders"))
-    setOrder(order)
+    setOrder(order) 
+    
   }, [])
+
+  const clear = () => {
+    localStorage.removeItem("orders")
+    setOrder([]); // Vaciar el carrito
+    setEmptyCart(true); // Establecer el carrito como vacío
+      window.dispatchEvent( new Event('storage') )
+   }
 
   const confirmar = async () => {
     setError(null) // Sacar los errores para empezar de 0
@@ -39,9 +48,9 @@ function Orders() {
       setError("No estas registrado papilo")
       return
     }
+    console.log(token)
 
     const total = order.reduce((total, actual) => total + actual.price, 0)
-    console.log(total)
     const data = { // Armar el objeto para enviar al API
       user: token,
       date: fecha,
@@ -66,6 +75,7 @@ function Orders() {
         throw new Error("Error prueba mas tarde")
       }
       localStorage.removeItem("orders")
+      setEmptyCart(true); // Establecer el carrito como vacío
       window.dispatchEvent(new Event('storage'))
       navigate("/")
     } catch (e) {
@@ -74,8 +84,9 @@ function Orders() {
     }
   }
 
+   
 
-
+  
 
 
   return (
@@ -84,8 +95,10 @@ function Orders() {
 
       <div className="container text-center py-4 bg-dark bg-opacity-75 my-4 rounded ">
         {error && <p className="text-danger">{error}</p>}
-        {order ? order.map((item) => (
-          <div className="row bg-light col-10 border border-success rounded m-3 py-3 mx-auto" key={item.id}>
+        {emptyCart ? (
+          <p className="text-danger">El carrito está vacío</p>
+        ) : order ? order.map((item, index) => (
+          <div className="row bg-light col-10 border border-success rounded m-3 py-3 mx-auto" key={item.id || index}>
             <div className="col text-start"><img className='img-fluid w-50 rounded' src={item.image} alt={item.name} /></div>
             <div className="col my-auto"><h5 className="card-title" >{item.name}</h5></div>
             <div className="col my-auto"><h5 className='card-title'>${item.price}</h5></div>
@@ -100,10 +113,10 @@ function Orders() {
             <div className="col my-auto text-end pe-4"> <AiFillDelete size={25} color='brown' /></div>
 
           </div>
-        )) : <p className="text-danger">No has seleccionado nada</p>}
+        ) ) : <p className="text-danger">No has seleccionado nada</p>}
 <div>
   <button className='btn botonConfirmar btn-md mt-4 fw-bold me-3' onClick={confirmar}>Confirmar compra</button>
-        <button className='btn botonConfirmar btn-sm mt-4 fw-bold' onClick={confirmar}>Vaciar Carrito</button>
+        <button className='btn botonConfirmar btn-sm mt-4 fw-bold' onClick={clear}>Vaciar Carrito</button>
 </div>
         
       </div>
