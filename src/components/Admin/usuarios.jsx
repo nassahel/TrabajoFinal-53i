@@ -92,50 +92,43 @@ function Usuarios() {
         estado: estado,
         direc: direc
       };
-      console.log(idUsuario);
-      console.log(estado);
 
-      const editIdUsuario = idUsuario
+      const editIdUsuario = idUsuario;
 
-      const url = `https://backend-rolling53i.onrender.com/api/usuarios/${editIdUsuario}`;
-      console.log(url);
-      const response = await fetch(url, {
+      const response = await fetch(`https://backend-rolling53i.onrender.com/api/usuarios/${editIdUsuario}`, {
         method: 'PUT',
         headers: {
-          'Content-type': 'application/json;',
+          'Content-type': 'application/json',
           'x-token': token,
         },
-        
-        body: JSON.stringify({ nombre,  correo,  direc,  password, rol, estado }),
-      });
-      console.log(response);
-      console.log("hola", updatedUser);
+        body: JSON.stringify(updatedUser)
+      })
+
       if (!response.ok) {
         throw new Error('No se pudo editar el usuario');
       }
 
-      console.log('Usuario editado con éxito');
-      obtenerUsuarios(); // Actualizar la lista de usuarios
       setEditUser(false)
+
+      console.log('Usuario editado con éxito');
+
+      obtenerUsuarios();
+      
     } catch (error) {
-      console.error('Error al editar el Producto:', error);
+      console.error('Error al editar el usuario:', error);
     }
   };
 
   //ELIMINAR LOS PRODUCTOS DEL BACKEND
   const eliminarUsuario = async (id) => {
-
     try {
-      console.log("llegue", id);
-
-      const url = `https://backend-rolling53i.onrender.com/api/usuarios`;
-      const resp = await fetch(url + "/" + id, {
+      const resp = await fetch(`https://backend-rolling53i.onrender.com/api/usuarios/${id}`, {
         method: "DELETE",
         headers: {
-          "Content-type": "application/json; charset=UTF-8",
+          "Content-type": "application/json",
           "x-token": token,
-        },
-      });
+        }
+      })
 
       const data = await resp.json();
       obtenerUsuarios();
