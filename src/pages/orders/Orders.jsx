@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import Main from "../../components/main/Main";
 import { AiFillPlusCircle, AiFillMinusCircle, AiFillDelete } from "react-icons/ai";
 import { useLocation, useNavigate } from "react-router-dom";
+import './orders.css';
 
 
 function Orders() {
@@ -78,13 +79,13 @@ function Orders() {
 
 
   return (
-    <div className="container-fluid main-cont d-flex flex-column align-items-center">
+    <div className="container-fluid main-cont d-flex flex-column align-items-center ">
       <div className="container bg-success text-light p-2 text-center"><h2>Tu pedido</h2></div>
 
-      <div className="container text-center col-lg-7 py-4">
+      <div className="container text-center py-4 bg-dark bg-opacity-75 my-4 rounded ">
         {error && <p className="text-danger">{error}</p>}
         {order ? order.map((item) => (
-          <div className="row bg-light border border-success rounded m-3 py-3" key={item.id}>
+          <div className="row bg-light col-10 border border-success rounded m-3 py-3 mx-auto" key={item.id}>
             <div className="col text-start"><img className='img-fluid w-50 rounded' src={item.image} alt={item.name} /></div>
             <div className="col my-auto"><h5 className="card-title" >{item.name}</h5></div>
             <div className="col my-auto"><h5 className='card-title'>${item.price}</h5></div>
@@ -100,8 +101,11 @@ function Orders() {
 
           </div>
         )) : <p className="text-danger">No has seleccionado nada</p>}
-
-        <button className='btn btn-md mt-4 btn-info fw-bold' onClick={confirmar}>Confirmar compra</button>
+<div>
+  <button className='btn botonConfirmar btn-md mt-4 fw-bold me-3' onClick={confirmar}>Confirmar compra</button>
+        <button className='btn botonConfirmar btn-sm mt-4 fw-bold' onClick={confirmar}>Vaciar Carrito</button>
+</div>
+        
       </div>
     </div>
   );
