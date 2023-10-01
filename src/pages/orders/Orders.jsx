@@ -8,10 +8,19 @@ import './orders.css';
 function Orders() {
   const location = useLocation()
   const navigate = useNavigate()
-  const [order, setOrder] = useState(null)
+
+  //ESTADOS DE LAS ORDENES
   const [error, setError] = useState(null)
   const [prodCount, setProdCount] = useState(0);
   const [emptyCart, setEmptyCart] = useState(false);
+
+  const [order, setOrder] = useState([])
+  const [user, setUser] = useState({})
+  const [date, setDate] = useState(new Date())
+  const [totalCost, setTotalCost] = useState(0)
+  const [status, setStatus] = useState("")
+
+  const token = localStorage.getItem("token")
 
   const aumentar = () => {
     if (prodCount >= 0) {
@@ -28,22 +37,21 @@ function Orders() {
 
   useEffect(() => {
     const order = JSON.parse(localStorage.getItem("orders"))
-    setOrder(order) 
-    
+    setOrder(order)
+
   }, [])
 
   const clear = () => {
     localStorage.removeItem("orders")
     setOrder([]); // Vaciar el carrito
     setEmptyCart(true); // Establecer el carrito como vacío
-      window.dispatchEvent( new Event('storage') )
-   }
+    window.dispatchEvent(new Event('storage'))
+  }
 
   const confirmar = async () => {
     setError(null) // Sacar los errores para empezar de 0
     const fecha = new Date(Date.now()) // Obtiene la fecha del momento del pedido
-0
-    const token = localStorage.getItem("token")
+
     if (!token) {
       setError("No estas registrado papilo")
       return
@@ -52,11 +60,11 @@ function Orders() {
 
     const total = order.reduce((total, actual) => total + actual.price, 0)
     const data = { // Armar el objeto para enviar al API
-      user: token,
-      date: fecha,
+      user: user,
+      date: date,
       order: order,
-      status: false,
-      totalCost: total
+      status: status,
+      totalCost: totalCost
     }
     console.log(data)
     try { // Hacer la peticion POST con un try/catch para manejar errores
@@ -65,7 +73,7 @@ function Orders() {
           method: "POST",
           headers: {
             "Content-Type": "aplication/json;  charset=UTF-8",
-            "Authentication": `Bearer ${token}`,
+            "x-token": token,
           },
           body: JSON.stringify(data),
         }
@@ -84,9 +92,38 @@ function Orders() {
     }
   }
 
-   
-
+  /* //AGREGAR PRODUCTOS AL BACKEND
+    const agregarPedidos = async () => {
+      try {
+        const data = { // Armar el objeto para enviar al API
+        user:user,
+        date: date,
+        order: order,
+        status: status,
+        totalCost: totalCost
+      }
   
+        const url = 'https://backend-rolling53i.onrender.com/api/pedidos';
+        const response = await fetch(url, {
+          method: 'POST',
+          headers: {
+            'Content-type': 'application/json; charset=UTF-8',
+            'x-token': token,
+          },
+          body: JSON.stringify(data),
+        });
+  
+        if (!response.ok) {
+          throw new Error('No se pudo agregar el pedido');
+        }
+  
+        console.log('Pedido agregado con éxito');
+        productsStore(); // Actualizar la lista de productos
+      } catch (error) {
+        console.error('Error al agregar el usuario:', error);
+      }
+    }; */
+
 
 
   return (
@@ -113,12 +150,12 @@ function Orders() {
             <div className="col my-auto text-end pe-4"> <AiFillDelete size={25} color='brown' /></div>
 
           </div>
-        ) ) : <p className="text-danger">No has seleccionado nada</p>}
-<div>
-  <button className='btn botonConfirmar btn-md mt-4 fw-bold me-3' onClick={confirmar}>Confirmar compra</button>
-        <button className='btn botonConfirmar btn-sm mt-4 fw-bold' onClick={clear}>Vaciar Carrito</button>
-</div>
-        
+        )) : <p className="text-danger">No has seleccionado nada</p>}
+        <div>
+          <button className='btn botonConfirmar btn-md mt-4 fw-bold me-3' onClick={confirmar}>Confirmar compra</button>
+          <button className='btn botonConfirmar btn-sm mt-4 fw-bold' onClick={clear}>Vaciar Carrito</button>
+        </div>
+
       </div>
     </div>
   );
