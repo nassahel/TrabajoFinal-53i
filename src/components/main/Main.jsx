@@ -6,17 +6,17 @@ import { useNavigate } from 'react-router'
 
 function Main({ products, searchTerm, loading }) {
 
-   const button = product => {
-      let orders = JSON.parse(localStorage.getItem("orders"))
-      if (orders){
-        orders.push(product)
-      } else {
-        orders = [product] 
-      }
-      
-      localStorage.setItem("orders", JSON.stringify(orders))
-      window.dispatchEvent( new Event('storage') )
-      }
+    const button = product => {
+        let orders = JSON.parse(localStorage.getItem("orders"))
+        if (orders) {
+            orders.push(product)
+        } else {
+            orders = [product]
+        }
+
+        localStorage.setItem("orders", JSON.stringify(orders))
+        window.dispatchEvent(new Event('storage'))
+    }
 
     const filteredProducts = products.filter((product) =>
         product.name.toLowerCase().includes(searchTerm.toLowerCase()))
@@ -44,7 +44,7 @@ function Main({ products, searchTerm, loading }) {
                                         <h5 className='card-title'>{product.name}</h5>
                                         <h5 className='card-title'>${product.price}</h5>
                                         <button
-                                            onClick={() => navigate("/user/orders", { state: product })}
+                                            onClick={()=> button(product)}
                                             className='btn btn-outline-warning text-dark border-2 rounded-0 fw-bold'>Agregar al carrito</button>
                                     </div>
                                 </div>
@@ -54,7 +54,7 @@ function Main({ products, searchTerm, loading }) {
                 </div>
             )}
 
-<h2 className='text-center mt-3 bg-warning py-3'>Pizzas</h2>
+            <h2 className='text-center mt-3 bg-warning py-3'>Pizzas</h2>
             {catPizzas.length === 0 && !loading ? (
                 <p className='p-3 bg-light bg-opacity-75 rounded'>No se encontró nada en esta sección...</p>
             ) : (
@@ -70,7 +70,7 @@ function Main({ products, searchTerm, loading }) {
                                         <h5 className='card-title'>{product.name}</h5>
                                         <h5 className='card-title'>${product.price}</h5>
                                         <button
-                                            onClick={() => navigate("/user/orders", { state: product })}
+                                            onClick={()=> button(product)}
                                             className='btn btn-outline-warning text-dark border-2 rounded-0 fw-bold'>Agregar al carrito</button>
                                     </div>
                                 </div>
@@ -80,7 +80,7 @@ function Main({ products, searchTerm, loading }) {
                 </div>
             )}
 
-<h2 className='text-center mt-3 bg-warning py-3'>Carnes</h2>
+            <h2 className='text-center mt-3 bg-warning py-3'>Carnes</h2>
             {catMeat.length === 0 && !loading ? (
                 <p className='p-3 bg-light bg-opacity-75 rounded'>No se encontró nada en esta sección...</p>
             ) : (
@@ -95,9 +95,7 @@ function Main({ products, searchTerm, loading }) {
                                     <div className="card-body d-flex flex-column justify-content-end">
                                         <h5 className='card-title'>{product.name}</h5>
                                         <h5 className='card-title'>${product.price}</h5>
-                                        <button
-                                            onClick={() => navigate("/user/orders", { state: product })}
-                                            className='btn btn-outline-warning text-dark border-2 rounded-0 fw-bold'>Agregar al carrito</button>
+                                        <button onClick={()=> button(product)} className='btn btn-outline-warning text-dark border-2 rounded-0 fw-bold' >Agregar al carrito</button>
                                     </div>
                                 </div>
                             </div>
@@ -106,7 +104,7 @@ function Main({ products, searchTerm, loading }) {
                 </div>
             )}
 
-<h2 className='text-center mt-3 bg-warning py-3'>Bebidas</h2>
+            <h2 className='text-center mt-3 bg-warning py-3'>Bebidas</h2>
             {catDrink.length === 0 && !loading ? (
                 <p className='p-3 bg-light bg-opacity-75 rounded'>No se encontró nada en esta sección...</p>
             ) : (
@@ -122,7 +120,7 @@ function Main({ products, searchTerm, loading }) {
                                         <h5 className='card-title'>{product.name}</h5>
                                         <h5 className='card-title'>${product.price}</h5>
                                         <button
-                                            onClick={() => navigate("/user/orders", { state: product })}
+                                            onClick={()=> button(product)}
                                             className='btn btn-outline-warning text-dark border-2 rounded-0 fw-bold'>Agregar al carrito</button>
                                     </div>
                                 </div>

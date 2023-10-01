@@ -13,8 +13,12 @@ function Navbarr() {
   const [userRole, setUserRole] = useState('USER_NORMAL');
   const [cerrarSesion, setCerrarSesion] = useState(false);
   const [usuarios, setUsuarios] = useState([]);
+  const [orders, setOrders] = useState(JSON.parse(localStorage.getItem("orders"))
+  )
 
   useEffect(() => {
+
+    //usuarios///////////////////////
     const checkeoToken = localStorage.getItem('token');
 
 
@@ -61,6 +65,13 @@ function Navbarr() {
     window.location.href = '/login';
   };
 
+
+  //carrito/////
+ 
+  window.addEventListener('storage', () => {
+    setOrders(JSON.parse(localStorage.getItem('orders')) )
+ });
+
   return (
     <>
       {userRole && (
@@ -95,8 +106,9 @@ function Navbarr() {
                 <NavLink to="/register" className='me-4' >
                   <BsPersonCircle size='2rem' color='white' />
                 </NavLink >
-                <NavLink to="#">
+                <NavLink to="/orders">
                   <AiOutlineShoppingCart size='2rem' color='white' />
+                  {orders && orders.length}
                 </NavLink>
               </Offcanvas.Body>
             </Navbar.Offcanvas>
