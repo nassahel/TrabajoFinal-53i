@@ -4,7 +4,7 @@ import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import ToggleButton from 'react-bootstrap/ToggleButton';
 import ToggleButtonGroup from 'react-bootstrap/ToggleButtonGroup';
-import { NavLink, useNavigate } from 'react-router-dom';
+import { NavLink, useNavigate, Link } from 'react-router-dom';
 
 function Register() {
   const navigate = useNavigate();
@@ -74,23 +74,14 @@ function Register() {
 
 
   return (
-    <div className='registro'>
+    <div className='registro col-sm-6 col-md-5 col-lg-3'>
       <div className=''>
-        <div>
-          <NavLink to="/login">
-            <ToggleButton className='iniciar' variant='info' id="tbg-radio-2" value={2}>
-              Iniciar Sesión
-            </ToggleButton>
-          </NavLink>
-          <ToggleButtonGroup type="radio" name="options" defaultValue={1}>
-            <ToggleButton className='registrarse' id="tbg-radio-3" variant='info' value={3}>
-              Registrarse
-            </ToggleButton>
-          </ToggleButtonGroup>
+        <div className='mb-3'>
+          <h3 className='text-white'>Registra tu cuenta</h3>
         </div>
         <Form id='miFormulario' onSubmit={handleRegister}>
           <div>
-            <Form.Label>Nombre:</Form.Label>
+            <Form.Label className='text-white' >Nombre:</Form.Label>
             <Form.Control
               aria-describedby="name"
               type="text"
@@ -99,7 +90,7 @@ function Register() {
             />
           </div>
           <div>
-            <Form.Label >correo:</Form.Label>
+            <Form.Label className='text-white' >correo:</Form.Label>
             <Form.Control
               type="correo"
               aria-describedby="correo"
@@ -108,7 +99,7 @@ function Register() {
             />
           </div>
           <div>
-            <Form.Label>Direccion:</Form.Label>
+            <Form.Label className='text-white'>Direccion:</Form.Label>
             <Form.Control
               type="text"
               aria-describedby="direc"
@@ -117,7 +108,7 @@ function Register() {
             />
           </div>
           <div>
-            <Form.Label>Contraseña:</Form.Label>
+            <Form.Label className='text-white'>Contraseña:</Form.Label>
             <Form.Control
               type="password"
               aria-describedby="passwordHelpBlock"
@@ -126,27 +117,33 @@ function Register() {
             />
           </div>
           <div>
-            <Form.Label>Repetir Contraseña:</Form.Label>
+            <Form.Label className='text-white'>Repetir Contraseña:</Form.Label>
             <Form.Control
               type="password"
               aria-describedby="confirmPasswordHelpBlock"
               placeholder='Repetir contraseña'
               onChange={(e) => setConfirmPassword(e.target.value)}
             />
-            <Form.Text id="confirmPasswordHelpBlock" muted>
+            <Form.Text className='text-info' id="confirmPasswordHelpBlock">
               *Por favor, repita la misma contraseña.
             </Form.Text>
           </div>
-          <div>
-            Acepto terminos y condiciones
+          <div className='d-flex mt-3 text-white '>
             <Form.Check
               required
               name="terminos-condiciones"
               type={'checkbox'}
             />
+            <p className='ms-2'>Acepto terminos y condiciones</p>
+
           </div>
-          <Button type='submit' variant="info">Registrarse</Button>{' '}
+          <div className='d-flex justify-content-center'>
+            <Button type='submit' variant="info">Registrarse</Button>
+          </div>
+
         </Form>
+
+        <Link className='text-decoration-none fw-normal fs-6 text-secondary' to="/login">¿Ya tenes cuenta? Inicia Sesion</Link>
         <div>
 
           {localStorage.getItem('token') ? (

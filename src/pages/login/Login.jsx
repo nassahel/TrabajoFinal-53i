@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Form, Button, ToggleButton, ToggleButtonGroup } from 'react-bootstrap';
-import { useNavigate, NavLink } from 'react-router-dom';
+import { useNavigate, NavLink, Link } from 'react-router-dom';
 import './login.css';
 
 function Login() {
@@ -54,27 +54,14 @@ function Login() {
         }
     }
     return (
-        <div className='registro'>
+        <div className='registro bg-opacity-75 col-sm-6 col-md-5 col-lg-3'>
             <div className='form-container'>
-                <div className='botones'>
-                    <NavLink to="/login">
-                        <ToggleButton className='iniciar' variant='info' id="tbg-radio-2" value={2}>
-                            Iniciar Sesión
-                        </ToggleButton>
-                    </NavLink>
-                    <NavLink to="/register">
-                        <ToggleButtonGroup type="radio" name="options" defaultValue={1}>
-                            <ToggleButton className='registrarse' variant='info' value={3}>
-                                Registrarse
-                            </ToggleButton>
-                        </ToggleButtonGroup>
-                    </NavLink>
-                </div>
-
                 <Form className='miFormulario' id="miFormulario" onSubmit={botonIniciar}>
-
+                    <div className='miFormulario'>
+                        <h5 className='text-white'>Inicio de sesion</h5>
+                    </div>
                     <>
-                        <Form.Label>Correo:</Form.Label>
+                        <Form.Label className='correo'>Correo:</Form.Label>
                         <Form.Control
                             type="text"
                             aria-describedby='email'
@@ -83,16 +70,19 @@ function Login() {
                         />
                     </>
                     <>
-                        <Form.Label>Contraseña:</Form.Label>
-                        <Form.Control
+                        <Form.Label className='contraseña'>Contraseña:</Form.Label>
+                        <Form.Control className='inputcontraseña ml-3'
                             type="password"
                             aria-describedby='password'
                             placeholder='Ingrese su contraseña'
                             onChange={(e) => setPassword(e.target.value)}
                         />
-
                     </>
-                    <Button type='submit' variant="info">Iniciar Sesión</Button>
+                    <div className='d-flex flex-column'>
+                        <Button className=' mb-6 mt-3' type='submit' variant="info">Iniciar Sesión</Button>
+
+                        <Link className='text-decoration-none fw-normal fs-6 text-secondary' to="/register">¿No tiene cuenta? Registrate</Link>
+                    </div >
                 </Form>
             </div>
             {error && <p>Todos los campos son obligatorios.</p>}

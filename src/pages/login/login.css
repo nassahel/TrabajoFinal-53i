@@ -1,14 +1,24 @@
 /* Estilos para pantallas grandes */
 .registro {
     display: flex;
-    flex-direction: column;
     align-items: center;
-    padding: 20px;
+    justify-content: center;
+    padding: 30px;
+    background-color: rgb(26, 32, 32);
+    /* width: 50%; */
 }
 
+
+.correo,
+.contraseña {
+    color: aliceblue;
+}
+
+
+
 .registro Button {
-    background-color: yellow;
-    color: black;
+    background-color: rgba(6, 117, 54, 0.734);
+    color: rgb(244, 238, 238);
     /* Cambiar el color del texto para que sea legible */
 }
 
@@ -16,14 +26,14 @@
 .registro Button.active,
 .registro Button:active,
 .registro Button:hover {
-    background-color: yellow;
+    background-color: rgb(0, 94, 255);
 }
 
 /* Cambiar el color de los botones "Iniciar Sesión" y "Registrarse" a amarillo */
 .registro .iniciar,
 .registro .registrarse {
-    background-color: yellow;
-    color: black;
+    background-color: rgba(6, 144, 45, 0.541);
+    color: rgb(255, 255, 255);
     /* Cambiar el color del texto para que sea legible */
 }
 
@@ -34,7 +44,7 @@
 .registro .registrarse.active,
 .registro .registrarse:active,
 .registro .registrarse:hover {
-    background-color: yellow;
+    background-color: rgb(0, 21, 255);
 }
 
 .form-container {
@@ -63,15 +73,31 @@
     /* Ajusta el espaciado entre el checkbox y el texto */
 }
 
+
+
+
 /* Estilos para pantallas pequeñas (ejemplo: menos de 768px) */
-@media (max-width: 768px) {
-    .registro {
-        padding: 10px;
-        /* Reduce el espaciado en pantallas pequeñas */
+@media (max-width: 767px) {
+    body {
+        font-size: 14px;
     }
+
 
     .form-container {
         max-width: 100%;
         /* Ancho máximo del formulario en pantallas pequeñas */
     }
+
+}
+
+@media (max-width: 390px) and (max-height: 844px) {
+
+    /* Ajusta el tamaño de la fuente y el espaciado entre elementos para que se vea bien en esta pantalla específica */
+    body {
+        font-size: 14px;
+        line-height: 1.2;
+        margin: 5px;
+    }
+
+
 }
