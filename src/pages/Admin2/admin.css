@@ -1,30 +1,22 @@
 :root {
   --negro: #21201E;
   --blanco: #FFF;
-  --naranja: #EFAC1F;
+  --naranja:#2C4B45;
   --mi-tipografia: sans-serif;
 }
 
-
-.contenedor-admin {
-  display: flex;
-  justify-content: space-between; /* Espacio uniforme entre los contenedores */
-}
-
 .contenedor-lista {
-  flex: 1; /* Distribuye el espacio disponible de manera uniforme entre los contenedores */
-  border: 1px solid #ccc; /* Puedes agregar bordes u otros estilos según sea necesario */
-  padding: 20px;
-  max-width: 650px !important;
+  border: 1px solid #ccc;
+  max-width: 700px !important;
   min-height: 500px;
-  background-color: #EFAC1F;
+  background-color: #2C4B45;
   opacity: 0.9;
   padding: 20px;
   margin: 10px;
-  border-radius: 26px;
-  max-height: 400px;
-  overflow-y: auto; 
+  max-height: calc(100vh - 40px); /* Esto establecerá la altura máxima en función de la altura de la ventana del navegador menos los márgenes superior e inferior */
+  overflow-y: auto;
 }
+
 
 .contenedor-lista::-webkit-scrollbar {
   width: 12px;
@@ -52,16 +44,6 @@
   }
 }
 
-/* Estilos para pantallas de escritorio (ancho mínimo de 768px) */
-@media (min-width: 768px) {
-  .contenedor-productos-usuarios {
-    display: flex; /* Usar flexbox para alinear elementos en la misma fila */
-    justify-content: space-between; /* Distribuir espacio horizontalmente */
-  }
-  .contenedor-lista {
-    width: 48%; /* Establecer el ancho para que ambos elementos se ajusten en la misma fila */
-  }
-}
 
 /* Estilos para pantallas más pequeñas (ancho máximo de 767px) */
 @media (max-width: 767px) {

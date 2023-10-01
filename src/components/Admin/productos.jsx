@@ -3,46 +3,6 @@ import Resultado from './resultado';
 import '../Admin/styles/productos.css';
 
 function Productos() {
-  // Definir los productos iniciales de la base de datos
-  /*   const productosBd = [
-      {
-        id: 0,
-        name: 'Pollo con Papas',
-        detail: 'Pollo con papas noisette',
-        image: 'https://i.pinimg.com/564x/f7/e0/12/f7e01237dad015937aedb9e3f358ceb1.jpg',
-        price: 2100,
-        active: true,
-        category: 'Entradas'
-      },
-      {
-        id: 1,
-        name: 'Pizza Margarita',
-        detail: 'Pizza margarita con aceitunas verdes, ocho porciones',
-        image: 'https://i.pinimg.com/564x/82/92/9c/82929cc929136c3cf1bdf7d8faa7662a.jpg',
-        price: 2400,
-        active: true,
-        category: 'Pizzas'
-      },
-      {
-        id: 2,
-        name: 'Milanesa Napolitana',
-        detail: 'Milanesa napolitana con porcion de papas fritas',
-        image: 'https://i.pinimg.com/564x/c4/0e/0e/c40e0ec7c86a6a5eeee14c23b31da79c.jpg',
-        price: 2000,
-        active: true,
-        category: 'Entradas'
-      },
-      {
-        id: 3,
-        name: 'Sandwich de ternera',
-        detail: 'Sandwich de ternera y queso con tomate',
-        image: 'https://i.pinimg.com/564x/c4/0e/0e/c40e0ec7c86a6a5eeee14c23b31da79c.jpg',
-        price: 1300,
-        active: true,
-        category: 'Entradas'
-      }
-    ]; */
-
 
   // Estados para manejar productos
   const [productos, setProductos] = useState([]);
@@ -99,7 +59,7 @@ function Productos() {
       });
 
       if (!response.ok) {
-        throw new Error('No se pudo agregar el usuario');
+        throw new Error('No se pudo agregar el producto');
       }
 
       console.log('Producto agregado con éxito');
@@ -150,10 +110,10 @@ function Productos() {
       });
       console.log("hola", updatedProduct);
       if (!response.ok) {
-        throw new Error('No se pudo editar el usuario');
+        throw new Error('No se pudo editar el producto');
       }
 
-      console.log('Usuario editado con éxito');
+      console.log('Producto editado con éxito');
       productsStore(); // Actualizar la lista de usuarios
       setEditProduct(false)
     } catch (error) {
@@ -185,9 +145,7 @@ function Productos() {
     }
   };
 
-
-
-  // Función para agregar o editar productos
+  // Manejar el envío del formulario
   const handleSubmit = (e) => {
     e.preventDefault();
 
@@ -196,8 +154,6 @@ function Productos() {
       console.log('Todos los campos deben estar completos');
       return;
     }
-
-    // Crear un nuevo producto
 
     if (editProduct) {
       // Editar un producto existente
@@ -343,7 +299,7 @@ function Productos() {
         <Resultado
           productos={productos}
           editarProducto={datosEdicion}
-          eliminarProducto={eliminarProducto} // Cambia "eliminarProductos" a "eliminarProducto"
+          eliminarProducto={eliminarProducto}
         />
       </div>
     </main>

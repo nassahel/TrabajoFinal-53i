@@ -1,4 +1,5 @@
 import './styles/resultado.css'
+
 const Resultado = ({ productos, editarProducto, eliminarProducto }) => {
 
   const handleEliminar = (id) => {
