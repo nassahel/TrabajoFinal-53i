@@ -9,7 +9,8 @@ const PedidosResultado = ({ pedidos, setPedido }) => {
             <div key={index} className="contenedor-agregados agregados-texto">
               <div>
                 <p><span className='fw-semibold'>Nombre del Usuario:</span>{pedido.user}</p>
-                <p> <span className='fw-semibold'>Estado:</span> {pedido.status}</p>
+                <p> <span className='fw-semibold'>Estado:</span> {pedido.status ? 'Realizado' : 'Pendiente'}</p>
+                {/*             <p> <span className='fw-semibold'>Activo:</span> {usuario.estado ? 'Si' : 'No'}</p> */}
               </div>
               <div className='boton-editar-eliminar'>
                 <button className='mb-2 btn btn-dark' type="button" onClick={() => setPedido(pedido)}>Editar</button>
