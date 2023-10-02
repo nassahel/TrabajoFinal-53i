@@ -13,8 +13,12 @@ function Navbarr() {
   const [userRole, setUserRole] = useState('USER_NORMAL');
   const [cerrarSesion, setCerrarSesion] = useState(false);
   const [usuarios, setUsuarios] = useState([]);
+  const [orders, setOrders] = useState(JSON.parse(localStorage.getItem("orders"))
+  )
 
   useEffect(() => {
+
+    //usuarios///////////////////////
     const checkeoToken = localStorage.getItem('token');
 
 
@@ -61,13 +65,20 @@ function Navbarr() {
     window.location.href = '/login';
   };
 
+
+  //carrito/////
+ 
+  window.addEventListener('storage', () => {
+    setOrders(JSON.parse(localStorage.getItem('orders')) )
+ });
+
   return (
     <>
       {userRole && (
-        <Navbar collapseOnSelect key="lg" expand="lg" className="classnav sticky-top shadow p-lg-3 fs-5 mb-3" data-bs-theme="dark">
+        <Navbar collapseOnSelect key="lg" expand="md" className="classnav sticky-top shadow p-lg-3 fs-5 mb-3" data-bs-theme="dark">
           <Container fluid>
             <NavLink to="/">
-              <img src={logoResto} width="260" className="d-inline-block align-center" alt="React Bootstrap logo" />
+              <img src={logoResto} width="240" className="d-inline-block align-center" alt="React Bootstrap logo" />
             </NavLink>
             <Navbar.Toggle aria-controls="offcanvasNavbar-expand-lg classnav" />
             <Navbar.Offcanvas
@@ -95,8 +106,9 @@ function Navbarr() {
                 <NavLink to="/register" className='me-4' >
                   <BsPersonCircle size='2rem' color='white' />
                 </NavLink >
-                <NavLink to="#">
+                <NavLink to="/orders">
                   <AiOutlineShoppingCart size='2rem' color='white' />
+                  {orders && orders.length}
                 </NavLink>
               </Offcanvas.Body>
             </Navbar.Offcanvas>

@@ -1,86 +1,164 @@
-import React, { useState,useEffect} from "react";
+import React, { useState, useEffect } from "react";
 import Main from "../../components/main/Main";
+import { AiFillPlusCircle, AiFillMinusCircle, AiFillDelete } from "react-icons/ai";
 import { useLocation, useNavigate } from "react-router-dom";
+import './orders.css';
 
 
 function Orders() {
   const location = useLocation()
   const navigate = useNavigate()
-  const [item, setItem] = useState(null) 
+
+  //ESTADOS DE LAS ORDENES
   const [error, setError] = useState(null)
-  useEffect( ()=> {
-    console.log(location.state)
-    setItem(location.state)
-  },[])
-  
+  const [prodCount, setProdCount] = useState(0);
+  const [emptyCart, setEmptyCart] = useState(false);
+
+  const [order, setOrder] = useState([])
+  const [user, setUser] = useState({})
+  const [date, setDate] = useState(new Date())
+  const [totalCost, setTotalCost] = useState(0)
+  const [status, setStatus] = useState("")
+
+  const token = localStorage.getItem("token")
+
+  const aumentar = () => {
+    if (prodCount >= 0) {
+      setProdCount(prodCount + 1)
+    }
+  }
+
+  const disminuir = () => {
+    if (prodCount >= 1) {
+      setProdCount(prodCount - 1)
+    }
+  }
+
+
+  useEffect(() => {
+    const order = JSON.parse(localStorage.getItem("orders"))
+    setOrder(order)
+
+  }, [])
+
+  const clear = () => {
+    localStorage.removeItem("orders")
+    setOrder([]); // Vaciar el carrito
+    setEmptyCart(true); // Establecer el carrito como vacío
+    window.dispatchEvent(new Event('storage'))
+  }
+
   const confirmar = async () => {
     setError(null) // Sacar los errores para empezar de 0
-    const fecha = Date.now() // Obtiene la fecha del momento del pedido
+    const fecha = new Date(Date.now()) // Obtiene la fecha del momento del pedido
 
-    const usuario = JSON.parse(localStorage.getItem("registros")) // Checkea que estas logueado y guarda el usuario
-    if (!usuario){
+    if (!token) {
       setError("No estas registrado papilo")
       return
     }
+    console.log(token)
 
+    const total = order.reduce((total, actual) => total + actual.price, 0)
     const data = { // Armar el objeto para enviar al API
-      user: usuario,
-      date: fecha,
-      order: item,
-      status: "pendiente",
-      totalCost: Number(item.price)
+      user: user,
+      date: date,
+      order: order,
+      status: status,
+      totalCost: totalCost
     }
     console.log(data)
     try { // Hacer la peticion POST con un try/catch para manejar errores
       const peticion = await fetch('https://backend-rolling53i.onrender.com/api/pedidos',
         {
           method: "POST",
-          headers:{
-            'Content-Type':'aplication/json',
-            // Authentication: 'Bearer {token}'
+          headers: {
+            "Content-Type": "aplication/json;  charset=UTF-8",
+            "x-token": token,
           },
           body: JSON.stringify(data),
         }
       );
-      if (!peticion) {
+      console.log(peticion)
+      if (!peticion.ok) {
         throw new Error("Error prueba mas tarde")
       }
+      localStorage.removeItem("orders")
+      setEmptyCart(true); // Establecer el carrito como vacío
+      window.dispatchEvent(new Event('storage'))
       navigate("/")
     } catch (e) {
-      setError(e)
+      setError(e.message)
+
     }
   }
- 
 
+  /* //AGREGAR PRODUCTOS AL BACKEND
+    const agregarPedidos = async () => {
+      try {
+        const data = { // Armar el objeto para enviar al API
+        user:user,
+        date: date,
+        order: order,
+        status: status,
+        totalCost: totalCost
+      }
+  
+        const url = 'https://backend-rolling53i.onrender.com/api/pedidos';
+        const response = await fetch(url, {
+          method: 'POST',
+          headers: {
+            'Content-type': 'application/json; charset=UTF-8',
+            'x-token': token,
+          },
+          body: JSON.stringify(data),
+        });
+  
+        if (!response.ok) {
+          throw new Error('No se pudo agregar el pedido');
+        }
+  
+        console.log('Pedido agregado con éxito');
+        productsStore(); // Actualizar la lista de productos
+      } catch (error) {
+        console.error('Error al agregar el usuario:', error);
+      }
+    }; */
 
 
 
   return (
-    <div className="container-fluid main-cont d-flex flex-column align-items-center">
-      <img
-        className="col-11 col-lg-6 pt-4 my-4"
-        src="src\assets\img\Titulo_proyecto_final.jpg"
-        alt=""
-      />
-      <div>
-     
-        {item ? (
-          <div className="col col-lg-3 w-100">
-              <div className="card text-center border-4 border-dark p-3 h-100 w-100 my-3" key={item.id}>
-                  <img className='card-img-top w-50 mx-auto' src={item.image} alt={item.name} />
-                  <div className="card-body d-flex flex-column justify-content-end">
-                    <h5 className="card-title" >{item.name}</h5>
-                      <h5 className='card-title'>{item.category} </h5>
-                      <h5 className='card-title'>${item.price}</h5>
-                      <button className='btn btn-outline-warning rounded-0 fw-bold' onClick={confirmar}>Confirmar compra</button>
-                  </div>
-              </div>
-          </div>
-        ) : <p className="text-danger">No has seleccionado nada</p>}
+    <div className="container-fluid main-cont d-flex flex-column align-items-center ">
+      <div className="container bg-success text-light p-2 text-center"><h2>Tu pedido</h2></div>
+
+      <div className="container text-center py-4 bg-dark bg-opacity-75 my-4 rounded ">
         {error && <p className="text-danger">{error}</p>}
+        {emptyCart ? (
+          <p className="text-danger">El carrito está vacío</p>
+        ) : order ? order.map((item, index) => (
+          <div className="row bg-light col-10 border border-success rounded m-3 py-3 mx-auto" key={item.id || index}>
+            <div className="col text-start"><img className='img-fluid w-50 rounded' src={item.image} alt={item.name} /></div>
+            <div className="col my-auto"><h5 className="card-title" >{item.name}</h5></div>
+            <div className="col my-auto"><h5 className='card-title'>${item.price}</h5></div>
+            <div className="col my-auto">
+              <h5>Cantidad</h5>
+              <div>
+                <AiFillMinusCircle onClick={disminuir} size='25' color='green' />
+                <input className="w-25 border mx-2 text-center" type="numbre" name="poductMount" id="proMount" value={prodCount} />
+                <AiFillPlusCircle onClick={aumentar} size='25' color='green' />
+              </div>
+            </div>
+            <div className="col my-auto text-end pe-4"> <AiFillDelete size={25} color='brown' /></div>
+
+          </div>
+        )) : <p className="text-danger">No has seleccionado nada</p>}
+        <div>
+          <button className='btn botonConfirmar btn-md mt-4 fw-bold me-3' onClick={confirmar}>Confirmar compra</button>
+          <button className='btn botonConfirmar btn-sm mt-4 fw-bold' onClick={clear}>Vaciar Carrito</button>
+        </div>
+
       </div>
     </div>
   );
 }
 
-export default Orders;
+export default Orders
