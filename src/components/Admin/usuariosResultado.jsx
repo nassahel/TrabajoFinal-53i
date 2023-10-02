@@ -1,4 +1,3 @@
-import './styles/resultado.css';
 
 const UsuariosResultado = ({ usuarios, editarUsuario, eliminarUsuario }) => {
 
@@ -18,27 +17,30 @@ const UsuariosResultado = ({ usuarios, editarUsuario, eliminarUsuario }) => {
   }
 
   return (
-    <div>
+    <div className='container-fluid p-3'>
       <>
         {usuarios.map((usuario, id) => (
-          <div key={id} className="contenedor-agregados agregados-texto">
-            <div>
-              <p> <span className='fw-semibold'>Id:</span> {usuario._id}</p>
-              <p> <span className='fw-semibold'>Nombre:</span> {usuario.nombre}</p>
-              <p> <span className='fw-semibold'>Email:</span> {usuario.correo}</p>
-              <p> <span className='fw-semibold'>Contraseña:</span> {usuario.password}</p>
-              <p> <span className='fw-semibold'>Activo:</span> {usuario.estado ? 'Si' : 'No'}</p>
-              <p> <span className='fw-semibold'>Direccion:</span> {usuario.direc}</p>
-              <p> <span className='fw-semibold'>Rol del Usuario:</span> {usuario.rol}</p>
+          <div key={id} className="row p-2 my-3 rounded bg-white contenedor-agregados agregados-texto">
+            <div className='col my-auto'>
+              <div className='row'>
+                <p className="col-lg-2 mb-0"> <span className='d-flex fw-semibold'>Nombre:</span> {usuario.nombre}</p>
+                <p className="col-lg-2 mb-0"> <span className='d-flex fw-semibold'>Email:</span> {usuario.correo}</p>
+                <p className="col-lg-2 mb-0"> <span className='d-flex fw-semibold'>Contraseña:</span> {usuario.password}</p>
+                <p className="col-lg-2 mb-0"> <span className='d-flex fw-semibold'>Activo:</span> {usuario.estado ? 'Si' : 'No'}</p>
+                <p className="col-lg-2 mb-0"> <span className='d-flex fw-semibold'>Direccion:</span> {usuario.direc}</p>
+                <p className="col-lg-2 mb-0"> <span className='d-flex fw-semibold'>Rol del Usuario:</span> {usuario.rol}</p>
+              </div>
             </div>
-            <div className='boton-editar-eliminar'>
-              <button className='mb-2 btn btn-dark' type="button" onClick={() => handleEditar(usuario._id)}>Editar</button>
-              <button
-                className='mb-2 btn btn-dark'
-                onClick={() => handleEliminar(usuario._id)} 
-              >
-                Eliminar
-              </button>
+            <div className="col-lg-1 col-10">
+              <div className='row'>
+                <button className='mb-2 btn btn-dark m-auto' type="button" onClick={() => handleEditar(usuario._id)}>Editar</button>
+                <button
+                  className='mb-2 btn btn-dark m-auto'
+                  onClick={() => handleEliminar(usuario._id)}
+                >
+                  Eliminar
+                </button>
+              </div>
             </div>
           </div>
         ))}

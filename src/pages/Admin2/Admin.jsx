@@ -6,20 +6,20 @@ import Pedidos from '../../components/Admin/pedidos'
 
 function Admin() {
   return (
-    <div className='d-flex flex-column justify-content-center align-items-center'>
+    <div className='contenedor-completo bg-opacity-75 d-flex flex-column justify-content-center align-items-center'>
       <div className='contenedor-productos-usuarios'>
-        <div className='contenedor-lista'>
-          <h1 className='titulo fs-2 text-white'>Mis Productos</h1>
+        <div className='contenedor-lista col-12'>
+          <h1 className='titulo fs-2 text-white text-center'>Mis Productos</h1>
           <Productos />
         </div>
-        <div className='contenedor-lista'>
-          <h1 className='titulo fs-2 text-white'>Usuarios</h1>
+        <div className='contenedor-lista col-12'>
+          <h1 className='titulo fs-2 text-white text-center'>Usuarios</h1>
           <Usuarios />
         </div>
-      </div>
-      <div className='contenedor-lista text-center mx-auto'>
-        <h1 className='titulo fs-2 text-white'>Pedidos</h1>
-        <Pedidos />
+        <div className='contenedor-lista col-12'>
+          <h1 className='titulo fs-2 text-white text-center'>Pedidos</h1>
+          <Pedidos />
+        </div>
       </div>
     </div>
   )

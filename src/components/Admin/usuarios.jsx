@@ -1,6 +1,5 @@
 import { useEffect, useState } from 'react';
 import UsuariosResultado from './usuariosResultado';
-import '../Admin/styles/productos.css';
 
 function Usuarios() {
   // Estados para manejar usuarios y campos del formulario
@@ -113,7 +112,7 @@ function Usuarios() {
       console.log('Usuario editado con éxito');
 
       obtenerUsuarios();
-      
+
     } catch (error) {
       console.error('Error al editar el usuario:', error);
     }
@@ -182,101 +181,97 @@ function Usuarios() {
 
   return (
     <main>
-      <form className="producto-contenedor d-flex flex-column align-items-center" onSubmit={handleSubmit}>
-        <div className='row'>
-          <div className='col-md-6'>
-            <div className='mt-3 text-center'>
-              <label className='producto-texto fs-6' htmlFor="nombre">Nombre Usuario</label>
-              <input
-                className='input-productos w-75 p-1 input-nombre rounded border border-black border-opacity-50'
-                type="text"
-                name="nombre"
-                id="nombre"
-                placeholder="Nombre"
-                value={nombre}
-                onChange={(e) => setNombre(e.target.value)}
-              />
-            </div>
-            <div className='mt-3 text-center'>
-              <label className='producto-texto fs-6' htmlFor="email">Email Usuario</label>
-              <input
-                className='input-productos p-1 w-75 input-nombre rounded border border-black border-opacity-50'
-                type="text"
-                name="email"
-                id="email"
-                placeholder="Email"
-                value={correo}
-                onChange={(e) => setCorreo(e.target.value)}
-              />
-            </div>
+      <form className="col-lg-12 col-8 my-auto producto-contenedor bg-white p-2 rounded" onSubmit={handleSubmit}>
+        <div className='row mt-4'>
+
+          <div className='col-lg-4 text-center mt-2'>
+            <label className='col-12 producto-texto fs-6' htmlFor="nombre">Nombre Usuario</label>
+            <input
+              className='input-productos p-1 rounded border border-black border-opacity-50'
+              type="text"
+              name="nombre"
+              id="nombre"
+              placeholder="Nombre"
+              value={nombre}
+              onChange={(e) => setNombre(e.target.value)}
+            />
           </div>
-          <div className='col-md-6'>
-            <div className='mt-3 text-center'>
-              <label className='producto-texto fs-6' htmlFor="password">Contraseña Usuario</label>
-              <input
-                className='input-productos w-75 p-1 input-nombre rounded border border-black border-opacity-50'
-                type="text"
-                name="password"
-                id="password"
-                placeholder="Contraseña"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-              />
-            </div>
-            <div className='mt-3 text-center'>
-              <label className='producto-texto fs-6' htmlFor="activo">Usuario Activo</label>
-              <select
-                className='input-productos w-75 p-1 input-nombre rounded border border-black border-opacity-50'
-                name="activo"
-                id="activo"
-                value={estado}
-                onChange={(e) => setEstado(e.target.value === 'true')}
-              >
-                <option value={true}>Si</option>
-                <option value={false}>No</option>
-              </select>
-            </div>
+
+          <div className='col d-flex justify-content-center flex-column align-items-center text-center'>
+            <label className='fs-6' htmlFor="email">Email Usuario</label>
+            <input
+              className='input-productos p-1 rounded border border-black border-opacity-50'
+              type="text"
+              name="email"
+              id="email"
+              placeholder="Email"
+              value={correo}
+              onChange={(e) => setCorreo(e.target.value)}
+            />
+          </div>
+
+
+          <div className='col-lg-4 text-center mt-2'>
+            <label className='col-12 producto-texto fs-6' htmlFor="password">Contraseña Usuario</label>
+            <input
+              className='input-productos p-1 input-nombre rounded border border-black border-opacity-50'
+              type="text"
+              name="password"
+              id="password"
+              placeholder="Contraseña"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+            />
           </div>
         </div>
 
-        <div className='row'>
-          <div className='col-md-6'>
-            <div className='mt-3 text-center'>
-              <label className='producto-texto fs-6' htmlFor="direc">Dirección Usuario</label>
-              <input
-                className='input-productos w-75 p-1 input-nombre rounded border border-black border-opacity-50'
-                name="direc"
-                id="direc"
-                placeholder="Dirección del Usuario"
-                value={direc}
-                onChange={(e) => setDirec(e.target.value)}
-              />
-            </div>
+        <div className='row mt-lg-4 mt-2'>
+          <div className='col-lg-4 text-center mt-2'>
+            <label className='col-12 producto-texto fs-6' htmlFor="activo">Usuario Activo</label>
+            <select
+              className='col-lg-6 col-3 input-productos p-1 input-nombre rounded border border-black border-opacity-50'
+              name="activo"
+              id="activo"
+              value={estado}
+              onChange={(e) => setEstado(e.target.value === 'true')}
+            >
+              <option value={true}>Si</option>
+              <option value={false}>No</option>
+            </select>
           </div>
-          <div className='col-md-6'>
-            <div className='mt-3 text-center'>
-              <label className='producto-texto fs-6' htmlFor="rol">Rol del Usuario</label>
-              <input
-                className='mt-0 input-descripcion w-75 p-2 input-nombre rounded border border-black border-opacity-50'
-                name="rol"
-                id="rol"
-                placeholder="Rol del Usuario"
-                value={rol}
-                onChange={(e) => setRol(e.target.value)}
-              />
-            </div>
+
+          <div className='col-lg-4 text-center mt-2'>
+            <label className='col-12 producto-texto fs-6' htmlFor="direc">Dirección Usuario</label>
+            <input
+              className='input-productos p-1 input-nombre rounded border border-black border-opacity-50'
+              name="direc"
+              id="direc"
+              placeholder="Dirección del Usuario"
+              value={direc}
+              onChange={(e) => setDirec(e.target.value)}
+            />
+          </div>
+
+          <div className='col-lg-4 text-center mt-2'>
+            <label className='col-12 producto-texto fs-6' htmlFor="rol">Rol del Usuario</label>
+            <input
+              className='mt-0 input-descripcion p-1 input-nombre rounded border border-black border-opacity-50'
+              name="rol"
+              id="rol"
+              placeholder="Rol del Usuario"
+              value={rol}
+              onChange={(e) => setRol(e.target.value)}
+            />
           </div>
         </div>
 
-        <div className='row'>
-          <div className='col-md-12'>
-            <div className=' text-center'>
+        <div className='col-lg-12'>
+          <div className='mt-2 text-center'>
               <input
-                className="mt-3 mb-5 btn btn-dark"
+                className="my-2 mb-3 btn btn-dark"
                 type="submit"
                 value={editUser ? 'Editar Usuario' : 'Agregar Usuario'}
               />
-            </div>
           </div>
         </div>
       </form>

@@ -1,4 +1,3 @@
-import './styles/resultado.css'
 
 const Resultado = ({ productos, editarProducto, eliminarProducto }) => {
 
@@ -19,32 +18,36 @@ const Resultado = ({ productos, editarProducto, eliminarProducto }) => {
 
 
   return (
-    <div>
+    <div className='container-fluid p-3'>
       <>
         {productos.map((producto, index) => (
-          <div key={index} className="contenedor-agregados agregados-texto">
-            <div>
-              <p> <span className='fw-semibold'>Id:</span> {producto._id}</p>
-              <p> <span className='fw-semibold'>Nombre:</span> {producto.name}</p>
-              <p className='w-75'> <span className='fw-semibold'>Img:</span> {producto.image}</p>
-              <p> <span className='fw-semibold'>Precio:</span> {producto.price}</p>
-              <p> <span className='fw-semibold'>Activo:</span> {producto.active ? 'Si' : 'No'}</p>
-              <p> <span className='fw-semibold'>Categoria:</span> {producto.category}</p>
-              <p> <span className='fw-semibold'>Descripcion:</span> {producto.detail}</p>
+          <div key={index} className="row p-2 my-3 rounded bg-white contenedor-agregados agregados-texto">
+            <div className='col my-auto'>
+              <div className='row '>
+                <div className='col-lg-1 col-5'>
+                  <img className='img-fluid col-9' src={producto.image} alt="imagen de comida" />
+                </div>
+                <p className='col-12 col-lg-2 mb-0'><span className='d-flex fw-semibold'>Nombre:</span>{producto.name}</p>
+                <p className='col-12 col-lg-2 mb-0'> <span className='d-flex fw-semibold'>Precio:</span> {producto.price}</p>
+                <p className='col-12 col-lg-2 mb-0'> <span className='d-flex fw-semibold'>Activo:</span> {producto.active ? 'Si' : 'No'}</p>
+                <p className='col-12 col-lg-2 mb-0'> <span className='d-flex fw-semibold'>Categoria:</span> {producto.category}</p>
+                <p className='col-12 col-lg-3 text-start mb-0'> <span className='d-flex fw-semibold'>Descripcion:</span> {producto.detail}</p>
+              </div>
             </div>
-            <div>
-            </div>
-            <div className='boton-editar-eliminar'>
-              <button className='mb-2 btn btn-dark h-25' type="button" onClick={() => handleEditar(producto._id)}>Editar</button>
-              <button
-                className='mb-2 btn btn-dark w-100'
-                onClick={() => { handleEliminar(producto._id) }} >
-                Eliminar
-              </button>
+            <div className='col-lg-1 col-12'>
+              <div className='row'>
+                <button className='mb-2 btn btn-dark m-auto' type="button" onClick={() => handleEditar(producto._id)}>Editar</button>
+                <button
+                  className='mb-2 btn btn-dark m-auto'
+                  onClick={() => { handleEliminar(producto._id) }} >
+                  Eliminar
+                </button>
+              </div>
             </div>
           </div>
         ))}
       </>
+
     </div>
   )
 }
