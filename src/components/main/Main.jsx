@@ -2,6 +2,7 @@ import React from 'react'
 import './mains.css'
 import Spiner from '../spiner/Spiner'
 import { useNavigate } from 'react-router'
+import { AiFillMinusCircle, AiFillPlusCircle } from 'react-icons/ai'
 
 
 function Main({ products, searchTerm, loading }) {
@@ -35,7 +36,14 @@ function Main({ products, searchTerm, loading }) {
                                             <img className='img-fluid mx-auto rounded' src={product.image} alt={product.name} />
                                             <div className="card-body d-flex flex-column justify-content-end">
                                                 <h5 className='card-title'>{product.name}</h5>
-                                                <h5 className='card-title'>${product.price}</h5>
+                                                <h5 className='card-title text-info'>${product.price}</h5>
+                                                <hr className='m-1' />
+                                                <div className='mb-3'>
+                                                    <h6>Cantidad</h6>
+                                                    <AiFillMinusCircle  size='25' color='green' />
+                                                    <input className="w-25 border mx-2 text-center" type="numbre" name="poductMount" id="proMount"  />
+                                                    <AiFillPlusCircle  size='25' color='green' />
+                                                </div>
                                                 <button
                                                     onClick={() => navigate("/user/orders", { state: product })}
                                                     className='btn btn-outline-success text-dark border-2  fw-bold'>Agregar al carrito</button>
@@ -68,6 +76,13 @@ function Main({ products, searchTerm, loading }) {
                                             <div className="card-body d-flex flex-column justify-content-end">
                                                 <h5 className='card-title'>{product.name}</h5>
                                                 <h5 className='card-title'>${product.price}</h5>
+                                                <div className='mb-3'>
+                                                <hr className='m-1' />
+                                                    <h6>Cantidad</h6>
+                                                    <AiFillMinusCircle  size='25' color='green' />
+                                                    <input className="w-25 border mx-2 text-center" type="numbre" name="poductMount" id="proMount"  />
+                                                    <AiFillPlusCircle  size='25' color='green' />
+                                                </div>
                                                 <button
                                                     onClick={() => navigate("/user/orders", { state: product })}
                                                     className='btn btn-outline-success text-dark border-2  fw-bold'>Agregar al carrito</button>
@@ -100,6 +115,13 @@ function Main({ products, searchTerm, loading }) {
                                             <div className="card-body d-flex flex-column justify-content-end">
                                                 <h5 className='card-title'>{product.name}</h5>
                                                 <h5 className='card-title'>${product.price}</h5>
+                                                <div className='mb-3'>
+                                                <hr className='m-1' />
+                                                    <h6>Cantidad</h6>
+                                                    <AiFillMinusCircle  size='25' color='green' />
+                                                    <input className="w-25 border mx-2 text-center" type="numbre" name="poductMount" id="proMount"  />
+                                                    <AiFillPlusCircle  size='25' color='green' />
+                                                </div>
                                                 <button
                                                     onClick={() => navigate("/user/orders", { state: product })}
                                                     className='btn btn-outline-success text-dark border-2 fw-bold'>Agregar al carrito</button>
@@ -132,6 +154,13 @@ function Main({ products, searchTerm, loading }) {
                                             <div className="card-body d-flex flex-column justify-content-end">
                                                 <h5 className='card-title'>{product.name}</h5>
                                                 <h5 className='card-title'>${product.price}</h5>
+                                                <div className='mb-3'>
+                                                <hr className='m-1' />
+                                                    <h6>Cantidad</h6>
+                                                    <AiFillMinusCircle  size='25' color='green' />
+                                                    <input className="w-25 border mx-2 text-center" type="numbre" name="poductMount" id="proMount"  />
+                                                    <AiFillPlusCircle  size='25' color='green' />
+                                                </div>
                                                 <button
                                                     onClick={() => navigate("/user/orders", { state: product })}
                                                     className='btn btn-outline-success text-dark border-2 rounded-0 fw-bold'>Agregar al carrito</button>
@@ -143,13 +172,7 @@ function Main({ products, searchTerm, loading }) {
                         </div>
                     )}
                 </div>
-
-
             </div>
-
-
-
-
         </div>
     )
 }
