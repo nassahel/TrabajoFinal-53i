@@ -1,6 +1,5 @@
 import { useEffect, useState } from 'react';
 import Resultado from './resultado';
-import '../Admin/styles/productos.css';
 
 function Productos() {
 
@@ -70,7 +69,7 @@ function Productos() {
   };
 
   //EDITAR PRODUCTOS DEL BACKEND
-  const datosEdicion = (id) =>{
+  const datosEdicion = (id) => {
     const productoFind = productos.find((producto) => producto._id === id);
     console.log(id);
     console.log(productoFind);
@@ -96,9 +95,9 @@ function Productos() {
         category: category,
         active: active
       };
-     
+
       const editIdProduct = idProducto
-      
+
       const url = `https://backend-rolling53i.onrender.com/api/menu/${editIdProduct}`; // Incluir el ID en la URL
       const response = await fetch(url, {
         method: 'PUT',
@@ -189,70 +188,72 @@ function Productos() {
 
   return (
     <main>
-      <form className="producto-contenedor d-flex flex-column align-items-center" onSubmit={handleSubmit}>
-        <div className='row'>
-          <div className='col-md-6'>
-            <div className='mt-3 text-center'>
-              <label className='producto-texto fs-6' htmlFor="nombre">Nombre de Producto</label>
-              <input
-                className='input-productos w-75 p-1 input-nombre rounded border border-black border-opacity-50'
-                type="text"
-                name="nombre"
-                id="nombre"
-                placeholder="Nombre"
-                value={name}
-                onChange={(e) => setName(e.target.value)}
-              />
-            </div>
-            <div className='mt-3 text-center'>
-              <label className='producto-texto fs-6' htmlFor="precio">Precio del Producto</label>
-              <input
-                className='input-productos p-1 w-75 input-nombre rounded border border-black border-opacity-50'
-                type="text"
-                name="precio"
-                id="precio"
-                placeholder="Precio del Producto"
-                value={price}
-                onChange={(e) => setPrice(e.target.value)}
-              />
-            </div>
+      <form className="col-12 my-auto producto-contenedor bg-white p-2 rounded" onSubmit={handleSubmit}>
+        <div className='row mt-4'>
+
+          <div className='col-lg-4 text-center mt-2'>
+            <label className='col-12 producto-texto fs-6' htmlFor="nombre">Nombre de Producto</label>
+            <input
+              className='input-productos p-1 input-nombre rounded border border-black border-opacity-50'
+              type="text"
+              name="nombre"
+              id="nombre"
+              placeholder="Nombre"
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+            />
           </div>
-          <div className='col-md-6'>
-            <div className='mt-3 text-center'>
-              <label className='producto-texto fs-6' htmlFor="imagen">Link de Imagen</label>
-              <input
-                className='input-productos w-75 p-1 input-nombre rounded border border-black border-opacity-50'
-                type="text"
-                name="imagen"
-                id="imagen"
-                placeholder="Imagen"
-                value={image}
-                onChange={(e) => setImage(e.target.value)}
-              />
-            </div>
-            <div className='mt-3 text-center'>
-              <label className='producto-texto fs-6' htmlFor="activo">Producto Activo</label>
-              <select
-                className='input-productos w-75 p-1 input-nombre rounded border border-black border-opacity-50'
-                name="activo"
-                id="activo"
-                placeholder="Producto Activo"
-                value={active}
-                onChange={(e) => setActive(e.target.value === 'true')}
-              >
-                <option value={true}>Si</option>
-                <option value={false}>No</option>
-              </select>
-            </div>
+
+          <div className='col-lg-4 text-center mt-2'>
+            <label className='col-12 producto-texto fs-6' htmlFor="precio">Precio del Producto</label>
+            <input
+              className='input-productos p-1 input-nombre rounded border border-black border-opacity-50'
+              type="text"
+              name="precio"
+              id="precio"
+              placeholder="Precio del Producto"
+              value={price}
+              onChange={(e) => setPrice(e.target.value)}
+            />
           </div>
+
+          <div className='col-lg-4 text-center mt-2'>
+            <label className='col-12 producto-texto fs-6' htmlFor="imagen">Link de Imagen</label>
+            <input
+              className='input-productos p-1 input-nombre rounded border border-black border-opacity-50'
+              type="text"
+              name="imagen"
+              id="imagen"
+              placeholder="Imagen"
+              value={image}
+              onChange={(e) => setImage(e.target.value)}
+            />
+          </div>
+
         </div>
 
-        <div className='row'>
-          <div className='col-md-6'>
-            <div className='mt-3 text-center'>
-              <label className='producto-texto fs-6' htmlFor="categoria">Categoría del Producto</label>
+        <div className='row mt-lg-4 mt-2'>
+          <div className='col-lg-4 text-center'>
+            <label className='col-12 producto-texto fs-6' htmlFor="activo">Producto Activo</label>
+            <select
+              className='col-lg-6 col-3 input-productos p-1  input-nombre rounded border border-black border-opacity-50'
+              name="activo"
+              id="activo"
+              placeholder="Producto Activo"
+              value={active}
+              onChange={(e) => setActive(e.target.value === 'true')}
+            >
+              <option value={true}>Si</option>
+              <option value={false}>No</option>
+            </select>
+          </div>
+
+
+
+            <div className='col-lg-4 mt-2 text-center'>
+              <label className='col-12 producto-texto fs-6' htmlFor="categoria">Categoría del Producto</label>
               <select
-                className='input-productos w-75 p-1 input-nombre rounded border border-black border-opacity-50'
+                className='col-lg-6 col-3 input-productos p-1 input-nombre rounded border border-black border-opacity-50'
                 name="categoria"
                 id="categoria"
                 placeholder="Categoría del Producto"
@@ -266,33 +267,34 @@ function Productos() {
                 <option>Pastas</option>
               </select>
             </div>
-          </div>
-          <div className='col-md-6'>
-            <div className='mt-3 text-center'>
-              <label className='producto-texto fs-6' htmlFor="descripcion">Descripción de Producto</label>
-              <textarea
-                className='mt-0 input-descripcion w-75 input-nombre rounded border border-black border-opacity-50'
+
+         
+            <div className='col-lg-4 mt-2 text-center'>
+              <label className='col-12 producto-texto fs-6' htmlFor="descripcion">Descripción de Producto</label>
+              <input
+                className='mt-0 input-descripcion p-1 input-nombre rounded border border-black border-opacity-50'
                 name="descripcion"
+                type='text'
                 id="descripcion"
                 placeholder="Descripción"
                 value={detail}
                 onChange={(e) => setDetail(e.target.value)}
               />
             </div>
-          </div>
         </div>
 
-        <div className='row'>
-          <div className='col-md-12'>
-            <div className=' text-center'>
+
+
+
+          <div className='col-lg-4-md-12'>
+            <div className='mt-2 text-center'>
               <input
-                className="mt-3 mb-5 btn btn-dark"
+                className="my-2 mb-3 btn btn-dark"
                 type="submit"
                 value={editProduct ? 'Editar Producto' : 'Agregar Producto'}
               />
             </div>
           </div>
-        </div>
       </form>
 
       <div className="resultado">

@@ -5,54 +5,8 @@
   --mi-tipografia: sans-serif;
 }
 
-.contenedor-lista {
-  border: 1px solid #ccc;
-  max-width: 700px !important;
-  min-height: 500px;
-  background-color: #2C4B45;
-  opacity: 0.9;
-  padding: 20px;
-  margin: 10px;
-  max-height: calc(100vh - 40px); /* Esto establecerá la altura máxima en función de la altura de la ventana del navegador menos los márgenes superior e inferior */
-  overflow-y: auto;
-}
-
-
-.contenedor-lista::-webkit-scrollbar {
-  width: 12px;
-
-}
-
-.contenedor-lista::-webkit-scrollbar-track {
-  background: none;       
-}
-
-.contenedor-lista::-webkit-scrollbar-thumb {
-  background-color: var(--negro);    
-  border-radius: 20px;      
-  border: 3px solid var(--naranja);  
-}
-
-@media (max-width: 576px) {
-  .contenedor-admin {
-    flex-direction: column !important; /* Cambia la dirección del flex a columna */
-    min-height: 100%;
-  }
-
-  .contenedor-lista {
-    margin-bottom: 20px; /* Agrega un espacio entre los elementos apilados */
-  }
-}
-
-
-/* Estilos para pantallas más pequeñas (ancho máximo de 767px) */
-@media (max-width: 767px) {
-  .contenedor-lista {
-    width: 100%; /* Establecer el ancho completo para que los elementos se apilen uno encima del otro */
-  }
-}
-
-
-.titulo {
-  text-align: center;
+.contenedor-completo{
+  background: rgb(44,75,69);
+  background: linear-gradient(90deg, rgba(44,75,69,0.6278886554621849) 0%, rgba(44,75,69,0.6306897759103641) 100%);
+  margin: 0px 35px;
 }

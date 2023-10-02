@@ -52,26 +52,32 @@ const Pedidos = () => {
 
   return (
     <main>
-      <form className="producto-pedidos " onSubmit={handleSubmit}>
-        <div className='mt-3'>
-          <label className='ps-2 producto-texto fs-6' htmlFor="descripcion">Pedido Status</label>
-          <select
-            className='mt-3 input-productos w-50 p-1 input-nombre rounded border border-black border-opacity-50'
-            name="status"
-            id="status"
-            placeholder="Producto status"
-            value={status} // El valor de status debe ser false (Pendiente) o true (Realizado)
-            onChange={(e) => setStatus(e.target.value === 'true')} // Actualizar el estado del campo de estado
-          >
-            <option value={false}>Pendiente</option>
-            <option value={true}>Realizado</option>
-          </select>
+      <form className="my-auto bg-white p-2 rounded" onSubmit={handleSubmit}>
+        <div className="row mt-4">
+          <div className=' d-flex justify-content-center flex-column align-items-center text-center'>
+            <label className='ps-2 producto-texto fs-6' htmlFor="descripcion">Pedido Status</label>
+            <select
+              className='mt-3 input-productos w-25 p-1 input-nombre rounded border border-black border-opacity-50'
+              name="status"
+              id="status"
+              placeholder="Producto status"
+              value={status} // El valor de status debe ser false (Pendiente) o true (Realizado)
+              onChange={(e) => setStatus(e.target.value === 'true')} // Actualizar el estado del campo de estado
+            >
+              <option value={false}>Pendiente</option>
+              <option value={true}>Realizado</option>
+            </select>
+          </div >
+          <div className='col-md-12'>
+            <div className='mt-2 text-center'>
+              <input
+                className="my-2 mb-3 btn btn-dark"
+                type="submit"
+                value={pedido.id ? 'Editar Pedido' : 'Agregar Pedido'}
+              />
+            </div>
+          </div>
         </div>
-        <input
-          className="mt-3 mb-0 btn btn-dark"
-          type="submit"
-          value={pedido.id ? 'Editar Pedido' : 'Agregar Pedido'}
-        />
       </form>
 
       <div className="resultado">
