@@ -10,6 +10,7 @@ import Register from './pages/register/Register'
 import Login from './pages/login/Login'
 import Orders from './pages/orders/Orders'
 import ProtectedRoutes from './routes/ProtectedRoutes';
+import { CartProvider } from './components/CartContext/CartContext'
 
 
 
@@ -23,16 +24,18 @@ function App() {
 
   return (
     <div className='principal'>
-      <Navbarr auth={auth} userAdmin={userAdmin} />
-      <Routes>
-        <Route path='/' element={<Home />} />
-        <Route path='/orders' element={<Orders />} />
-        <Route path='/about' element={<AboutUs />} />
-        <Route path='/register' element={<Register />} />
-        <Route path='/login' element={<Login />} />
-        <Route path='/admin/*' element={<ProtectedRoutes auth={auth} userAdmin={userAdmin} />} />
-      </Routes>
-      <Footer className='footer' />
+      <CartProvider>
+        <Navbarr auth={auth} userAdmin={userAdmin} />
+        <Routes>
+          <Route path='/' element={<Home />} />
+          <Route path='/orders' element={<Orders />} />
+          <Route path='/about' element={<AboutUs />} />
+          <Route path='/register' element={<Register />} />
+          <Route path='/login' element={<Login />} />
+          <Route path='/admin/*' element={<ProtectedRoutes auth={auth} userAdmin={userAdmin} />} />
+        </Routes>
+        <Footer className='footer' />
+      </CartProvider>
     </div>
   );
 }
