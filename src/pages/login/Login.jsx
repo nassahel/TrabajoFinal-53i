@@ -18,7 +18,6 @@ function Login() {
             setError(false);
 
             try {
-                // Realiza una solicitud a la API para autenticar al usuario y obtener un token
                 const response = await fetch('https://backend-rolling53i.onrender.com/api/auth/login', {
                     method: 'POST',
                     headers: {
@@ -28,22 +27,20 @@ function Login() {
                 });
 
                 if (response.ok) {
-                    // Usuario ha iniciado sesión correctamente, obtén el token de la respuesta
+
                     const data = await response.json();
                     const token = data.token;
 
-                    // Almacena el token en el almacenamiento local (localStorage)
+
                     localStorage.setItem('token', token);
 
-                    // Limpia los campos del formulario
+
                     setCorreo("");
                     setPassword("");
 
-                    // Redirige al usuario a la página de inicio
-                    // navigate('/');
                     window.location.href = ('/');
                 } else {
-                    // El inicio de sesión falló
+
                     console.error('Error al iniciar sesión:', response.statusText);
                 }
             } catch (error) {
