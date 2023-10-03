@@ -4,16 +4,22 @@ import { CartContext } from "../../components/CartContext/CartContext";
 
 const Orders = () => {
   const [cart, setCart] = useContext(CartContext);
+  const [summaryText, setSummaryText] = useState(false)
   const [tokenUser, setTokenUser] = useState(localStorage.getItem('token'));
+  const [costoTotal, setCostoTotal] = useState(0)
 
   const handleConfirmPurchase = async () => {
     try {
-      const tokenData = JSON.parse(atob(tokenUser.split('.')[1]));
+      //const tokenData = JSON.parse(atob(tokenUser.split('.')[1]));
       //const tokenUserId = tokenData.uid;
+
+      if(cart.length === 0) {
+        return alert('Debes seleccionar al menos 1 producto')
+      }
 
       const newOrder = {
         order: cart,
-        totalCost: 50
+        totalCost: costoTotal
       };
 
       const url = `https://backend-rolling53i.onrender.com/api/pedidos`;
@@ -32,9 +38,14 @@ const Orders = () => {
 
       alert('Pedido enviado con exito! 🎉')
       limpiarCarrito();
-      console.log('Pedido enviado con éxito');
-
     } catch (error) {
+      if(!tokenUser) {
+        setSummaryText(true)
+
+        setTimeout(function() {
+          setSummaryText(false)
+        }, 3000);
+      }
       console.error('Error al enviar el pedido:', error);
     }
   };
@@ -59,7 +70,17 @@ const Orders = () => {
 
   const limpiarCarrito = () => {
     setCart([])
+  };
+
+  const totalCost = () => {
+    const totalPrice = cart.reduce((total, item) => total + (item.price * item.quantity), 0);
+    return totalPrice;
   }
+
+  useEffect(() => {
+    const calculatedTotal = totalCost();
+    setCostoTotal(calculatedTotal);
+  }, [cart]);
 
   return (
     <div className="container-fluid main-cont d-flex flex-column align-items-center">
@@ -80,10 +101,20 @@ const Orders = () => {
             <p >No hay nada</p>
           </div>
         }
-        <div>
-          <button style={{ backgroundColor: "#2C4B45" }} className='btn botonConfirmar mt-4 fw-bold me-3 text-light' onClick={handleConfirmPurchase}>Confirmar compra</button>
-          <button className='btn btn-danger mt-4 fw-bold' onClick={handleEmptyCart}>Vaciar Carrito</button>
+        <div className="mt-3 d-flex flex-column justify-content-center text-white">
+          <h5>El costo total seria:</h5>
+          <p className="fw-semibold">${costoTotal}</p>
         </div>
+        <div className="mt-2 d-flex flex-row justify-content-center align-items-center">
+          <button style={{ backgroundColor: "#2C4B45" }} className='btn botonConfirmar fw-bold me-3 text-light' onClick={handleConfirmPurchase}>Confirmar compra</button>
+          <button className='btn btn-danger fw-bold' onClick={handleEmptyCart}>Vaciar Carrito</button>
+        </div>
+        {
+          summaryText &&
+          <div className="mt-3 mb-0">
+            <p className="text-danger fs-6 fw-semibold fst-italic mb-0">Debes estar registrado</p>
+          </div>
+        }
       </div>
     </div>
   );
