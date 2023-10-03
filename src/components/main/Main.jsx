@@ -3,56 +3,10 @@ import './mains.css'
 import Spiner from '../spiner/Spiner'
 import { useState } from 'react'
 import { CardComidas } from '../card-product/CardProduct'
+import { Link } from "react-router-dom";
 
 
 function Main({ products, searchTerm, loading }) {
-
-    const [menuPedido, setMenuPedido] = useState([]);
-
-    // Incremento de cantidad en el carrito
-
-    const handleIncrement = (product) => {
-        const productIndex = menuPedido.findIndex((item) => item._id === product._id);
-        const updatedMenuPedido = [...menuPedido];
-
-        if (productIndex !== -1) {
-            updatedMenuPedido[productIndex].quantity += 1;
-        } else {
-            product.quantity = 1;
-            updatedMenuPedido.push(product);
-        }
-
-        setMenuPedido(updatedMenuPedido);
-        console.log(updatedMenuPedido);
-    };
-
-    // Disminucion de cantidad en el carrito
-
-    const handleDecrement = (product) => {
-        const productIndex = menuPedido.findIndex((item) => item._id === product._id);
-        const updatedMenuPedido = [...menuPedido];
-
-        if (productIndex !== -1) {
-            if (updatedMenuPedido[productIndex].quantity > 1) {
-                updatedMenuPedido[productIndex].quantity -= 1;
-            } else {
-                updatedMenuPedido.splice(productIndex, 1);
-            }
-        }
-
-        setMenuPedido(updatedMenuPedido);
-        console.log(updatedMenuPedido);
-    };
-
-    // Agregar al carrito
-
-    const handleCartItems = (data) => {
-        const dataArray = [data]
-        console.log(dataArray);
-        const dataString = JSON.stringify(data);
-        localStorage.setItem("cart", dataString);
-    }
-
 
     const filteredProducts = products.filter((product) =>
         product.name.toLowerCase().includes(searchTerm.toLowerCase()))
@@ -64,7 +18,6 @@ function Main({ products, searchTerm, loading }) {
 
     return (
         <div className='container-fluid pb-4'>
-
             <div className="green container-fluid col-lg-10 my-4 p-3 rounded">
                 <div className="container">
                     <h2 className='text-center mt-3 text-white display-1 py-3 sacramentoFont'>Entradas</h2>
@@ -75,14 +28,15 @@ function Main({ products, searchTerm, loading }) {
                             {loading ? (
                                 <Spiner />
                             ) : (
-                                catEntrees.map((product, index) => (
+                                catEntrees.map((product) => (
                                     <CardComidas
                                         key={product._id}
                                         product={product}
-                                        index={index}
-                                        agregarProducto={handleIncrement}
-                                        eliminarProducto={handleDecrement}
-                                        agregarCarrito={handleCartItems}
+                                        id={product._id}
+                                        name={product.name}
+                                        category={product.category}
+                                        price={product.price}
+                                        image={product.image}
                                     />
                                 ))
                             )}
@@ -101,13 +55,15 @@ function Main({ products, searchTerm, loading }) {
                             {loading ? (
                                 <Spiner />
                             ) : (
-                                catPizzas.map((product, index) => (
+                                catPizzas.map((product) => (
                                     <CardComidas
                                         key={product._id}
                                         product={product}
-                                        index={index}
-                                        agregarProducto={handleIncrement}
-                                        eliminarProducto={handleDecrement}
+                                        id={product._id}
+                                        name={product.name}
+                                        category={product.category}
+                                        price={product.price}
+                                        image={product.image}
                                     />
                                 ))
                             )}
@@ -126,13 +82,15 @@ function Main({ products, searchTerm, loading }) {
                             {loading ? (
                                 <Spiner />
                             ) : (
-                                catMeat.map((product, index) => (
+                                catMeat.map((product) => (
                                     <CardComidas
                                         key={product._id}
                                         product={product}
-                                        index={index}
-                                        agregarProducto={handleIncrement}
-                                        eliminarProducto={handleDecrement}
+                                        id={product._id}
+                                        name={product.name}
+                                        category={product.category}
+                                        price={product.price}
+                                        image={product.image}
                                     />
                                 ))
                             )}
@@ -151,19 +109,26 @@ function Main({ products, searchTerm, loading }) {
                             {loading ? (
                                 <Spiner />
                             ) : (
-                                catDrink.map((product, index) => (
+                                catDrink.map((product) => (
                                     <CardComidas
                                         key={product._id}
                                         product={product}
-                                        index={index}
-                                        agregarProducto={handleIncrement}
-                                        eliminarProducto={handleDecrement}
+                                        id={product._id}
+                                        name={product.name}
+                                        category={product.category}
+                                        price={product.price}
+                                        image={product.image}
                                     />
                                 ))
                             )}
                         </div>
                     )}
                 </div>
+            </div>
+            <div className='container d-flex justify-content-center mt-3 bg-warning w-25 py-3 bg-opacity-25 rounded'>
+                <Link to="/orders">
+                    <button className='px-4 py-3 rounded fw-bolder bg-warning border border-dark'>Enviar el pedido!!</button>
+                </Link>
             </div>
         </div>
     )

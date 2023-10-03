@@ -1,21 +1,48 @@
-import React, { useState } from "react";
-import { AiFillMinusCircle, AiFillPlusCircle } from 'react-icons/ai'
+import React, { useContext, useState } from "react";
+import { CartContext } from "../CartContext/CartContext";
 
-export const CardComidas = ({ product, index, agregarProducto, eliminarProducto, agregarCarrito }) => {
+export const CardComidas = ({ product, id, name, category, price, image }) => {
 
-    const [count, setCount] = useState(0);
+    const [cart, setCart] = useContext(CartContext);
 
-    const incrementoValor = (product) => {
-        if (count >= 0)
-            setCount(count + 1)
-        agregarProducto(product);
+    const addToCard = () => {
+        setCart((currItems) => {
+            const isItemsFound = currItems.find((item) => item.id === id);
+            if(isItemsFound) {
+                return currItems.map((item) => { 
+                    if(item.id === id) {
+                        return { ...item, quantity: item.quantity + 1 }
+                    } else { 
+                        return item;
+                    }
+                });
+            } else {
+                return [...currItems, { id, name, category, price, image, quantity: 1 }]
+            }
+        })
     }
 
-    const disminuirValor = () => {
-        if (count > 0)
-            setCount(count - 1)
-        eliminarProducto(product)
+    const removeItem = (id) => {
+        setCart((currItems) => {
+            if (currItems.find((item) => item.id === id)?.quantity === 1) {
+                return currItems.filter((item) => item.id !== id);
+            } else {
+                return currItems.map((item) => {
+                    if(item.id === id) {
+                        return { ...item, quantity: item.quantity - 1 };
+                    } else {
+                        return item;
+                    }
+                });
+            }
+        });
+    };
+
+    const getQuantityById = (id) => {
+        return cart.find((item) => item.id === id)?.quantity || 0;
     }
+    
+    const quantity = getQuantityById(id);
 
     return (
         <div className="col col-lg-3">
@@ -25,16 +52,12 @@ export const CardComidas = ({ product, index, agregarProducto, eliminarProducto,
                     <h5 className='card-title'>{product.name}</h5>
                     <h5 className='card-title text-info'>${product.price}</h5>
                     <hr className='m-1' />
-                    <h6>Cantidad</h6>
+                    <h6 className="fw-bolder mt-3">Cantidad</h6>
                     <div className='mb-3 d-flex justify-content-center'>
-                        <AiFillMinusCircle size='25' color='green' onClick={() => disminuirValor(product)} />
-                        <input className="w-25 border mx-2 text-center align-items" type="number" value={count} readOnly />
-                        <AiFillPlusCircle size='25' color='green' onClick={() => incrementoValor(product)} />
+                        <button className="px-4 py-2 border rounded bg-success bg-opacity-75 fw-bold" onClick={() => removeItem(id)}>-</button>
+                        <span className="px-4 py-2 mx-3 border text-center align-items fw-bolder">{quantity}</span>
+                        <button className="px-4 py-2 border rounded bg-success bg-opacity-75 fw-bolder" onClick={() => addToCard()}>+</button>
                     </div>
-                    <button
-                        onClick={() => agregarCarrito(product)}
-                        className='btn btn-outline-success text-dark border-2  fw-bold'>Agregar al carrito
-                    </button>
                 </div>
             </div>
         </div>
