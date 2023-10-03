@@ -1,10 +1,12 @@
 # Proyecto React - Pagina de Restaurante
 
 ## Nombre del Proyecto
-El nombre de tu proyecto, en este caso, el nombre de tu restaurante.
+Santorini Restaurant.
 
 ## Descripción
-Una breve descripción del proyecto que explique su propósito y funcionalidades.
+Hemos desarrollado una completa plataforma de comercio electrónico desde cero, dedicada a un restaurante llamado 'Santorini'. Esta plataforma incluye tanto el frontend como el backend, proporcionando a los usuarios una experiencia de pedido de comida sin igual. Los clientes pueden explorar el menú, seleccionar sus platos favoritos, especificar la cantidad deseada y enviar sus pedidos para su procesamiento por parte del restaurante.
+
+Además, hemos implementado un sistema de autenticación de usuarios que permite a los clientes identificarse y acceder a sus cuentas personalizadas. También hemos diseñado una página de administración que facilita la gestión de usuarios, productos y pedidos. Esta herramienta de administración brinda un control total sobre la plataforma, lo que permite una gestión eficiente y una experiencia de usuario excepcional.
 
 ## Tecnologías Utilizadas
 * React
@@ -12,30 +14,35 @@ Una breve descripción del proyecto que explique su propósito y funcionalidades
 * Node.js
 * Express
 * MongoDB
+* JsonWebToken
 
-### Instalación
-Proporciona instrucciones claras sobre cómo instalar y configurar el proyecto en local. Por ejemplo:
-
-## Clona este repositorio.
-En la carpeta raíz del proyecto, ejecuta npm install para instalar las dependencias.
-Ejecuta npm start para iniciar la aplicación.
-Funcionalidades
-Describe las principales funcionalidades de la página del restaurante, como la visualización de menús, reservas, contacto, etc.
 
 ## Capturas de Pantalla
-Incluye capturas de pantalla del proyecto para mostrar cómo se ve y proporcionar una idea visual a los usuarios.
+PENDIENTE
 
 ## Estructura de Carpetas
-Explica la estructura de carpetas del proyecto, especialmente si tienes un diseño específico para organizar los componentes, estilos y otros archivos.
-
-## Contribución
-Si deseas aceptar contribuciones de otros desarrolladores, describe cómo pueden colaborar contigo en el proyecto. Incluye información sobre cómo realizar solicitudes de extracción (Pull Requests) y los estándares de código que debes seguir.
+Se estructuro las carpetas ramas: Assets, para poner imagenes y demas recursos; Componentes, para trabajar cada componente por separado; Pages, para diseñar la estructura de cada pagina; Routes, donde se definio rutas privadas.
 
 ## Licencia
-Indica la licencia bajo la cual se distribuye el proyecto. Por ejemplo, puedes utilizar la Licencia MIT.
+Licencia MIT
 
-## Contacto
-Proporciona información de contacto para que los usuarios puedan comunicarse contigo si tienen preguntas o comentarios sobre el proyecto.
+Copyright (c) 2023 Comision 53i Rolling Code
+
+Se concede permiso, de forma gratuita, a cualquier persona que obtenga una copia de este software y de los archivos de documentación asociados (el "Software"), para tratar el Software sin restricción, incluyendo, sin limitación, los derechos para usar, copiar, modificar, fusionar, publicar, distribuir, sublicenciar y/o vender copias del Software, y permitir a las personas a las que se les proporcione el Software a hacerlo, sujeto a las siguientes condiciones:
+
+El aviso de copyright anterior y este aviso de permiso se incluirán en todas las copias o partes sustanciales del Software.
+
+EL SOFTWARE SE PROPORCIONA "TAL CUAL", SIN GARANTÍA DE NINGÚN TIPO, EXPRESA O IMPLÍCITA, INCLUYENDO PERO NO LIMITADO A LAS GARANTÍAS DE COMERCIABILIDAD, IDONEIDAD PARA UN PROPÓSITO PARTICULAR Y NO INFRACCIÓN. EN NINGÚN CASO LOS AUTORES O TITULARES DE DERECHOS DE AUTOR SERÁN RESPONSABLES POR CUALQUIER RECLAMO, DAÑOS U OTRA RESPONSABILIDAD, YA SEA EN UNA ACCIÓN DE CONTRATO, AGRAVIO O DE OTRA MANERA, DERIVADA DE, FUERA DE O EN RELACIÓN CON EL SOFTWARE O EL USO U OTROS TRATOS EN EL SOFTWARE.
+
+
 
 ## Agradecimientos
-Si has utilizado bibliotecas, recursos o inspiración de otros proyectos, agradece y atribuye adecuadamente.
+Agradecemos a todos aquellos que fueron parte de nuestro proyecto. Fue un viaje gratificante que no habría sido posible sin el trabajo y la dedicación de todo el equipo.
+
+Agradecemos a cada miembro del equipo por su compromiso y su esfuerzo para hacer realidad este proyecto. Cada unoaportó su creatividad, experiencia y pasión, lo que se refleja en el éxito del proyecto.
+
+Finalmente, queremos destacar la importancia de la colaboración de profesores y menores que nos acompañaron.
+
+¡Gracias a todos por ser parte de esta increíble aventura!"
+
+Siéntete libre de personalizar este mensaje de agradecimiento según las circunstancias específicas de tu proyecto y el público al que va dirigido.
