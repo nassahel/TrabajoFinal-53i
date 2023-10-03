@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import { Routes, Route } from 'react-router-dom'
 import './App.css'
 import Footer from './components/footer/Footer'
@@ -8,22 +9,37 @@ import AboutUs from './pages/aboutUs/AboutUs'
 import Register from './pages/register/Register'
 import Login from './pages/login/Login'
 import Orders from './pages/orders/Orders'
+import ProtectedRoutes from './routes/ProtectedRoutes'
 
 
 
 
 function App() {
 
+const [auth, setAuth] = useState(false)
+
+
+const userAdmin = () =>  {
+  setAuth(true)
+}
+
+
+
   return (
     <div className='principal'>
-      <Navbarr />
+      <Navbarr userAdmin={userAdmin} />
       <Routes>
         <Route path='/' element={<Home />} />
         <Route path='/orders' element={<Orders />} />
-        <Route path='/admin' element={<Admin />} />
         <Route path='/about' element={<AboutUs />} />
         <Route path='/register' element={<Register />} />
         <Route path='/login' element={<Login />} />
+        <Route path='/admin' element={
+          <ProtectedRoutes auth={auth} >
+            <Admin />
+          </ProtectedRoutes>
+        } />
+
       </Routes>
       <Footer className="footer" />
     </div>

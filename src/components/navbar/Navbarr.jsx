@@ -9,7 +9,9 @@ import Navbar from "react-bootstrap/Navbar";
 import logoResto from '../../assets/img/hnb.png'
 import "./navbar.css";
 
-function Navbarr() {
+function Navbarr({userAdmin}) {
+
+
   const [userRole, setUserRole] = useState('USER_NORMAL');
   const [cerrarSesion, setCerrarSesion] = useState(false);
   const [usuarios, setUsuarios] = useState([]);
@@ -48,6 +50,9 @@ function Navbarr() {
             }
           }
 
+          // if(userRole == 'USER_ADMIN') {
+          //   userAdmin()
+          // }
 
           setCerrarSesion(true);
         } catch (error) {
@@ -98,7 +103,8 @@ function Navbarr() {
                   <NavLink to="/about" className="nav-link text-light">Nosotros</NavLink>
                   {userRole === 'USER_ADMIN' && (
                     <NavLink to="/admin" className="nav-link text-light">Administración</NavLink>
-                  )}
+                  ) }
+                  {userRole === 'USER_ADMIN' && userAdmin() }
                   {cerrarSesion && (
                     <button onClick={handleLogout} className="btn btn-danger">Cerrar Sesión</button>
                   )}
