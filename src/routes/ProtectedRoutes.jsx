@@ -1,16 +1,17 @@
-/* import React from 'react'
-import { Navigate } from 'react-router-dom';
+import React from 'react';
+import { Routes, Route, Navigate } from 'react-router-dom';
+import Admin from '../pages/Admin2/Admin';
 
-function ProtectedRoutes({ children, auth }) {
-   
-    if (auth) {
-        return children
-    } else {
-        return (
-            <Navigate to='/' />
-        )
+export default function ProtectedRouteWrapper({ auth, userAdmin }) {
+    if (!auth) {
+    return <Navigate to='/' />;
     }
 
-}
+    userAdmin();
 
-export default ProtectedRoutes */
+    return (
+    <Routes>
+      <Route path='/*' element={<Admin />} /> {/* Cambiado path a '/*' */}
+    </Routes>
+    );
+}
