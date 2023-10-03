@@ -1,4 +1,4 @@
-import React from 'react'
+/* import React from 'react'
 import { Navigate } from 'react-router-dom';
 
 function ProtectedRoutes({ children, auth }) {
@@ -13,4 +13,4 @@ function ProtectedRoutes({ children, auth }) {
 
 }
 
-export default ProtectedRoutes
+export default ProtectedRoutes */

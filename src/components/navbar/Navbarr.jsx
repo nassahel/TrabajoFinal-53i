@@ -9,7 +9,7 @@ import Navbar from "react-bootstrap/Navbar";
 import logoResto from '../../assets/img/hnb.png'
 import "./navbar.css";
 
-function Navbarr({auth}) {
+function Navbarr() {
 
 
   const [userRole, setUserRole] = useState('USER_NORMAL');
@@ -103,7 +103,7 @@ function Navbarr({auth}) {
                 <Nav className="justify-content-end flex-grow-1 pe-4 mb-2">
                   <NavLink to="/" className="nav-link text-light">Inicio</NavLink>
                   <NavLink to="/about" className="nav-link text-light">Nosotros</NavLink>
-                  {userRole === 'USER_ADMIN' && auth &&(
+                  {userRole === 'USER_ADMIN' &&(
                     <NavLink to="/admin" className="nav-link text-light">Administración</NavLink>
                   ) }
                   {cerrarSesion && (
