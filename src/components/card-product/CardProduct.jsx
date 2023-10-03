@@ -1,5 +1,6 @@
 import React, { useContext, useState } from "react";
 import { CartContext } from "../CartContext/CartContext";
+import { AiFillPlusSquare, AiFillMinusSquare } from "react-icons/ai";
 
 export const CardComidas = ({ product, id, name, category, price, image }) => {
 
@@ -45,18 +46,20 @@ export const CardComidas = ({ product, id, name, category, price, image }) => {
     const quantity = getQuantityById(id);
 
     return (
-        <div className="col col-lg-3">
-            <div className="card rounded text-center border-1  p-1 h-100">
+        <div className="col p-3 col-lg-3">
+            <div className="card  rounded text-center border-1  p-1 h-100">
                 <img className='img-fluid mx-auto rounded' src={product.image} alt={product.name} />
                 <div className="card-body d-flex flex-column justify-content-end">
                     <h5 className='card-title'>{product.name}</h5>
                     <h5 className='card-title text-info'>${product.price}</h5>
                     <hr className='m-1' />
-                    <h6 className="fw-bolder mt-3">Cantidad</h6>
-                    <div className='mb-3 d-flex justify-content-center'>
-                        <button className="px-4 py-2 border rounded bg-success bg-opacity-75 fw-bold" onClick={() => removeItem(id)}>-</button>
+                    <h6 className="fw-bolder mt-2">Cantidad</h6>
+                    <div className='mb-2 d-flex justify-content-center align-items-center'>
+                        <AiFillMinusSquare  onClick={() => removeItem(id)} color="green" size={50} />
                         <span className="px-4 py-2 mx-3 border text-center align-items fw-bolder">{quantity}</span>
-                        <button className="px-4 py-2 border rounded bg-success bg-opacity-75 fw-bolder" onClick={() => addToCard()}>+</button>
+                        <AiFillPlusSquare onClick={() => addToCard()} color="green" size={50} />
+                        
+                       
                     </div>
                 </div>
             </div>

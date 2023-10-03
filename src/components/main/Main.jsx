@@ -18,7 +18,7 @@ function Main({ products, searchTerm, loading }) {
 
     return (
         <div className='container-fluid pb-4'>
-            <div className="green container-fluid col-lg-10 my-4 p-3 rounded">
+            <div className="green container-fluid col-xl-10 my-4 p-3 rounded">
                 <div className="container">
                     <h2 className='text-center mt-3 text-white display-1 py-3 sacramentoFont'>Entradas</h2>
                     {catEntrees.length === 0 && !loading ? (
@@ -45,7 +45,7 @@ function Main({ products, searchTerm, loading }) {
                 </div>
             </div>
 
-            <div className="green container-fluid col-lg-10 my-4 p-3 rounded">
+            <div className="green container-fluid col-xl-10 my-4 p-3 rounded">
                 <div className="container">
                     <h2 className='text-center mt-3 text-white display-1 py-3 sacramentoFont'>Pizzas</h2>
                     {catPizzas.length === 0 && !loading ? (
@@ -72,7 +72,7 @@ function Main({ products, searchTerm, loading }) {
                 </div>
             </div>
 
-            <div className="green container-fluid col-lg-10 my-4 p-3 rounded">
+            <div className="green container-fluid col-xl-10 my-4 p-3 rounded">
                 <div className="container">
                     <h2 className='text-center mt-3 text-white display-1 py-3 sacramentoFont'>Carnes</h2>
                     {catMeat.length === 0 && !loading ? (
@@ -99,7 +99,7 @@ function Main({ products, searchTerm, loading }) {
                 </div>
             </div>
 
-            <div className="green container-fluid col-lg-10  p-3 rounded">
+            <div className="green container-fluid col-xl-10 my-4 p-3 rounded">
                 <div className="container">
                     <h2 className='text-center mt-3 text-white display-1 py-3 sacramentoFont'>Bebidas</h2>
                     {catDrink.length === 0 && !loading ? (
@@ -125,9 +125,9 @@ function Main({ products, searchTerm, loading }) {
                     )}
                 </div>
             </div>
-            <div className='container d-flex justify-content-center mt-3 bg-warning w-25 py-3 bg-opacity-25 rounded'>
+            <div className='container d-flex justify-content-center mt-3 col-lg-2 col-8 py-3 bg-secondary bg-opacity-25 rounded'>
                 <Link to="/orders">
-                    <button className='px-4 py-3 rounded fw-bolder bg-warning border border-dark'>Enviar el pedido!!</button>
+                    <button style={{backgroundColor: '#344235'}} className='px-5 py-3 rounded fw-bolder border border-light text-light' >Ver carrito</button>
                 </Link>
             </div>
         </div>
