@@ -51,7 +51,7 @@ const Pedidos = () => {
   };
 
   return (
-    <main>
+    <main className="container-fluid">
       <form className="my-auto bg-white p-2 rounded" onSubmit={handleSubmit}>
         <div className="row mt-4">
           <div className=' d-flex justify-content-center flex-column align-items-center text-center'>

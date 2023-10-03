@@ -187,7 +187,7 @@ function Productos() {
 
 
   return (
-    <main>
+    <main className='container-fluid'>
       <form className="col-12 my-auto producto-contenedor bg-white p-2 rounded" onSubmit={handleSubmit}>
         <div className='row mt-4'>
 
