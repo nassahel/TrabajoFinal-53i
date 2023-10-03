@@ -21,6 +21,16 @@ function Navbarr({ auth, userAdmin }) {
   const [orders, setOrders] = useState(JSON.parse(localStorage.getItem("orders"))
   )
 
+  const itemsCart = localStorage.getItem("cart");
+  const itemsCartO = JSON.parse(itemsCart)
+
+  if (Array.isArray(itemsCartO)) {
+    console.log("Es un array válido.");
+    console.log(itemsCartO.length);
+  } else {
+    console.log("No es un array válido.");
+  }
+
   useEffect(() => {
 
     //usuarios///////////////////////
@@ -119,6 +129,12 @@ function Navbarr({ auth, userAdmin }) {
                 <NavLink to="/orders">
                   <AiOutlineShoppingCart size='2rem' color='white' />
                   {orders && orders.length}
+                </NavLink>
+                <NavLink to="/orders" className='text-decoration-none'>
+                  <AiOutlineShoppingCart size='2rem' color='white' />
+                  <span class="position-absolute translate-middle badge rounded-pill bg-success">
+                  {itemsCart && itemsCart.length}
+                  </span>
                 </NavLink>
               </Offcanvas.Body>
             </Navbar.Offcanvas>
