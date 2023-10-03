@@ -9,8 +9,11 @@ import Navbar from "react-bootstrap/Navbar";
 import logoResto from '../../assets/img/hnb.png'
 import "./navbar.css";
 
-function Navbarr() {
+function Navbarr({ auth, userAdmin }) {
 
+  useEffect(() => {
+    userAdmin(); 
+  }, [auth, userAdmin]);
 
   const [userRole, setUserRole] = useState('USER_NORMAL');
   const [cerrarSesion, setCerrarSesion] = useState(false);
