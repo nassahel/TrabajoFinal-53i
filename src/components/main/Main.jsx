@@ -1,23 +1,58 @@
 import React from 'react'
 import './mains.css'
 import Spiner from '../spiner/Spiner'
-import { useNavigate } from 'react-router'
-import { AiFillMinusCircle, AiFillPlusCircle } from 'react-icons/ai'
+import { useState } from 'react'
+import { CardComidas } from '../card-product/CardProduct'
 
 
 function Main({ products, searchTerm, loading }) {
 
-    const button = product => {
-        let orders = JSON.parse(localStorage.getItem("orders"))
-        if (orders) {
-            orders.push(product)
+    const [menuPedido, setMenuPedido] = useState([]);
+
+    // Incremento de cantidad en el carrito
+
+    const handleIncrement = (product) => {
+        const productIndex = menuPedido.findIndex((item) => item._id === product._id);
+        const updatedMenuPedido = [...menuPedido];
+
+        if (productIndex !== -1) {
+            updatedMenuPedido[productIndex].quantity += 1;
         } else {
-            orders = [product]
+            product.quantity = 1;
+            updatedMenuPedido.push(product);
         }
 
-        localStorage.setItem("orders", JSON.stringify(orders))
-        window.dispatchEvent(new Event('storage'))
+        setMenuPedido(updatedMenuPedido);
+        console.log(updatedMenuPedido);
+    };
+
+    // Disminucion de cantidad en el carrito
+
+    const handleDecrement = (product) => {
+        const productIndex = menuPedido.findIndex((item) => item._id === product._id);
+        const updatedMenuPedido = [...menuPedido];
+
+        if (productIndex !== -1) {
+            if (updatedMenuPedido[productIndex].quantity > 1) {
+                updatedMenuPedido[productIndex].quantity -= 1;
+            } else {
+                updatedMenuPedido.splice(productIndex, 1);
+            }
+        }
+
+        setMenuPedido(updatedMenuPedido);
+        console.log(updatedMenuPedido);
+    };
+
+    // Agregar al carrito
+
+    const handleCartItems = (data) => {
+        const dataArray = [data]
+        console.log(dataArray);
+        const dataString = JSON.stringify(data);
+        localStorage.setItem("cart", dataString);
     }
+
 
     const filteredProducts = products.filter((product) =>
         product.name.toLowerCase().includes(searchTerm.toLowerCase()))
@@ -41,32 +76,19 @@ function Main({ products, searchTerm, loading }) {
                                 <Spiner />
                             ) : (
                                 catEntrees.map((product, index) => (
-                                    <div className="col col-lg-3" key={product.id || index}>
-                                        <div className="card rounded text-center border-1  p-1 h-100">
-                                            <img className='img-fluid mx-auto rounded' src={product.image} alt={product.name} />
-                                            <div className="card-body d-flex flex-column justify-content-end">
-                                                <h5 className='card-title'>{product.name}</h5>
-                                                <h5 className='card-title text-info'>${product.price}</h5>
-                                                <hr className='m-1' />
-                                                <div className='mb-3'>
-                                                    <h6>Cantidad</h6>
-                                                    <AiFillMinusCircle  size='25' color='green' />
-                                                    <input className="w-25 border mx-2 text-center" type="numbre" name="poductMount" id="proMount"  />
-                                                    <AiFillPlusCircle  size='25' color='green' />
-                                                </div>
-                                                <button
-                                                    onClick={() => navigate("/user/orders", { state: product })}
-                                                    className='btn btn-outline-success text-dark border-2  fw-bold'>Agregar al carrito</button>
-                                            </div>
-                                        </div>
-                                    </div>
+                                    <CardComidas
+                                        key={product._id}
+                                        product={product}
+                                        index={index}
+                                        agregarProducto={handleIncrement}
+                                        eliminarProducto={handleDecrement}
+                                        agregarCarrito={handleCartItems}
+                                    />
                                 ))
                             )}
                         </div>
                     )}
                 </div>
-
-
             </div>
 
             <div className="green container-fluid col-lg-10 my-4 p-3 rounded">
@@ -80,32 +102,18 @@ function Main({ products, searchTerm, loading }) {
                                 <Spiner />
                             ) : (
                                 catPizzas.map((product, index) => (
-                                    <div className="col col-lg-3" key={product.id || index}>
-                                        <div className="card text-center rounded border-1 border-dark p-1 h-100">
-                                            <img className='img-fluid mx-auto rounded' src={product.image} alt={product.name} />
-                                            <div className="card-body d-flex flex-column justify-content-end">
-                                                <h5 className='card-title'>{product.name}</h5>
-                                                <h5 className='card-title'>${product.price}</h5>
-                                                <div className='mb-3'>
-                                                <hr className='m-1' />
-                                                    <h6>Cantidad</h6>
-                                                    <AiFillMinusCircle  size='25' color='green' />
-                                                    <input className="w-25 border mx-2 text-center" type="numbre" name="poductMount" id="proMount"  />
-                                                    <AiFillPlusCircle  size='25' color='green' />
-                                                </div>
-                                                <button
-                                                    onClick={() => navigate("/user/orders", { state: product })}
-                                                    className='btn btn-outline-success text-dark border-2  fw-bold'>Agregar al carrito</button>
-                                            </div>
-                                        </div>
-                                    </div>
+                                    <CardComidas
+                                        key={product._id}
+                                        product={product}
+                                        index={index}
+                                        agregarProducto={handleIncrement}
+                                        eliminarProducto={handleDecrement}
+                                    />
                                 ))
                             )}
                         </div>
                     )}
                 </div>
-
-
             </div>
 
             <div className="green container-fluid col-lg-10 my-4 p-3 rounded">
@@ -119,32 +127,18 @@ function Main({ products, searchTerm, loading }) {
                                 <Spiner />
                             ) : (
                                 catMeat.map((product, index) => (
-                                    <div className="col col-lg-3" key={product.id || index}>
-                                        <div className="card text-center rounded border-1 border-dark p-1 h-100">
-                                            <img className='img-fluid mx-auto rounded' src={product.image} alt={product.name} />
-                                            <div className="card-body d-flex flex-column justify-content-end">
-                                                <h5 className='card-title'>{product.name}</h5>
-                                                <h5 className='card-title'>${product.price}</h5>
-                                                <div className='mb-3'>
-                                                <hr className='m-1' />
-                                                    <h6>Cantidad</h6>
-                                                    <AiFillMinusCircle  size='25' color='green' />
-                                                    <input className="w-25 border mx-2 text-center" type="numbre" name="poductMount" id="proMount"  />
-                                                    <AiFillPlusCircle  size='25' color='green' />
-                                                </div>
-                                                <button
-                                                    onClick={() => navigate("/user/orders", { state: product })}
-                                                    className='btn btn-outline-success text-dark border-2 fw-bold'>Agregar al carrito</button>
-                                            </div>
-                                        </div>
-                                    </div>
+                                    <CardComidas
+                                        key={product._id}
+                                        product={product}
+                                        index={index}
+                                        agregarProducto={handleIncrement}
+                                        eliminarProducto={handleDecrement}
+                                    />
                                 ))
                             )}
                         </div>
                     )}
                 </div>
-
-
             </div>
 
             <div className="green container-fluid col-lg-10  p-3 rounded">
@@ -158,25 +152,13 @@ function Main({ products, searchTerm, loading }) {
                                 <Spiner />
                             ) : (
                                 catDrink.map((product, index) => (
-                                    <div className="col col-lg-3" key={product.id || index}>
-                                        <div className="card text-center rounded border-1 border-dark p-1 h-100">
-                                            <img className='img-fluid mx-auto rounded' src={product.image} alt={product.name} />
-                                            <div className="card-body d-flex flex-column justify-content-end">
-                                                <h5 className='card-title'>{product.name}</h5>
-                                                <h5 className='card-title'>${product.price}</h5>
-                                                <div className='mb-3'>
-                                                <hr className='m-1' />
-                                                    <h6>Cantidad</h6>
-                                                    <AiFillMinusCircle  size='25' color='green' />
-                                                    <input className="w-25 border mx-2 text-center" type="numbre" name="poductMount" id="proMount"  />
-                                                    <AiFillPlusCircle  size='25' color='green' />
-                                                </div>
-                                                <button
-                                                    onClick={() => navigate("/user/orders", { state: product })}
-                                                    className='btn btn-outline-success text-dark border-2 rounded-0 fw-bold'>Agregar al carrito</button>
-                                            </div>
-                                        </div>
-                                    </div>
+                                    <CardComidas
+                                        key={product._id}
+                                        product={product}
+                                        index={index}
+                                        agregarProducto={handleIncrement}
+                                        eliminarProducto={handleDecrement}
+                                    />
                                 ))
                             )}
                         </div>
