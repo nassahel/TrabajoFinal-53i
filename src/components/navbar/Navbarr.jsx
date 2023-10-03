@@ -103,10 +103,9 @@ function Navbarr({auth}) {
                 <Nav className="justify-content-end flex-grow-1 pe-4 mb-2">
                   <NavLink to="/" className="nav-link text-light">Inicio</NavLink>
                   <NavLink to="/about" className="nav-link text-light">Nosotros</NavLink>
-                  {userRole === 'USER_ADMIN' && (
+                  {userRole === 'USER_ADMIN' && auth &&(
                     <NavLink to="/admin" className="nav-link text-light">Administración</NavLink>
                   ) }
-                  {userRole === 'USER_ADMIN' && auth }
                   {cerrarSesion && (
                     <button onClick={handleLogout} className="btn btn-danger">Cerrar Sesión</button>
                   )}
