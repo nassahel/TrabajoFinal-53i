@@ -27,7 +27,7 @@ const userAdmin = () =>  {
 
   return (
     <div className='principal'>
-      <Navbarr userAdmin={userAdmin} />
+      <Navbarr auth={auth} />
       <Routes>
         <Route path='/' element={<Home />} />
         <Route path='/orders' element={<Orders />} />
