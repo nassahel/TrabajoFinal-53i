@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { NavLink } from "react-router-dom";
 import { BsPersonCircle } from "react-icons/bs";
 import { AiOutlineShoppingCart } from "react-icons/ai";
@@ -8,6 +8,7 @@ import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
 import logoResto from '../../assets/img/hnb.png'
 import "./navbar.css";
+import { CartContext } from '../CartContext/CartContext';
 
 function Navbarr({ auth, userAdmin }) {
 
@@ -18,18 +19,9 @@ function Navbarr({ auth, userAdmin }) {
   const [userRole, setUserRole] = useState('USER_NORMAL');
   const [cerrarSesion, setCerrarSesion] = useState(false);
   const [usuarios, setUsuarios] = useState([]);
-  const [orders, setOrders] = useState(JSON.parse(localStorage.getItem("orders"))
-  )
+  const [orders, setOrders] = useState(JSON.parse(localStorage.getItem("orders")))
 
-  const itemsCart = localStorage.getItem("cart");
-  const itemsCartO = JSON.parse(itemsCart)
-
-  if (Array.isArray(itemsCartO)) {
-    console.log("Es un array válido.");
-    console.log(itemsCartO.length);
-  } else {
-    console.log("No es un array válido.");
-  }
+  const [cart, setCart] = useContext(CartContext);
 
   useEffect(() => {
 
@@ -126,14 +118,10 @@ function Navbarr({ auth, userAdmin }) {
                 <NavLink to="/register" className='me-4' >
                   <BsPersonCircle size='2rem' color='white' />
                 </NavLink >
-                <NavLink to="/orders">
-                  <AiOutlineShoppingCart size='2rem' color='white' />
-                  {orders && orders.length}
-                </NavLink>
                 <NavLink to="/orders" className='text-decoration-none'>
                   <AiOutlineShoppingCart size='2rem' color='white' />
                   <span class="position-absolute translate-middle badge rounded-pill bg-success">
-                  {itemsCart && itemsCart.length}
+                  {cart && cart.length}
                   </span>
                 </NavLink>
               </Offcanvas.Body>
