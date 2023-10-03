@@ -120,7 +120,7 @@ function Navbarr({ auth, userAdmin }) {
                 </NavLink >
                 <NavLink to="/orders" className='text-decoration-none'>
                   <AiOutlineShoppingCart size='2rem' color='white' />
-                  <span class="position-absolute translate-middle badge rounded-pill bg-success">
+                  <span className="position-absolute translate-middle badge rounded-pill bg-success">
                   {cart && cart.length}
                   </span>
                 </NavLink>

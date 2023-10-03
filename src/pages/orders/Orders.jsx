@@ -1,30 +1,37 @@
 import React, { useContext, useEffect, useState } from "react";
 import { AiFillDelete } from "react-icons/ai";
-import './orders.css';
 import { CartContext } from "../../components/CartContext/CartContext";
 
 const Orders = () => {
   const [cart, setCart] = useContext(CartContext);
+  const [tokenUser, setTokenUser] = useState(localStorage.getItem('token'));
 
   const handleConfirmPurchase = async () => {
     try {
-      const newOrder = {
+      const tokenData = JSON.parse(atob(tokenUser.split('.')[1]));
+      //const tokenUserId = tokenData.uid;
 
+      const newOrder = {
+        order: cart,
+        totalCost: 50
       };
 
-      const url = 'https://backend-rolling53i.onrender.com/api/pedidos';
+      const url = `https://backend-rolling53i.onrender.com/api/pedidos`;
       const response = await fetch(url, {
         method: 'POST',
         headers: {
           'Content-type': 'application/json',
+          'x-token': tokenUser
         },
         body: JSON.stringify(newOrder),
       });
 
       if (!response.ok) {
-        throw new Error('No se pudo agregar el producto');
+        throw new Error('No se pudo enviar el pedido');
       }
 
+      alert('Pedido enviado con exito! 🎉')
+      limpiarCarrito();
       console.log('Pedido enviado con éxito');
 
     } catch (error) {
@@ -38,7 +45,6 @@ const Orders = () => {
     if (carritoEliminar) {
       const updatedItems = cart.filter(item => item.id !== id);
       setCart(updatedItems);
-
     }
   };
 
@@ -67,13 +73,16 @@ const Orders = () => {
             <div className="col my-auto"><h5 className="card-title">{item.name}</h5></div>
             <div className="col my-auto"><h5 className='card-title'>${item.price}</h5></div>
             <div className="col my-auto"><h5 className='card-title'>Unidades: {item.quantity}</h5></div>
-            <div className="col my-auto text-end pe-4"> <AiFillDelete size={25} color='brown' onClick={() => eliminarProducto(item.id, item.name)} /></div>
+            <div className="col my-auto text-end pe-4"> <AiFillDelete role="button" size={25} color='brown' onClick={() => eliminarProducto(item.id, item.name)} /></div>
           </div>
         )) :
-          <p>No hay nada</p>}
+          <div className="container text-center py-4 bg-dark bg-opacity-75 my-4 rounded">
+            <p >No hay nada</p>
+          </div>
+        }
         <div>
-          <button className='btn botonConfirmar btn-md mt-4 fw-bold me-3' onClick={handleConfirmPurchase}>Confirmar compra</button>
-          <button className='btn botonConfirmar btn-sm mt-4 fw-bold' onClick={handleEmptyCart}>Vaciar Carrito</button>
+          <button style={{ backgroundColor: "#2C4B45" }} className='btn botonConfirmar mt-4 fw-bold me-3 text-light' onClick={handleConfirmPurchase}>Confirmar compra</button>
+          <button className='btn btn-danger mt-4 fw-bold' onClick={handleEmptyCart}>Vaciar Carrito</button>
         </div>
       </div>
     </div>
