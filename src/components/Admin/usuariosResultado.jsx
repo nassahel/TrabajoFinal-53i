@@ -31,7 +31,7 @@ const UsuariosResultado = ({ usuarios, editarUsuario, eliminarUsuario }) => {
                 <p className="col-lg-2 mb-0"> <span className='d-flex fw-semibold'>Rol del Usuario:</span> {usuario.rol}</p>
               </div>
             </div>
-            <div className="col-lg-1 col-10">
+            <div className="col-lg-1 col-12">
               <div className='row'>
                 <button className='mb-2 btn btn-dark m-auto' type="button" onClick={() => handleEditar(usuario._id)}>Editar</button>
                 <button

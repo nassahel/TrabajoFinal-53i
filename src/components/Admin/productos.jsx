@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import Resultado from './resultado';
+import Resultado from './productoResultado';
 
 function Productos() {
 
@@ -236,7 +236,7 @@ function Productos() {
           <div className='col-lg-4 text-center'>
             <label className='col-12 producto-texto fs-6' htmlFor="activo">Producto Activo</label>
             <select
-              className='col-lg-6 col-3 input-productos p-1  input-nombre rounded border border-black border-opacity-50'
+              className='col-lg-6 col-2 input-productos p-1  input-nombre rounded border border-black border-opacity-50'
               name="activo"
               id="activo"
               placeholder="Producto Activo"
@@ -253,7 +253,7 @@ function Productos() {
             <div className='col-lg-4 mt-2 text-center'>
               <label className='col-12 producto-texto fs-6' htmlFor="categoria">Categoría del Producto</label>
               <select
-                className='col-lg-6 col-3 input-productos p-1 input-nombre rounded border border-black border-opacity-50'
+                className='col-lg-6 col-2 input-productos p-1 input-nombre rounded border border-black border-opacity-50'
                 name="categoria"
                 id="categoria"
                 placeholder="Categoría del Producto"
