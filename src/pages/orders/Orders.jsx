@@ -83,8 +83,8 @@ const Orders = () => {
   }, [cart]);
 
   return (
-    <div className="container-fluid main-cont d-flex flex-column align-items-center">
-      <div className="container bg-success text-light p-2 text-center">
+    <div className="container-fluid main-cont d-flex flex-column align-items-center mt-4">
+      <div className="container bg-success text-light p-2 mt-3 text-center">
         <h2>Tu pedido</h2>
       </div>
       <div className="container text-center py-4 bg-dark bg-opacity-75 my-4 rounded">

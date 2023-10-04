@@ -14,8 +14,16 @@ Además, hemos implementado un sistema de autenticación de usuarios que permite
 * Node.js
 * Express
 * MongoDB
-* JsonWebToken
 
+ # devDependencies: 
+ 
+* JsonWebToken
+* Bcrypt
+* Bcryptjs
+* Cors
+* Dotenv
+* Express-validator
+* Mongoose
 
 ## Estructura de Carpetas
 Se estructuro las carpetas ramas: Assets, para poner imagenes y demas recursos; Componentes, para trabajar cada componente por separado; Pages, para diseñar la estructura de cada pagina; Routes, donde se definio rutas privadas.
@@ -45,11 +53,12 @@ Finalmente, queremos destacar la importancia de la colaboración de profesores y
 
 ## Integrantes
 
-Ale Ali, Farid.
-Chehin, Luis.
-Elias, Nassahel.
-Guaranca, Nancy.
-Hidalgo, Lautaro
-Lopez, Pia.
-Rodriguez, Milagro.
+* Ale Ali, Farid.
+* Chehin, Luis.
+* Elias, Nassahel.
+* Lopez, Pia.
+* Rodriguez, Milagro.
+* Guaranca, Nancy.
+* Hidalgo, Lautaro
+
 
