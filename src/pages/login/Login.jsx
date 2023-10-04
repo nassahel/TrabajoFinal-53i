@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { Form, Button } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
-import './login.css';
+
 
 function Login() {
     const [correo, setCorreo] = useState("");
@@ -49,11 +49,11 @@ function Login() {
         }
     }
     return (
-        <div className='mx-auto my-auto bg-dark bg-opacity-75 rounded border border-success col-sm-6 col-md-6 col-lg-5'>
-            <div className='form-container mx-auto my-auto'>
+        <div className='mx-auto my-auto col-10 col-xl-3 bg-dark bg-opacity-75 rounded border border-success col-sm-6 col-md-6 col-lg-5'>
+            <div className='form-container col-lg-8 col-xl-10 mx-auto my-auto px-3 text-white'>
                 <Form id="miFormulario" onSubmit={botonIniciar}>
                     <div>
-                        <h3 className='text-white mt-2'>Inicio de sesion</h3>
+                        <h3 className=' mt-2 text-center'>Inicio de sesión</h3>
                     </div>
                     <div>
                         <Form.Label className='correo'>Correo:</Form.Label>
@@ -76,11 +76,11 @@ function Login() {
                         />
                     </div>
                     <div className='mb-3 d-flex justify-content-center'>
-                        <Button className='mt-3' type='submit' variant="info">Iniciar Sesión</Button>
+                        <Button className='mt-3' type='submit' variant="success">Iniciar Sesión</Button>
                     </div>
                 </Form>
-                <div className='mb-2'>
-                    <Link className='text-decoration-none fw-normal fs-6 text-secondary' to="/register">¿No tiene cuenta? <span className='fw-bold'>Registrate</span></Link>
+                <div className='mb-2 text-center'>
+                    <Link className='text-decoration-none fw-normal fs-6 text-light' to="/register">¿No tenés cuenta? <span className='fw-bold text-decoration-underline'>Registrate</span></Link>
                 </div>
             </div>
             {error && <p className='mt-3 fw-semibold text-danger mb-0'>Todos los campos son obligatorios.</p>}
