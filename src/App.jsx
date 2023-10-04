@@ -4,13 +4,13 @@ import './App.css'
 import Footer from './components/footer/Footer'
 import Navbarr from './components/navbar/Navbarr'
 import Home from './pages/home/Home'
-import Admin from './pages/Admin/Admin'
 import AboutUs from './pages/aboutUs/AboutUs'
 import Register from './pages/register/Register'
 import Login from './pages/login/Login'
 import Orders from './pages/orders/Orders'
 import ProtectedRoutes from './routes/ProtectedRoutes';
 import { CartProvider } from './components/CartContext/CartContext'
+import NotFound from './components/not-found/NotFound'
 
 
 
@@ -33,6 +33,7 @@ function App() {
           <Route path='/register' element={<Register />} />
           <Route path='/login' element={<Login />} />
           <Route path='/admin/*' element={<ProtectedRoutes auth={auth} userAdmin={userAdmin} />} />
+          <Route path='/*' element={<NotFound/>} />
         </Routes>
         <Footer className='footer' />
       </CartProvider>
