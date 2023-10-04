@@ -17,9 +17,6 @@ Además, hemos implementado un sistema de autenticación de usuarios que permite
 * JsonWebToken
 
 
-## Capturas de Pantalla
-PENDIENTE
-
 ## Estructura de Carpetas
 Se estructuro las carpetas ramas: Assets, para poner imagenes y demas recursos; Componentes, para trabajar cada componente por separado; Pages, para diseñar la estructura de cada pagina; Routes, donde se definio rutas privadas.
 
@@ -39,10 +36,20 @@ EL SOFTWARE SE PROPORCIONA "TAL CUAL", SIN GARANTÍA DE NINGÚN TIPO, EXPRESA O 
 ## Agradecimientos
 Agradecemos a todos aquellos que fueron parte de nuestro proyecto. Fue un viaje gratificante que no habría sido posible sin el trabajo y la dedicación de todo el equipo.
 
-Agradecemos a cada miembro del equipo por su compromiso y su esfuerzo para hacer realidad este proyecto. Cada unoaportó su creatividad, experiencia y pasión, lo que se refleja en el éxito del proyecto.
+Agradecemos a cada miembro del equipo por su compromiso y su esfuerzo para hacer realidad este proyecto. Cada uno aportó su creatividad, experiencia y pasión, lo que se refleja en el éxito del proyecto.
 
-Finalmente, queremos destacar la importancia de la colaboración de profesores y menores que nos acompañaron.
+Finalmente, queremos destacar la importancia de la colaboración de profesores y Mentores que nos acompañaron.
 
 ¡Gracias a todos por ser parte de esta increíble aventura!"
 
-Siéntete libre de personalizar este mensaje de agradecimiento según las circunstancias específicas de tu proyecto y el público al que va dirigido.
+
+## Integrantes
+
+Ale Ali, Farid.
+Chehin, Luis.
+Elias, Nassahel.
+Guaranca, Nancy.
+Hidalgo, Lautaro
+Lopez, Pia.
+Rodriguez, Milagro.
+
