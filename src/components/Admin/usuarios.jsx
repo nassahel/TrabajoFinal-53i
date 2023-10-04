@@ -181,7 +181,7 @@ function Usuarios() {
 
   return (
     <main className='container-fluid'>
-      <form className="col-lg-12 col-8 my-auto producto-contenedor bg-white p-2 rounded" onSubmit={handleSubmit}>
+      <form className="col-lg-12 col-12 my-auto producto-contenedor bg-white p-2 rounded" onSubmit={handleSubmit}>
         <div className='row mt-4'>
 
           <div className='col-lg-4 text-center mt-2'>

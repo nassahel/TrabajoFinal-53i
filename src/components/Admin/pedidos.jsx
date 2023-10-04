@@ -1,53 +1,98 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import PedidosResultado from "./pedidosResultado";
 
 const Pedidos = () => {
-  const pedidosBd = [
-    {
-      user: 'Nassahel Elias',
-      id: 1,
-      status: false // Cambiado a booleano (Pendiente)
-    },
-    {
-      user: 'Pia Lopez',
-      id: 2,
-      status: true // Cambiado a booleano (Realizado)
-    },
-    {
-      user: 'Luis Chehin',
-      id: 3,
-      status: false // Cambiado a booleano (Pendiente)
-    },
-  ];
-
-  const [pedidos, setPedidos] = useState(pedidosBd);
+  const [pedidos, setPedidos] = useState([]);
   const [pedido, setPedido] = useState({});
-  const [status, setStatus] = useState(false); // Inicializado con false (Pendiente)
+  const [status, setStatus] = useState("");
+  const [idPedidos, setidPedidos] = useState()
+  const [editPedidos, setEditPedidos] = useState(false)
+
+  let token = localStorage.getItem('token');
+
+  //TRAER PRODUCTOS DEL BACKEND
+  const pedidosGet = async () => {
+
+    try {
+      const url = 'https://backend-rolling53i.onrender.com/api/pedidos';
+      const response = await fetch(url, {
+        method: 'GET',
+        headers: {
+          'x-token': token,
+        },
+      });
+      const data = await response.json();
+      console.log(data);
+      if (!response.ok) {
+        throw new Error('No se pudo agregar el producto');
+      }
+      setPedidos(data.orders)
+    } catch (error) {
+      console.error('Error al agregar el Pedido:', error);
+    }
+
+  }
+  useEffect(() => {
+    pedidosGet();
+  }, []);
+
+  //EDITAR PRODUCTOS DEL BACKEND
+  const datosEdicion = (id) => {
+    const pedidoFind = pedidos.find((pedido) => pedido._id === id);
+
+    if (pedidoFind) {
+      setidPedidos(pedidoFind)
+      setEditPedidos(true)
+      setStatus(pedidoFind.status)
+      console.log(status);
+    }
+  }
+
+  const modificarPedidos = async () => {
+    try {
+      const updatePedidos = {
+        status: status,
+      };
+      console.log(idPedidos);
+      console.log(status);
+
+      const url = `https://backend-rolling53i.onrender.com/api/pedidos/${idPedidos._id}`; // Incluir el ID en la URL
+      const response = await fetch(url, {
+        method: 'PUT',
+        headers: {
+          'Content-type': 'application/json; charset=UTF-8',
+          'x-token': token,
+        },
+        body: JSON.stringify(updatePedidos),
+      });
+      if (!response.ok) {
+        throw new Error('No se pudo editar el Pedido');
+      }
+
+      console.log('Pedido editado con éxito');
+      pedidosGet(); // Actualizar la lista de usuarios
+      setEditPedidos(false)
+    } catch (error) {
+      console.error('Error al editar el Producto:', error);
+    }
+  }; 
 
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    // Validar que los campos no estén vacíos (ya que status es un booleano, no necesitas esta validación)
-
-    // Buscar el índice del pedido a editar
-    const pedidoIndex = pedidos.findIndex((p) => p.id === pedido.id);
-
-    if (pedidoIndex !== -1) {
-      // Clonar el array de pedidos y actualizar el estado del pedido específico
-      const updatedPedidos = [...pedidos];
-      updatedPedidos[pedidoIndex].status = status;
-
-      // Actualizar el estado de los pedidos
-      setPedidos(updatedPedidos);
-
-      // Limpiar el pedido seleccionado
-      setPedido({});
-    } else {
-      console.log('Pedido no encontrado');
+    if (editPedidos) {
+      modificarPedidos()
     }
 
-    // Limpiar el campo de estado
-    setStatus(false);
+      //PARA QUE APAREZCA LOS PRODUCTOS EN EL INPUT CUANDO PONGA EDITAR
+  const cargarProductos = () => {
+    if (Object.keys(pedido.length > 0)) {
+      setStatus(pedido.status)
+    } else {
+      console.log('No hay nada en el array de tarea');
+    }
+  }
+
   };
 
   return (
@@ -61,11 +106,11 @@ const Pedidos = () => {
               name="status"
               id="status"
               placeholder="Producto status"
-              value={status} // El valor de status debe ser false (Pendiente) o true (Realizado)
-              onChange={(e) => setStatus(e.target.value === 'true')} // Actualizar el estado del campo de estado
+              value={status}
+              onChange={(e) => setStatus(e.target.value)}
             >
-              <option value={false}>Pendiente</option>
-              <option value={true}>Realizado</option>
+              <option value={"pendiente"}>Pendiente</option>
+              <option value={"realizado"}>Realizado</option>
             </select>
           </div >
           <div className='col-md-12'>
@@ -73,7 +118,7 @@ const Pedidos = () => {
               <input
                 className="my-2 mb-3 btn btn-dark"
                 type="submit"
-                value={pedido.id ? 'Editar Pedido' : 'Agregar Pedido'}
+                value={editPedidos ? 'Editar Pedido' : 'Agregar Pedido'}
               />
             </div>
           </div>
@@ -83,7 +128,7 @@ const Pedidos = () => {
       <div className="resultado">
         <PedidosResultado
           pedidos={pedidos}
-          setPedido={setPedido}
+          modificarPedidos={datosEdicion}
         />
       </div>
     </main>
