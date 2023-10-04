@@ -8,9 +8,9 @@ import Tabs from 'react-bootstrap/Tabs';
 
 function Admin() {
   return (
-    <div className='container-fluid contenedor-completo'>
+    <div className='container-fluid contenedor-completo mt-4'>
     <Tabs
-    defaultActiveKey="profile"
+    defaultActiveKey="home"
     id="uncontrolled-tab-example"
     className="mb-3">
     <Tab className='tab' eventKey="home" title="Productos">

@@ -42,7 +42,7 @@ function Productos() {
         name,
         detail,
         image,
-        price: Number(price), // Convertir a número
+        price: Number(price),
         category,
         active
       };
@@ -52,7 +52,7 @@ function Productos() {
         method: 'POST',
         headers: {
           'Content-type': 'application/json; charset=UTF-8',
-          'x-token': token, // Asegurarse de que token sea un objeto válido
+          'x-token': token,
         },
         body: JSON.stringify(newProduct),
       });
@@ -62,7 +62,7 @@ function Productos() {
       }
 
       console.log('Producto agregado con éxito');
-      productsStore(); // Actualizar la lista de productos
+      productsStore();
     } catch (error) {
       console.error('Error al agregar el usuario:', error);
     }
@@ -113,7 +113,7 @@ function Productos() {
       }
 
       console.log('Producto editado con éxito');
-      productsStore(); // Actualizar la lista de usuarios
+      productsStore();
       setEditProduct(false)
     } catch (error) {
       console.error('Error al editar el Producto:', error);
@@ -125,7 +125,6 @@ function Productos() {
   const eliminarProducto = async (id) => {
 
     try {
-      console.log("llegue");
       const url = `https://backend-rolling53i.onrender.com/api/menu`;
       const resp = await fetch(url + "/" + id, {
         method: "DELETE",
@@ -187,14 +186,14 @@ function Productos() {
 
 
   return (
-    <main className='container-fluid'>
-      <form className="col-12 my-auto producto-contenedor bg-white p-2 rounded" onSubmit={handleSubmit}>
+    <main className='container-fluid col-lg-11'>
+      <form className=" m-auto producto-contenedor bg-white p-2 rounded" onSubmit={handleSubmit}>
         <div className='row mt-4'>
 
           <div className='col-lg-4 text-center mt-2'>
             <label className='col-12 producto-texto fs-6' htmlFor="nombre">Nombre de Producto</label>
             <input
-              className='input-productos p-1 input-nombre rounded border border-black border-opacity-50'
+              className='input-productos col-4 p-1 input-nombre rounded border border-black border-opacity-50'
               type="text"
               name="nombre"
               id="nombre"
@@ -207,7 +206,7 @@ function Productos() {
           <div className='col-lg-4 text-center mt-2'>
             <label className='col-12 producto-texto fs-6' htmlFor="precio">Precio del Producto</label>
             <input
-              className='input-productos p-1 input-nombre rounded border border-black border-opacity-50'
+              className='input-productos col-4 p-1 input-nombre rounded border border-black border-opacity-50'
               type="text"
               name="precio"
               id="precio"
@@ -220,7 +219,7 @@ function Productos() {
           <div className='col-lg-4 text-center mt-2'>
             <label className='col-12 producto-texto fs-6' htmlFor="imagen">Link de Imagen</label>
             <input
-              className='input-productos p-1 input-nombre rounded border border-black border-opacity-50'
+              className='input-productos col-4 p-1 input-nombre rounded border border-black border-opacity-50'
               type="text"
               name="imagen"
               id="imagen"
@@ -236,7 +235,7 @@ function Productos() {
           <div className='col-lg-4 text-center'>
             <label className='col-12 producto-texto fs-6' htmlFor="activo">Producto Activo</label>
             <select
-              className='col-lg-6 col-2 input-productos p-1  input-nombre rounded border border-black border-opacity-50'
+              className='col-lg-6 col-4 input-productos p-1  input-nombre rounded border border-black border-opacity-50'
               name="activo"
               id="activo"
               placeholder="Producto Activo"
@@ -253,7 +252,7 @@ function Productos() {
             <div className='col-lg-4 mt-2 text-center'>
               <label className='col-12 producto-texto fs-6' htmlFor="categoria">Categoría del Producto</label>
               <select
-                className='col-lg-6 col-2 input-productos p-1 input-nombre rounded border border-black border-opacity-50'
+                className='col-lg-6 col-4 input-productos p-1 input-nombre rounded border border-black border-opacity-50'
                 name="categoria"
                 id="categoria"
                 placeholder="Categoría del Producto"
@@ -272,7 +271,7 @@ function Productos() {
             <div className='col-lg-4 mt-2 text-center'>
               <label className='col-12 producto-texto fs-6' htmlFor="descripcion">Descripción de Producto</label>
               <input
-                className='mt-0 input-descripcion p-1 input-nombre rounded border border-black border-opacity-50'
+                className='mt-0 input-descripcion col-4 p-1 input-nombre rounded border border-black border-opacity-50'
                 name="descripcion"
                 type='text'
                 id="descripcion"
@@ -282,9 +281,6 @@ function Productos() {
               />
             </div>
         </div>
-
-
-
 
           <div className='col-lg-4-md-12'>
             <div className='mt-2 text-center'>
