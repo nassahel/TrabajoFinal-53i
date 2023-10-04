@@ -1,9 +1,6 @@
 import React, { useState } from 'react';
-import './Register.css';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
-import ToggleButton from 'react-bootstrap/ToggleButton';
-import ToggleButtonGroup from 'react-bootstrap/ToggleButtonGroup';
 import { Link } from 'react-router-dom';
 
 function Register() {

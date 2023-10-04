@@ -104,7 +104,7 @@ function Navbarr({ auth, userAdmin }) {
             <div className='my-auto d-flex justify-content-between'>
               {cerrarSesion ? (
                 <button onClick={handleLogout} className="btn btn-success btn-sm mb-1 me-3">Cerrar Sesión</button>
-              ) : <NavLink to="/register" className='me-4' >
+              ) : <NavLink to="/login" className='me-4' >
                 <BsPersonCircle size='2rem' color='white' />
               </NavLink >}
               <NavLink to="/orders" className='text-decoration-none me-2 mb-1'>
