@@ -17,7 +17,7 @@ const NotFound = () => {
         <h3>Página no encontrada</h3>
         <p>La pagina que estas buscando no existe o hubo otro error.</p>
         <p> <Link className='fw-bold text-light text-decoration-none' to="/">Regresa</Link> o dirigete a <Link className=' text-light ' to="https://santornini-final53i.netlify.app/">santornini-final53i.netlify.app</Link> para elegir una nueva dirección.</p>
-        <Link to="/" className='btn btn-light mt-2'> Volver al inicio</Link>
+        <Link to="/" className='btn btn-light mt-2 mb-3'> Volver al inicio</Link>
       </div>
     </div>
   );
