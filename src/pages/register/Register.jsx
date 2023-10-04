@@ -59,10 +59,10 @@ function Register() {
   };
 
   return (
-    <div className='mx-auto my-auto bg-dark bg-opacity-75 rounded border border-success col-sm-6 col-md-6 col-lg-5'>
-      <div className='form-container mx-auto py-2'>
+    <div className='col-11 col-lg-6 col-xl-4 col-md-7 p-3 m-auto my-4 bg-dark bg-opacity-75 rounded border border-success'>
+      <div className=' mx-auto py-2 col-lg-8'>
         <div className='mb-3 justify-content-center'>
-          <h3 className='text-white'>Registra tu cuenta</h3>
+          <h3 className='text-white text-center'>Registra tu cuenta</h3>
         </div>
         <Form id='miFormulario' onSubmit={handleRegister}>
           <div>
@@ -128,12 +128,13 @@ function Register() {
 
           </div>
           <div className='mb-3 d-flex justify-content-center'>
-            <Button type='submit' variant="info">Registrarse</Button>
+            <Button type='submit' variant="success">Registrarse</Button>
           </div>
 
         </Form>
-
-        <Link className='text-decoration-none fw-normal fs-6 text-secondary' to="/login">¿Ya tenes cuenta? <span className='fw-bold'>Inicia Sesion</span></Link>
+    <div className='text-center'>
+        <Link className='text-decoration-none fw-normal fs-6 text-light' to="/login">¿Ya tenés cuenta? <span className='fw-bold text-white text-decoration-underline'>Inicia Sesion</span></Link>
+    </div>
 
         {
           error && <p className='mt-3 fw-semibold text-danger mb-0'>Todos los campos son obligatorios.</p>
