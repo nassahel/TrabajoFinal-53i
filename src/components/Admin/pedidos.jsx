@@ -30,10 +30,12 @@ const Pedidos = () => {
     } catch (error) {
       console.error('Error al agregar el Pedido:', error);
     }
-
   }
+
+  
   useEffect(() => {
     pedidosGet();
+    console.log(pedidosGet);
   }, []);
 
   //EDITAR PRODUCTOS DEL BACKEND
