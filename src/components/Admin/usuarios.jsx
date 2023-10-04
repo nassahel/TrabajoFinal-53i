@@ -180,8 +180,8 @@ function Usuarios() {
   }
 
   return (
-    <main className='container-fluid'>
-      <form className="col-lg-12 col-12 my-auto producto-contenedor bg-white p-2 rounded" onSubmit={handleSubmit}>
+    <main className='container-fluid col-lg-11'>
+      <form className=" m-auto producto-contenedor bg-white p-2 rounded" onSubmit={handleSubmit}>
         <div className='row mt-4'>
 
           <div className='col-lg-4 text-center mt-2'>
@@ -229,7 +229,7 @@ function Usuarios() {
           <div className='col-lg-4 text-center mt-2'>
             <label className='col-12 producto-texto fs-6' htmlFor="activo">Usuario Activo</label>
             <select
-              className='col-lg-6 col-3 input-productos p-1 input-nombre rounded border border-black border-opacity-50'
+              className='col-lg-4 col-4 input-productos p-1 input-nombre rounded border border-black border-opacity-50'
               name="activo"
               id="activo"
               value={estado}

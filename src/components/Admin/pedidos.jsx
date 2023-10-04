@@ -98,13 +98,13 @@ const Pedidos = () => {
   };
 
   return (
-    <main className="container-fluid">
-      <form className="my-auto bg-white p-2 rounded" onSubmit={handleSubmit}>
+    <main className="container-fluid col-lg-11">
+      <form className="m-auto  bg-white p-2 rounded" onSubmit={handleSubmit}>
         <div className="row mt-4">
           <div className=' d-flex justify-content-center flex-column align-items-center text-center'>
             <label className='ps-2 producto-texto fs-6' htmlFor="descripcion">Pedido Status</label>
             <select
-              className='mt-3 input-productos w-25 p-1 input-nombre rounded border border-black border-opacity-50'
+              className='mt-3 input-productos col-6 col-lg-2 p-1 input-nombre rounded border border-black border-opacity-50'
               name="status"
               id="status"
               placeholder="Producto status"
