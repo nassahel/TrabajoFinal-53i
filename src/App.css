@@ -1,11 +1,8 @@
-
-
 * {
     border: 0;
     padding: 0;
     box-sizing: border-box;
 }
-
 
 :root {
     --negro: #21201E;
@@ -14,22 +11,15 @@
 }
 
 .principal {
-/* background-color: var(--negro); */
 display: flex;
 flex-direction: column;
 min-height: 100vh;
+background-image: url('./assets/img/imagen-fond.jpg');
+background-size: cover;
+background-attachment: fixed;
+background-position: center;
 }
  
-
-
-.bg_img {
-    
-    position: absolute;
-    width: 100%;
-    object-fit: contain;
-    z-index: -1;
-}
-
 .footer {
     margin-top: auto;
 }

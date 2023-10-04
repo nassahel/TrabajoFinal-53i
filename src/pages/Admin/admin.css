@@ -1,0 +1,12 @@
+:root {
+  --negro: #21201E;
+  --blanco: #FFF;
+  --naranja:#2C4B45;
+  --mi-tipografia: sans-serif;
+}
+
+.contenedor-completo{
+  background: rgb(44,75,69);
+  background: linear-gradient(90deg, rgba(44,75,69,0.6278886554621849) 0%, rgba(44,75,69,0.6306897759103641) 100%);
+  margin: 0px 35px;
+}

@@ -1,31 +1,11 @@
-.main-cont {
-    height: 80vh;
+@import url('https://fonts.googleapis.com/css2?family=Sacramento&family=Tangerine&display=swap');
+
+.green {
+    background: rgb(44, 75, 69);
+    background: linear-gradient(90deg, rgba(44, 75, 69, 0.6278886554621849) 0%, rgba(44, 75, 69, 0.6306897759103641) 100%);
 }
 
-.slogan {
-    color: white;
-    font-family: 'Courgette', cursive;
-    text-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
-}
 
-.button {
-    padding: 0.5rem 1rem;
-    background-color: #efac1f;
-    border-radius: 50px;
-    font-weight: 500;
-    box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
-    transition: 300ms ease-out;
-    font-size: 1.2rem;
+.sacramentoFont {
+    font-family: 'Sacramento', cursive;
 }
-
-.button:hover {
-    background-color: #ffbf34;
-    
-}
-
-.button:active {
-    background-color: #c39126;
-    scale: 0.95;
-    
-}
-
