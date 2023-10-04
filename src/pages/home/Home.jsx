@@ -1,9 +1,7 @@
 import React from 'react'
 import { useState, useEffect } from 'react'
 import Main from '../../components/main/Main'
-import SearchBar from '../../components/searchBar/SearchBar'
-
-
+import SearchBar from '../../components/search-bar/SearchBar'
 
 
 function Home() {
@@ -18,13 +16,11 @@ function Home() {
     const prom = await data.json();
     setProducts(prom.menues);
     setLoading(false);
-
   }
 
   useEffect(() => {
     productsStore();
   }, []);
-
 
   return (
     <div className='container-fluid home'>

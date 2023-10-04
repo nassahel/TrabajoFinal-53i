@@ -1,12 +1,12 @@
 import { useEffect, useState } from 'react';
-import UsuariosResultado from './usuariosResultado';
+import UsuariosResultado from './UsuariosResultado';
 
 function Usuarios() {
-  // Estados para manejar usuarios y campos del formulario
+  
   const [usuarios, setUsuarios] = useState([]);
   const [usuario, setUsuario] = useState({});
 
-  // Estados para los campos del formulario
+
   const [idUsuario, setidUsuario] = useState()
   const [nombre, setNombre] = useState('');
   const [correo, setCorreo] = useState('');
@@ -20,7 +20,7 @@ function Usuarios() {
 
   let token = localStorage.getItem('token');
 
-  //TRAER PRODUCTOS DEL BACKEND
+
   const obtenerUsuarios = async () => {
 
     const data = await fetch('https://backend-rolling53i.onrender.com/api/usuarios');
@@ -58,7 +58,7 @@ function Usuarios() {
       }
 
       console.log('Producto agregado con éxito');
-      obtenerUsuarios(); // Actualizar la lista de productos
+      obtenerUsuarios(); 
     } catch (error) {
       console.error('Error al agregar el usuario:', error);
     }
@@ -67,8 +67,6 @@ function Usuarios() {
   //EDITAR USUARIOS DEL BACKEND
   const datosEdicion = (id) => {
     const usuarioFind = usuarios.find((usuario) => usuario._id === id);
-    console.log(id);
-    console.log(usuarioFind);
     if (usuarioFind) {
       setidUsuario(usuarioFind._id)
       setEditUser(true)
@@ -138,25 +136,20 @@ function Usuarios() {
     }
   };
 
-  // Manejar el envío del formulario
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    // Validar que los campos no estén vacíos
     if (!nombre || !correo || !rol || !direc) {
       console.log('Todos los campos deben estar completos');
       return;
     }
 
     if (editUser) {
-      // Editar un usuario existente
       editarUsuario();
     } else {
-      // Agregar un nuevo usuario
       agregarUsuario()
     }
 
-    // Limpiar los campos del formulario
     setNombre('');
     setCorreo('');
     setPassword('');
@@ -165,19 +158,6 @@ function Usuarios() {
     setDirec('');
   };
 
-  //PARA QUE APAREZCA LOS PRODUCTOS EN EL INPUT CUANDO PONGA EDITAR
-  const cargarUsuarios = () => {
-    if (Object.keys(usuario.length > 0)) {
-      setNombre(usuario.nombre)
-      setCorreo(usuario.correo)
-      setPassword(usuario.password)
-      setEstado(usuario.estado)
-      setRol(usuario.rol)
-      setDirec(usuario.direc)
-    } else {
-      console.log('No hay nada en el array de tarea');
-    }
-  }
 
   return (
     <main className='container-fluid col-lg-11'>

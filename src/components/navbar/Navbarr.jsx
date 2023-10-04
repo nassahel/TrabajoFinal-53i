@@ -8,7 +8,7 @@ import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
 import logoResto from '../../assets/img/hnb.png'
 import "./navbar.css";
-import { CartContext } from '../CartContext/CartContext';
+import { CartContext } from '../cart-context/CartContext';
 
 function Navbarr({ auth, userAdmin }) {
 
@@ -24,10 +24,7 @@ function Navbarr({ auth, userAdmin }) {
 
   useEffect(() => {
 
-    //usuarios///////////////////////
-
     const checkeoToken = localStorage.getItem('token');
-
 
     if (checkeoToken) {
       const tokenData = JSON.parse(atob(checkeoToken.split('.')[1])); //problema solucionado 
@@ -55,7 +52,6 @@ function Navbarr({ auth, userAdmin }) {
             }
           }
 
-
           setCerrarSesion(true);
         } catch (error) {
           console.error('Error:', error.message);
@@ -72,8 +68,6 @@ function Navbarr({ auth, userAdmin }) {
     window.location.href = '/';
   };
 
-
-  //carrito/////
 
   return (
     <Navbar collapseOnSelect key="lg" expand="md" className="classnav sticky-top shadow p-lg-3 fs-5" data-bs-theme="dark">

@@ -6,7 +6,7 @@ import { BsSearch } from "react-icons/bs";
 import './searchBar.css'
 
 function SearchBar({ setSearchTerm }) {
- 
+
   const [query, setQuery] = useState('');
 
   const handleSearch = () => {
@@ -28,8 +28,8 @@ function SearchBar({ setSearchTerm }) {
           className="me-2 form-control-lg"
           aria-label="Search"
           data-bs-theme="light"
-        /> 
-        <Button className='bg-dark btn btn-md' onKeyDown={handleKeyPress} onClick={handleSearch}  variant="outline-light"><BsSearch size='2rem' /></Button>
+        />
+        <Button className='bg-dark btn btn-md' onKeyDown={handleKeyPress} onClick={handleSearch} variant="outline-light"><BsSearch size='2rem' /></Button>
       </Form>
     </div>
   )

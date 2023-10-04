@@ -1,7 +1,6 @@
 import React from 'react'
 import './mains.css'
 import Spiner from '../spiner/Spiner'
-import { useState } from 'react'
 import { CardComidas } from '../card-product/CardProduct'
 import { Link } from "react-router-dom";
 
@@ -127,7 +126,7 @@ function Main({ products, searchTerm, loading }) {
             </div>
             <div className='container d-flex justify-content-center mt-3 col-lg-2 col-8 py-3 bg-secondary bg-opacity-25 rounded'>
                 <Link to="/orders">
-                    <button style={{backgroundColor: '#344235'}} className='px-5 py-3 rounded fw-bolder border border-light text-light' >Ver carrito</button>
+                    <button style={{ backgroundColor: '#344235' }} className='px-5 py-3 rounded fw-bolder border border-light text-light' >Ver carrito</button>
                 </Link>
             </div>
         </div>

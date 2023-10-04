@@ -5,7 +5,6 @@ import { Link } from 'react-router-dom';
 
 function Register() {
 
-
   const [nombre, setNombre] = useState("");
   const [correo, setCorreo] = useState("");
   const [direc, setDirec] = useState("");
@@ -132,9 +131,9 @@ function Register() {
           </div>
 
         </Form>
-    <div className='text-center'>
-        <Link className='text-decoration-none fw-normal fs-6 text-light' to="/login">¿Ya tenés cuenta? <span className='fw-bold text-white text-decoration-underline'>Inicia Sesion</span></Link>
-    </div>
+        <div className='text-center'>
+          <Link className='text-decoration-none fw-normal fs-6 text-light' to="/login">¿Ya tenés cuenta? <span className='fw-bold text-white text-decoration-underline'>Inicia Sesion</span></Link>
+        </div>
 
         {
           error && <p className='mt-3 fw-semibold text-danger mb-0'>Todos los campos son obligatorios.</p>
