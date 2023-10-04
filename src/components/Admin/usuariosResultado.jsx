@@ -2,16 +2,15 @@
 const UsuariosResultado = ({ usuarios, editarUsuario, eliminarUsuario }) => {
 
   const handleEliminar = (id) => {
-    const respuesta = window.confirm('¿Desea eliminar el usuario?'); // Utiliza window.confirm para mostrar el cuadro de confirmación
+    const respuesta = window.confirm('¿Desea eliminar el usuario?');
     if (respuesta) {
-      eliminarUsuario(id); // Llama a la función eliminarUsuario cuando se confirme la eliminación
+      eliminarUsuario(id);
     }
   };
 
   const handleEditar = (id) => {
     const respuesta = confirm('¿Desea editar el usuario?')
     if (respuesta) {
-      console.log(id);
       editarUsuario(id)
     }
   }

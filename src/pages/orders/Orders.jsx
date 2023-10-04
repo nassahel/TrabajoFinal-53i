@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from "react";
 import { AiFillDelete } from "react-icons/ai";
-import { CartContext } from "../../components/CartContext/CartContext";
+import { CartContext } from "../../components/cart-context/CartContext";
 
 const Orders = () => {
   const [cart, setCart] = useContext(CartContext);
@@ -10,10 +10,8 @@ const Orders = () => {
 
   const handleConfirmPurchase = async () => {
     try {
-      //const tokenData = JSON.parse(atob(tokenUser.split('.')[1]));
-      //const tokenUserId = tokenData.uid;
 
-      if(cart.length === 0) {
+      if (cart.length === 0) {
         return alert('Debes seleccionar al menos 1 producto')
       }
 
@@ -39,10 +37,10 @@ const Orders = () => {
       alert('Pedido enviado con exito! 🎉')
       limpiarCarrito();
     } catch (error) {
-      if(!tokenUser) {
+      if (!tokenUser) {
         setSummaryText(true)
 
-        setTimeout(function() {
+        setTimeout(function () {
           setSummaryText(false)
         }, 3000);
       }

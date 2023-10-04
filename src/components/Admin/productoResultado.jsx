@@ -11,7 +11,6 @@ const Resultado = ({ productos, editarProducto, eliminarProducto }) => {
   const handleEditar = (id) => {
     const respuesta = confirm('¿Desea editar el producto?')
     if (respuesta) {
-      console.log(id);
       editarProducto(id)
     }
   }

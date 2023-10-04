@@ -11,7 +11,7 @@ export default function ProtectedRouteWrapper({ auth, userAdmin }) {
 
     return (
     <Routes>
-      <Route path='/*' element={<Admin />} /> {/* Cambiado path a '/*' */}
+      <Route path='/*' element={<Admin />} />
     </Routes>
     );
 }

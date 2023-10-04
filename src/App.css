@@ -1,11 +1,8 @@
-
-
 * {
     border: 0;
     padding: 0;
     box-sizing: border-box;
 }
-
 
 :root {
     --negro: #21201E;
@@ -13,24 +10,16 @@
     --blanco: #ffffff;
 }
 
-
-
 .principal {
-/* background-color: #333333; */
 display: flex;
 flex-direction: column;
 min-height: 100vh;
-/* background-color: rgba(255, 255, 255, 0.8); */
 background-image: url('./assets/img/imagen-fond.jpg');
 background-size: cover;
 background-attachment: fixed;
 background-position: center;
 }
  
-
-
-
-
 .footer {
     margin-top: auto;
 }

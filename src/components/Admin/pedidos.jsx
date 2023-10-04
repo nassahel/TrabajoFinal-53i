@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import PedidosResultado from "./pedidosResultado";
+import PedidosResultado from "./PedidosResultado";
 
 const Pedidos = () => {
   const [pedidos, setPedidos] = useState([]);
@@ -10,7 +10,7 @@ const Pedidos = () => {
 
   let token = localStorage.getItem('token');
 
-  //TRAER PRODUCTOS DEL BACKEND
+
   const pedidosGet = async () => {
 
     try {
@@ -32,10 +32,9 @@ const Pedidos = () => {
     }
   }
 
-  
+
   useEffect(() => {
     pedidosGet();
-    console.log(pedidosGet);
   }, []);
 
   //EDITAR PRODUCTOS DEL BACKEND
@@ -46,7 +45,6 @@ const Pedidos = () => {
       setidPedidos(pedidoFind)
       setEditPedidos(true)
       setStatus(pedidoFind.status)
-      console.log(status);
     }
   }
 
@@ -55,8 +53,7 @@ const Pedidos = () => {
       const updatePedidos = {
         status: status,
       };
-      console.log(idPedidos);
-      console.log(status);
+
 
       const url = `https://backend-rolling53i.onrender.com/api/pedidos/${idPedidos._id}`; // Incluir el ID en la URL
       const response = await fetch(url, {
@@ -77,7 +74,7 @@ const Pedidos = () => {
     } catch (error) {
       console.error('Error al editar el Producto:', error);
     }
-  }; 
+  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -85,15 +82,6 @@ const Pedidos = () => {
     if (editPedidos) {
       modificarPedidos()
     }
-
-      //PARA QUE APAREZCA LOS PRODUCTOS EN EL INPUT CUANDO PONGA EDITAR
-  const cargarProductos = () => {
-    if (Object.keys(pedido.length > 0)) {
-      setStatus(pedido.status)
-    } else {
-      console.log('No hay nada en el array de tarea');
-    }
-  }
 
   };
 
@@ -103,6 +91,7 @@ const Pedidos = () => {
         <div className="row mt-4">
           <div className=' d-flex justify-content-center flex-column align-items-center text-center'>
             <label className='ps-2 producto-texto fs-6' htmlFor="descripcion">Pedido Status</label>
+            <p className="mt-2">Orden Id: {idPedidos._id}</p>
             <select
               className='mt-3 input-productos col-6 col-lg-2 p-1 input-nombre rounded border border-black border-opacity-50'
               name="status"
@@ -111,6 +100,7 @@ const Pedidos = () => {
               value={status}
               onChange={(e) => setStatus(e.target.value)}
             >
+              <option>Seleccione Opción</option>
               <option value={"pendiente"}>Pendiente</option>
               <option value={"realizado"}>Realizado</option>
             </select>

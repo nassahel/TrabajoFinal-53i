@@ -4,7 +4,7 @@ import logoResto from '../../assets/img/hnb.png'
 function AboutUs() {
   return (
     <div className='container bg-dark d-flex align-items-center text-center flex-column bg-opacity-75 text-light my-4'>
-      <img src={logoResto} width={500} alt="logo" className='py-4 img-fluid'/>
+      <img src={logoResto} width={500} alt="logo" className='py-4 img-fluid' />
       <br />
       <br />
       <h2 className='text-warning mb-3'>Sobre Nosotros</h2>
@@ -30,12 +30,9 @@ function AboutUs() {
 
       <p className='fs-5 mb-4 w-75'> Te invitamos a unirte a nosotros en Santorini Restaurant y explorar el sabor auténtico de Argentina en cada bocado. Ya sea para una cena romántica, una reunión familiar o una ocasión especial, estamos aquí para hacerte sentir como en casa en nuestra casa.</p>
 
+      <p className=' fs-5 mt-4 w-75'>Gracias por elegirnos. Esperamos verte pronto en Santorini Restaurant.</p>
 
-
-      <p className=' fs-5 mt-4 w-75'>Gracias por elegirnos. Esperamos verte pronto en Santorini Restaurant.</p> 
-
-      
-     <p className=' fs-5 mt-4 text-warning'>¡Buen provecho!</p> 
+      <p className=' fs-5 mt-4 text-warning'>¡Buen provecho!</p>
     </div>
   )
 }

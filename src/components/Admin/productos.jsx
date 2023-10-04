@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import Resultado from './productoResultado';
+import Resultado from './ProductoResultado';
 
 function Productos() {
 
@@ -21,7 +21,6 @@ function Productos() {
 
   let token = localStorage.getItem('token');
 
-  //TRAER PRODUCTOS DEL BACKEND
   const productsStore = async () => {
 
     const data = await fetch('https://backend-rolling53i.onrender.com/api/menu');
@@ -35,7 +34,6 @@ function Productos() {
   }, []);
 
 
-  //AGREGAR PRODUCTOS AL BACKEND
   const agregarProductos = async () => {
     try {
       const newProduct = {
@@ -71,8 +69,6 @@ function Productos() {
   //EDITAR PRODUCTOS DEL BACKEND
   const datosEdicion = (id) => {
     const productoFind = productos.find((producto) => producto._id === id);
-    console.log(id);
-    console.log(productoFind);
     if (productoFind) {
       setidProduct(productoFind._id)
       setEditProduct(true)
@@ -107,7 +103,7 @@ function Productos() {
         },
         body: JSON.stringify(updatedProduct),
       });
-      console.log("hola", updatedProduct);
+
       if (!response.ok) {
         throw new Error('No se pudo editar el producto');
       }
@@ -143,25 +139,22 @@ function Productos() {
     }
   };
 
-  // Manejar el envío del formulario
+
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    // Validar que los campos no estén vacíos
+
     if (!name || !detail || !image || !price || !category) {
       console.log('Todos los campos deben estar completos');
       return;
     }
 
     if (editProduct) {
-      // Editar un producto existente
       editarProducto()
     } else {
-      // Agregar un nuevo producto
       agregarProductos()
     }
 
-    // Limpiar los campos del formulario
     setName('');
     setDetail('');
     setImage('');
@@ -170,7 +163,6 @@ function Productos() {
     setActive(false);
   };
 
-  //PARA QUE APAREZCA LOS PRODUCTOS EN EL INPUT CUANDO PONGA EDITAR
   const cargarProductos = () => {
     if (Object.keys(producto.length > 0)) {
       setName(producto.name)
@@ -242,6 +234,7 @@ function Productos() {
               value={active}
               onChange={(e) => setActive(e.target.value === 'true')}
             >
+              <option>Seleccionar</option>
               <option value={true}>Si</option>
               <option value={false}>No</option>
             </select>
@@ -249,48 +242,49 @@ function Productos() {
 
 
 
-            <div className='col-lg-4 mt-2 text-center'>
-              <label className='col-12 producto-texto fs-6' htmlFor="categoria">Categoría del Producto</label>
-              <select
-                className='col-lg-6 col-4 input-productos p-1 input-nombre rounded border border-black border-opacity-50'
-                name="categoria"
-                id="categoria"
-                placeholder="Categoría del Producto"
-                value={category}
-                onChange={(e) => setCategory(e.target.value)}
-              >
-                <option>Pizzas</option>
-                <option>Entradas</option>
-                <option>Carnes</option>
-                <option>Bebidas</option>
-                <option>Pastas</option>
-              </select>
-            </div>
+          <div className='col-lg-4 mt-2 text-center'>
+            <label className='col-12 producto-texto fs-6' htmlFor="categoria">Categoría del Producto</label>
+            <select
+              className='col-lg-6 col-4 input-productos p-1 input-nombre rounded border border-black border-opacity-50'
+              name="categoria"
+              id="categoria"
+              placeholder="Categoría del Producto"
+              value={category}
+              onChange={(e) => setCategory(e.target.value)}
+            >
+              <option>Seleccione Opción</option>
+              <option>Pizzas</option>
+              <option>Entradas</option>
+              <option>Carnes</option>
+              <option>Bebidas</option>
+              <option>Pastas</option>
+            </select>
+          </div>
 
-         
-            <div className='col-lg-4 mt-2 text-center'>
-              <label className='col-12 producto-texto fs-6' htmlFor="descripcion">Descripción de Producto</label>
-              <input
-                className='mt-0 input-descripcion col-4 p-1 input-nombre rounded border border-black border-opacity-50'
-                name="descripcion"
-                type='text'
-                id="descripcion"
-                placeholder="Descripción"
-                value={detail}
-                onChange={(e) => setDetail(e.target.value)}
-              />
-            </div>
+
+          <div className='col-lg-4 mt-2 text-center'>
+            <label className='col-12 producto-texto fs-6' htmlFor="descripcion">Descripción de Producto</label>
+            <input
+              className='mt-0 input-descripcion col-4 p-1 input-nombre rounded border border-black border-opacity-50'
+              name="descripcion"
+              type='text'
+              id="descripcion"
+              placeholder="Descripción"
+              value={detail}
+              onChange={(e) => setDetail(e.target.value)}
+            />
+          </div>
         </div>
 
-          <div className='col-lg-4-md-12'>
-            <div className='mt-2 text-center'>
-              <input
-                className="my-2 mb-3 btn btn-dark"
-                type="submit"
-                value={editProduct ? 'Editar Producto' : 'Agregar Producto'}
-              />
-            </div>
+        <div className='col-lg-4-md-12'>
+          <div className='mt-2 text-center'>
+            <input
+              className="my-2 mb-3 btn btn-dark"
+              type="submit"
+              value={editProduct ? 'Editar Producto' : 'Agregar Producto'}
+            />
           </div>
+        </div>
       </form>
 
       <div className="resultado">

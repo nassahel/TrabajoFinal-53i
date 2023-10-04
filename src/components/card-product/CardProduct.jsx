@@ -1,5 +1,5 @@
 import React, { useContext, useState } from "react";
-import { CartContext } from "../CartContext/CartContext";
+import { CartContext } from "../cart-context/CartContext";
 import { AiFillPlusSquare, AiFillMinusSquare } from "react-icons/ai";
 
 export const CardComidas = ({ product, id, name, category, price, image }) => {
@@ -9,11 +9,11 @@ export const CardComidas = ({ product, id, name, category, price, image }) => {
     const addToCard = () => {
         setCart((currItems) => {
             const isItemsFound = currItems.find((item) => item.id === id);
-            if(isItemsFound) {
-                return currItems.map((item) => { 
-                    if(item.id === id) {
+            if (isItemsFound) {
+                return currItems.map((item) => {
+                    if (item.id === id) {
                         return { ...item, quantity: item.quantity + 1 }
-                    } else { 
+                    } else {
                         return item;
                     }
                 });
@@ -29,7 +29,7 @@ export const CardComidas = ({ product, id, name, category, price, image }) => {
                 return currItems.filter((item) => item.id !== id);
             } else {
                 return currItems.map((item) => {
-                    if(item.id === id) {
+                    if (item.id === id) {
                         return { ...item, quantity: item.quantity - 1 };
                     } else {
                         return item;
@@ -42,7 +42,7 @@ export const CardComidas = ({ product, id, name, category, price, image }) => {
     const getQuantityById = (id) => {
         return cart.find((item) => item.id === id)?.quantity || 0;
     }
-    
+
     const quantity = getQuantityById(id);
 
     return (
@@ -55,11 +55,11 @@ export const CardComidas = ({ product, id, name, category, price, image }) => {
                     <hr className='m-1' />
                     <h6 className="fw-bolder mt-2">Cantidad</h6>
                     <div className='mb-2 d-flex justify-content-center align-items-center'>
-                        <AiFillMinusSquare  onClick={() => removeItem(id)} color="green" size={50} />
+                        <AiFillMinusSquare onClick={() => removeItem(id)} color="green" size={50} />
                         <span className="px-4 py-2 mx-3 border text-center align-items fw-bolder">{quantity}</span>
                         <AiFillPlusSquare onClick={() => addToCard()} color="green" size={50} />
-                        
-                       
+
+
                     </div>
                 </div>
             </div>
