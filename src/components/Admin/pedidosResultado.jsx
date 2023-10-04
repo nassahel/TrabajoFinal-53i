@@ -1,6 +1,8 @@
 
 const PedidosResultado = ({ pedidos, modificarPedidos }) => {
 
+
+  console.log(pedidos);
   const handleEditar = (id) => {
     const respuesta = confirm('¿Desea editar el producto?')
     if (respuesta) {
@@ -11,9 +13,8 @@ const PedidosResultado = ({ pedidos, modificarPedidos }) => {
 
   return (
     <div className='container-fluid p-3'>
-      <>
         {pedidos.map((pedido, index) => (
-          <div key={index} className=" row p-2 my-3 rounded bg-white contenedor-agregados agregados-texto">
+          <div key={pedido._id} className=" row p-2 my-3 rounded bg-white contenedor-agregados agregados-texto">
             <div className='col my-auto'>
               <div className='row'>
               <p><span className='fw-semibold'>Codigo de Orden:</span> {pedido._id}</p>
@@ -29,7 +30,6 @@ const PedidosResultado = ({ pedidos, modificarPedidos }) => {
             </div>
           </div>
         ))}
-      </>
     </div>
   );
 };
