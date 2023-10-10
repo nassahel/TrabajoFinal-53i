@@ -3,7 +3,6 @@ import PedidosResultado from "./PedidosResultado";
 
 const Pedidos = () => {
   const [pedidos, setPedidos] = useState([]);
-  const [pedido, setPedido] = useState({});
   const [status, setStatus] = useState("");
   const [idPedidos, setidPedidos] = useState()
   const [editPedidos, setEditPedidos] = useState(false)
