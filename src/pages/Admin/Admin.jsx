@@ -1,6 +1,6 @@
 import React from 'react'
 import Productos from '../../components/admin/productos'
-import Pedidos from '../../components/Admin/pedidos'
+import Pedidos from '../../components/admin/pedidos'
 import Usuarios from '../../components/admin/usuarios'
 import './admin.css'
 import Tab from 'react-bootstrap/Tab';
