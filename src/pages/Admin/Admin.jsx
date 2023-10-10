@@ -1,8 +1,8 @@
 import React from 'react'
 import Productos from '../../components/admin/productos'
-import './admin.css'
+import Pedidos from '../../components/Admin/pedidos'
 import Usuarios from '../../components/admin/usuarios'
-import Pedidos from '../../components/admin/pedidos'
+import './admin.css'
 import Tab from 'react-bootstrap/Tab';
 import Tabs from 'react-bootstrap/Tabs';
 
