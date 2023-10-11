@@ -24,10 +24,9 @@ const UsuariosResultado = ({ usuarios, editarUsuario, eliminarUsuario }) => {
               <div className='row'>
                 <p className="col-lg-2 mb-0"> <span className='d-flex fw-semibold'>Nombre:</span> {usuario.nombre}</p>
                 <p className="col-lg-2 mb-0"> <span className='d-flex fw-semibold'>Email:</span> {usuario.correo}</p>
-                <p className="col-lg-2 mb-0"> <span className='d-flex fw-semibold'>Contraseña:</span> {usuario.password}</p>
                 <p className="col-lg-2 mb-0"> <span className='d-flex fw-semibold'>Activo:</span> {usuario.estado ? 'Si' : 'No'}</p>
                 <p className="col-lg-2 mb-0"> <span className='d-flex fw-semibold'>Direccion:</span> {usuario.direc}</p>
-                <p className="col-lg-2 mb-0"> <span className='d-flex fw-semibold'>Rol del Usuario:</span> {usuario.rol}</p>
+                <p className="col-lg-2 mb-0"> <span className='d-flex fw-semibold'>Rol del Usuario:</span> {usuario.rol === 'USER_ADMIN' ? 'Administrador' : 'Normal'}</p>
               </div>
             </div>
             <div className="col-lg-1 col-12">

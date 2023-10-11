@@ -2,11 +2,8 @@ import { useEffect, useState } from 'react';
 import UsuariosResultado from './UsuariosResultado';
 
 function Usuarios() {
-  
+
   const [usuarios, setUsuarios] = useState([]);
-  const [usuario, setUsuario] = useState({});
-
-
   const [idUsuario, setidUsuario] = useState()
   const [nombre, setNombre] = useState('');
   const [correo, setCorreo] = useState('');
@@ -14,12 +11,9 @@ function Usuarios() {
   const [estado, setEstado] = useState(false);
   const [rol, setRol] = useState('');
   const [direc, setDirec] = useState('');
-
-
   const [editUser, setEditUser] = useState(false)
 
   let token = localStorage.getItem('token');
-
 
   const obtenerUsuarios = async () => {
 
@@ -58,7 +52,7 @@ function Usuarios() {
       }
 
       console.log('Producto agregado con éxito');
-      obtenerUsuarios(); 
+      obtenerUsuarios();
     } catch (error) {
       console.error('Error al agregar el usuario:', error);
     }
@@ -163,7 +157,6 @@ function Usuarios() {
     <main className='container-fluid col-lg-11'>
       <form className=" m-auto producto-contenedor bg-white p-2 rounded" onSubmit={handleSubmit}>
         <div className='row mt-4'>
-
           <div className='col-lg-4 text-center mt-2'>
             <label className='col-12 producto-texto fs-6' htmlFor="nombre">Nombre Usuario</label>
             <input
@@ -173,10 +166,10 @@ function Usuarios() {
               id="nombre"
               placeholder="Nombre"
               value={nombre}
+              maxLength={15}
               onChange={(e) => setNombre(e.target.value)}
             />
           </div>
-
           <div className='col d-flex justify-content-center flex-column align-items-center text-center'>
             <label className='fs-6' htmlFor="email">Email Usuario</label>
             <input
@@ -186,6 +179,7 @@ function Usuarios() {
               id="email"
               placeholder="Email"
               value={correo}
+              maxLength={50}
               onChange={(e) => setCorreo(e.target.value)}
             />
           </div>
@@ -213,8 +207,9 @@ function Usuarios() {
               name="activo"
               id="activo"
               value={estado}
-              onChange={(e) => setEstado(e.target.value === 'true')}
+              onChange={(e) => setEstado(e.target.value)}
             >
+              <option selected>Seleccione el estado</option>
               <option value={true}>Si</option>
               <option value={false}>No</option>
             </select>
@@ -234,24 +229,27 @@ function Usuarios() {
 
           <div className='col-lg-4 text-center mt-2'>
             <label className='col-12 producto-texto fs-6' htmlFor="rol">Rol del Usuario</label>
-            <input
-              className='mt-0 input-descripcion p-1 input-nombre rounded border border-black border-opacity-50'
+            <select
+              className='col-lg-4 col-4 input-productos p-1 input-nombre rounded border border-black border-opacity-50'
               name="rol"
               id="rol"
-              placeholder="Rol del Usuario"
               value={rol}
               onChange={(e) => setRol(e.target.value)}
-            />
+            >
+              <option selected>Seleccione el rol</option>
+              <option value={"USER_ADMIN"}>Administrador</option>
+              <option value={"USER_NORMAL"}>Normal</option>
+            </select>
           </div>
         </div>
 
         <div className='col-lg-12'>
           <div className='mt-2 text-center'>
-              <input
-                className="my-2 mb-3 btn btn-dark"
-                type="submit"
-                value={editUser ? 'Editar Usuario' : 'Agregar Usuario'}
-              />
+            <input
+              className="my-2 mb-3 btn btn-dark"
+              type="submit"
+              value={editUser ? 'Editar Usuario' : 'Agregar Usuario'}
+            />
           </div>
         </div>
       </form>
