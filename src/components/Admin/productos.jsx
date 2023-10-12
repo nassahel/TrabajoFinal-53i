@@ -5,18 +5,15 @@ function Productos() {
 
   // Estados para manejar productos
   const [productos, setProductos] = useState([]);
-  const [producto, setProducto] = useState({});
 
   // Estados para los campos del formulario
   const [idProducto, setidProduct] = useState()
   const [name, setName] = useState('');
   const [detail, setDetail] = useState('');
   const [image, setImage] = useState('');
-  const [price, setPrice] = useState('');
+  const [price, setPrice] = useState(0);
   const [category, setCategory] = useState('');
   const [active, setActive] = useState(false);
-
-
   const [editProduct, setEditProduct] = useState(false)
 
   let token = localStorage.getItem('token');
@@ -158,24 +155,10 @@ function Productos() {
     setName('');
     setDetail('');
     setImage('');
-    setPrice('');
+    setPrice(0);
     setCategory('');
     setActive(false);
   };
-
-  const cargarProductos = () => {
-    if (Object.keys(producto.length > 0)) {
-      setName(producto.name)
-      setDetail(producto.detail)
-      setImage(producto.image)
-      setPrice(producto.price)
-      setActive(producto.active)
-      setCategory(producto.category)
-    } else {
-      console.log('No hay nada en el array de tarea');
-    }
-  }
-
 
   return (
     <main className='container-fluid col-lg-11'>
@@ -191,6 +174,8 @@ function Productos() {
               id="nombre"
               placeholder="Nombre"
               value={name}
+              minLength={3}
+              maxLength={30}
               onChange={(e) => setName(e.target.value)}
             />
           </div>
@@ -199,12 +184,17 @@ function Productos() {
             <label className='col-12 producto-texto fs-6' htmlFor="precio">Precio del Producto</label>
             <input
               className='input-productos col-4 p-1 input-nombre rounded border border-black border-opacity-50'
-              type="text"
+              type="number"
               name="precio"
               id="precio"
               placeholder="Precio del Producto"
               value={price}
-              onChange={(e) => setPrice(e.target.value)}
+              onChange={(e) => {
+                const inputValue = parseFloat(e.target.value);
+                if (!isNaN(inputValue) && inputValue >= 0 && inputValue <= 99999) {
+                  setPrice(inputValue);
+                }
+              }}
             />
           </div>
 
@@ -216,13 +206,13 @@ function Productos() {
               name="imagen"
               id="imagen"
               placeholder="Imagen"
+              maxLength={100}
               value={image}
               onChange={(e) => setImage(e.target.value)}
             />
           </div>
 
         </div>
-
         <div className='row mt-lg-4 mt-2'>
           <div className='col-lg-4 text-center'>
             <label className='col-12 producto-texto fs-6' htmlFor="activo">Producto Activo</label>
@@ -239,9 +229,6 @@ function Productos() {
               <option value={false}>No</option>
             </select>
           </div>
-
-
-
           <div className='col-lg-4 mt-2 text-center'>
             <label className='col-12 producto-texto fs-6' htmlFor="categoria">Categoría del Producto</label>
             <select
@@ -252,12 +239,12 @@ function Productos() {
               value={category}
               onChange={(e) => setCategory(e.target.value)}
             >
-              <option>Seleccione Opción</option>
-              <option>Pizzas</option>
-              <option>Entradas</option>
-              <option>Carnes</option>
-              <option>Bebidas</option>
-              <option>Pastas</option>
+              <option selected>Seleccione Opción</option>
+              <option value={"pizzas"}>Pizzas</option>
+              <option value={"entradas"}>Entradas</option>
+              <option value={"carnes"}>Carnes</option>
+              <option value={"bebidas"}>Bebidas</option>
+              <option value={"pastas"}>Pastas</option>
             </select>
           </div>
 
@@ -271,6 +258,7 @@ function Productos() {
               id="descripcion"
               placeholder="Descripción"
               value={detail}
+              maxLength={50}
               onChange={(e) => setDetail(e.target.value)}
             />
           </div>
