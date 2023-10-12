@@ -6,6 +6,7 @@ import './admin.css'
 import Tab from 'react-bootstrap/Tab';
 import Tabs from 'react-bootstrap/Tabs';
 
+
 function Admin() {
   return (
     <div className='container-fluid contenedor-completo mt-4'>
