@@ -1,15 +1,33 @@
+import Swal from 'sweetalert2'
 
 const Resultado = ({ productos, editarProducto, eliminarProducto }) => {
 
   const handleEliminar = (id) => {
-    const respuesta = confirm('¿Desea eliminar el producto?')
-    if (respuesta) {
-      eliminarProducto(id)
-    }
-  }
+    Swal.fire({
+      title: 'Desea eliminar el producto',
+      icon: 'question',
+      iconHtml: '?',
+      confirmButtonText: 'Si',
+      cancelButtonText: 'No',
+      showCancelButton: true,
+      showCloseButton: true
+    }).then((result) => {
+      if (result.isConfirmed) {
+        eliminarProducto(id);
+      }
+    });
+  }  
 
   const handleEditar = (id) => {
-    const respuesta = confirm('¿Desea editar el producto?')
+    const respuesta = Swal.fire({
+      title: 'Desea editar el producto',
+      icon: 'question',
+      iconHtml: '?',
+      confirmButtonText: 'Si',
+      cancelButtonText: 'No',
+      showCancelButton: true,
+      showCloseButton: true
+    })
     if (respuesta) {
       editarProducto(id)
     }

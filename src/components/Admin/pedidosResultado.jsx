@@ -1,9 +1,18 @@
+import Swal from 'sweetalert2'
 
 const PedidosResultado = ({ pedidos, modificarPedidos }) => {
 
 
   const handleEditar = (id) => {
-    const respuesta = confirm('¿Desea editar el producto?')
+    const respuesta = Swal.fire({
+      title: 'Desea editar el pedido',
+      icon: 'question',
+      iconHtml: '?',
+      confirmButtonText: 'Si',
+      cancelButtonText: 'No',
+      showCancelButton: true,
+      showCloseButton: true
+    })
     if (respuesta) {
       modificarPedidos(id)
     }
@@ -11,7 +20,7 @@ const PedidosResultado = ({ pedidos, modificarPedidos }) => {
 
   return (
     <div className='container-fluid p-3'>
-      {pedidos.map((pedido, index) => (
+      {pedidos.map((pedido) => (
         <div key={pedido._id} className=" row p-2 my-3 rounded bg-white contenedor-agregados agregados-texto">
           <div className='col my-auto'>
             <div className='row'>

@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import Resultado from './ProductoResultado';
+import Swal from 'sweetalert2'
 
 function Productos() {
 
@@ -55,11 +56,20 @@ function Productos() {
       if (!response.ok) {
         throw new Error('No se pudo agregar el producto');
       }
-
-      console.log('Producto agregado con éxito');
+      Swal.fire(
+        'Producto agregado con éxito',
+        '',
+        'success'
+      )
       productsStore();
     } catch (error) {
-      console.error('Error al agregar el usuario:', error);
+      Swal.fire({
+        icon: 'error',
+        title: 'Oops...',
+        text: 'Error al agregar el producto',
+        footer: ''
+      })
+      console.error('Error al agregar el producto:', error);
     }
   };
 
@@ -104,11 +114,21 @@ function Productos() {
       if (!response.ok) {
         throw new Error('No se pudo editar el producto');
       }
-
-      console.log('Producto editado con éxito');
+      Swal.fire(
+        'Producto editado con éxito',
+        '',
+        'success'
+      )
       productsStore();
       setEditProduct(false)
     } catch (error) {
+
+      Swal.fire({
+        icon: 'error',
+        title: 'Oops...',
+        text: 'Error al editar el Producto',
+        footer: ''
+      })
       console.error('Error al editar el Producto:', error);
     }
   };
@@ -131,7 +151,12 @@ function Productos() {
       productsStore();
       return data;
     } catch (error) {
-
+      Swal.fire({
+        icon: 'error',
+        title: 'Oops...',
+        text: 'Error al eliminar el Producto',
+        footer: ''
+      })
       return { msg: "No se conectó con backend" };
     }
   };
@@ -142,7 +167,12 @@ function Productos() {
 
 
     if (!name || !detail || !image || !price || !category) {
-      console.log('Todos los campos deben estar completos');
+      Swal.fire({
+        icon: 'error',
+        title: 'Oops...',
+        text: 'Todos los campos deben estar completos',
+        footer: ''
+      })
       return;
     }
 

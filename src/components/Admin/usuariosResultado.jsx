@@ -1,15 +1,33 @@
+import Swal from 'sweetalert2'
 
 const UsuariosResultado = ({ usuarios, editarUsuario, eliminarUsuario }) => {
 
   const handleEliminar = (id) => {
-    const respuesta = window.confirm('¿Desea eliminar el usuario?');
-    if (respuesta) {
-      eliminarUsuario(id);
-    }
-  };
+    Swal.fire({
+      title: 'Desea eliminar el usuario',
+      icon: 'question',
+      iconHtml: '?',
+      confirmButtonText: 'Si',
+      cancelButtonText: 'No',
+      showCancelButton: true,
+      showCloseButton: true
+    }).then((result) => {
+      if (result.isConfirmed) {
+        eliminarUsuario(id);
+      }
+    });
+  }  
 
   const handleEditar = (id) => {
-    const respuesta = confirm('¿Desea editar el usuario?')
+    const respuesta = Swal.fire({
+      title: '¿Desea editar el usuario?',
+      icon: 'question',
+      iconHtml: '?',
+      confirmButtonText: 'Si',
+      cancelButtonText: 'No',
+      showCancelButton: true,
+      showCloseButton: true
+    })
     if (respuesta) {
       editarUsuario(id)
     }
