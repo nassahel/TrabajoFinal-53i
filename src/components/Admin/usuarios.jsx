@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import UsuariosResultado from './UsuariosResultado';
+import Swal from 'sweetalert2'
 
 function Usuarios() {
 
@@ -50,10 +51,20 @@ function Usuarios() {
       if (!response.ok) {
         throw new Error('No se pudo agregar el usuario');
       }
-
-      console.log('Producto agregado con éxito');
+      Swal.fire(
+        'Usuario agregado con éxito',
+        '',
+        'success'
+      )
+      console.log('Usuario agregado con éxito');
       obtenerUsuarios();
     } catch (error) {
+      Swal.fire({
+        icon: 'error',
+        title: 'Oops...',
+        text: 'Error al agregar el usuario',
+        footer: ''
+      })
       console.error('Error al agregar el usuario:', error);
     }
   };
@@ -96,16 +107,32 @@ function Usuarios() {
       })
 
       if (!response.ok) {
+        Swal.fire({
+          icon: 'error',
+          title: 'Oops...',
+          text: 'Error al editar el usuario',
+          footer: ''
+        })
         throw new Error('No se pudo editar el usuario');
       }
 
       setEditUser(false)
 
-      console.log('Usuario editado con éxito');
+      Swal.fire(
+        'Usuario editado con éxito',
+        '',
+        'success'
+      )
 
       obtenerUsuarios();
 
     } catch (error) {
+      Swal.fire({
+        icon: 'error',
+        title: 'Oops...',
+        text: 'Error al editar el usuario',
+        footer: ''
+      })
       console.error('Error al editar el usuario:', error);
     }
   };
@@ -125,7 +152,12 @@ function Usuarios() {
       obtenerUsuarios();
       return data;
     } catch (error) {
-
+      Swal.fire({
+        icon: 'error',
+        title: 'Oops...',
+        text: 'Error al eliminar el usuario',
+        footer: ''
+      })
       return { msg: "No se conectó con backend" };
     }
   };
@@ -134,7 +166,12 @@ function Usuarios() {
     e.preventDefault();
 
     if (!nombre || !correo || !rol || !direc) {
-      console.log('Todos los campos deben estar completos');
+      Swal.fire({
+        icon: 'error',
+        title: 'Oops...',
+        text: 'Todos los campos deben estar completos',
+        footer: ''
+      })
       return;
     }
 
