@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from "react";
 import PedidosResultado from "./pedidosResultado";
+import Swal from 'sweetalert2'
+
 
 const Pedidos = () => {
   const [pedidos, setPedidos] = useState([]);
@@ -21,11 +23,11 @@ const Pedidos = () => {
       const data = await response.json();
       console.log(data);
       if (!response.ok) {
-        throw new Error('No se pudo agregar el producto');
+        throw new Error('No se pudo agregar el pedido');
       }
       setPedidos(data.orders)
     } catch (error) {
-      console.error('Error al agregar el Pedido:', error);
+      console.error('Error al agregar el pedido:', error);
     }
   }
 
@@ -63,11 +65,20 @@ const Pedidos = () => {
       if (!response.ok) {
         throw new Error('No se pudo editar el Pedido');
       }
-
-      console.log('Pedido editado con éxito');
+      Swal.fire(
+        'Pedido editado con exito',
+        '',
+        'success'
+      )
       pedidosGet(); // Actualizar la lista de usuarios
     } catch (error) {
-      console.error('Error al editar el Producto:', error);
+      Swal.fire({
+        icon: 'error',
+        title: 'Oops...',
+        text: 'Error al editar el pedido',
+        footer: ''
+      })
+      console.error('Error al editar el pedido:', error);
     }
   };
 
@@ -77,7 +88,12 @@ const Pedidos = () => {
     if (status === 'pendiente' || status === 'realizado') {
       modificarPedidos();
     } else {
-      console.log('Estado de pedido no válido');
+      Swal.fire({
+        icon: 'error',
+        title: 'Oops...',
+        text: 'Estado de pedido no válido',
+        footer: ''
+      })
     }
 
   };
