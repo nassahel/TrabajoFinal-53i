@@ -69,7 +69,7 @@ function Productos() {
     if (productoFind) {
       setidProduct(productoFind._id)
       setEditProduct(true)
-      setName(productoFind.name)
+      setName(productoFind.name.toLowerCase())
       setDetail(productoFind.detail)
       setImage(productoFind.image)
       setPrice(productoFind.price)
@@ -217,7 +217,7 @@ function Productos() {
           <div className='col-lg-4 text-center'>
             <label className='col-12 producto-texto fs-6' htmlFor="activo">Producto Activo</label>
             <select
-              className='col-lg-6 col-4 input-productos p-1  input-nombre rounded border border-black border-opacity-50'
+              className='col-lg-4 col-4 input-productos p-1  input-nombre rounded border border-black border-opacity-50'
               name="activo"
               id="activo"
               placeholder="Producto Activo"
@@ -232,7 +232,7 @@ function Productos() {
           <div className='col-lg-4 mt-2 text-center'>
             <label className='col-12 producto-texto fs-6' htmlFor="categoria">Categoría del Producto</label>
             <select
-              className='col-lg-6 col-4 input-productos p-1 input-nombre rounded border border-black border-opacity-50'
+              className='col-lg-4 col-4 input-productos p-1 input-nombre rounded border border-black border-opacity-50'
               name="categoria"
               id="categoria"
               placeholder="Categoría del Producto"
