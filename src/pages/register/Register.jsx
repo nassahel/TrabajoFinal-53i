@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import { Link } from 'react-router-dom';
+import Swal from 'sweetalert2'
 
 function Register() {
 
@@ -36,12 +37,22 @@ function Register() {
 
       if (!response.ok) {
         console.error('Error en el registro:', response.statusText);
+        Swal.fire({
+          title: 'No se pudo registrar la cuenta. Intenta de nuevo en unos segundos.',
+          icon: 'warning',
+          iconHtml: '!',
+          confirmButtonText: 'Ok',
+          confirmButtonColor: "#2c4b45",					  
+          showCloseButton: true
+          })
       }
 
-      alert('Cuenta creada con éxito.\nInicie sesión')
+     
 
       limpiarFormulario();
       window.location.href = ('/login');
+
+
 
     } catch (error) {
       console.error('Error en la solicitud:', error);
@@ -69,6 +80,7 @@ function Register() {
             <Form.Control
               required
               aria-describedby="name"
+              maxLength='50'
               type="text"
               placeholder='Ingrese su nombre'
               onChange={(e) => setNombre(e.target.value)}
@@ -79,6 +91,7 @@ function Register() {
             <Form.Control
               required
               type="email"
+              maxLength='50'
               aria-describedby="correo"
               placeholder='Ingrese su correo'
               onChange={(e) => setCorreo(e.target.value)}
@@ -89,6 +102,7 @@ function Register() {
             <Form.Control
               required
               type="text"
+              maxLength='50'
               aria-describedby="direc"
               placeholder='Ingrese su dirección'
               onChange={(e) => setDirec(e.target.value)}
@@ -98,6 +112,7 @@ function Register() {
             <Form.Label className='text-white'>Contraseña:</Form.Label>
             <Form.Control
               required
+              maxLength='50'
               type="password"
               aria-describedby="passwordHelpBlock"
               placeholder='Ingrese su contraseña'
@@ -108,6 +123,7 @@ function Register() {
             <Form.Label className='text-white'>Repetir Contraseña:</Form.Label>
             <Form.Control
               required
+              maxLength='50'
               type="password"
               aria-describedby="confirmPasswordHelpBlock"
               placeholder='Repetir contraseña'

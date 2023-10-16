@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { Form, Button } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
+import Swal from 'sweetalert2'
 
 function Login() {
 	const [correo, setCorreo] = useState("");
@@ -27,17 +28,28 @@ function Login() {
 
 				if (!response.ok) {
 					console.error('Error al iniciar sesión:', response.statusText);
+					Swal.fire({
+						title: 'El correo y/o la contraseña son incorrectos',
+						icon: 'warning',
+						iconHtml: '!',
+						confirmButtonText: 'Ok',
+						confirmButtonColor: "#2c4b45",					  
+						showCloseButton: true
+					  })
+				} else {
+
+					const data = await response.json();
+					const token = data.token;
+
+					localStorage.setItem('token', token);
+
+					setCorreo("");
+					setPassword("");
+
+					window.location.href = ('/');
 				}
 
-				const data = await response.json();
-				const token = data.token;
 
-				localStorage.setItem('token', token);
-
-				setCorreo("");
-				setPassword("");
-
-				window.location.href = ('/');
 
 			} catch (error) {
 				console.error('Error al iniciar sesión:', error.message);
@@ -52,10 +64,11 @@ function Login() {
 						<h3 className=' mt-2 text-center'>Inicio de sesión</h3>
 					</div>
 					<div>
-						<Form.Label className='correo'>Correo:</Form.Label>
+						<Form.Label className='correo' >Correo:</Form.Label>
 						<Form.Control
 							required
-							type="text"
+							maxLength='50'
+							type='email'
 							aria-describedby='email'
 							placeholder='Ingrese su email'
 							onChange={(e) => setCorreo(e.target.value)}
@@ -65,6 +78,7 @@ function Login() {
 						<Form.Label className='contraseña'>Contraseña:</Form.Label>
 						<Form.Control
 							required
+							maxLength='20'
 							type="password"
 							aria-describedby='password'
 							placeholder='Ingrese su contraseña'
