@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import UsuariosResultado from './UsuariosResultado';
+import UsuariosResultado from '../admin/UsuariosResultado';
 
 function Usuarios() {
 

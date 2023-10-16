@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import Resultado from './ProductoResultado';
+import Resultado from './productoResultado';
 
 function Productos() {
 

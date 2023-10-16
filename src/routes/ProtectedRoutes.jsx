@@ -7,7 +7,6 @@ export default function ProtectedRouteWrapper({ auth, userAdmin }) {
     return <Navigate to='/' />;
   }
 
-  
   userAdmin();
 
   return (

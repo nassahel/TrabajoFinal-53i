@@ -1,10 +1,10 @@
 import React from 'react'
-import Pedidos from '../../components/admin/pedidos'
-import Usuarios from '../../components/admin/usuarios'
+import Pedidos from '../../components/admin-actions/pedidos'
+import Usuarios from '../../components/admin-actions/usuarios'
 import './admin.css'
 import Tab from 'react-bootstrap/Tab';
 import Tabs from 'react-bootstrap/Tabs';
-import Productos from '../../components/admin/productos';
+import Productos from '../../components/admin-actions/productos';
 
 
 function Admin() {
