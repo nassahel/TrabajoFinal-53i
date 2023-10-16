@@ -42,12 +42,12 @@ function Register() {
           icon: 'warning',
           iconHtml: '!',
           confirmButtonText: 'Ok',
-          confirmButtonColor: "#2c4b45",					  
+          confirmButtonColor: "#2c4b45",
           showCloseButton: true
-          })
+        })
       }
 
-     
+
 
       limpiarFormulario();
       window.location.href = ('/login');
@@ -112,7 +112,7 @@ function Register() {
             <Form.Label className='text-white'>Contraseña:</Form.Label>
             <Form.Control
               required
-              maxLength='50'
+              maxLength='20'
               type="password"
               aria-describedby="passwordHelpBlock"
               placeholder='Ingrese su contraseña'
@@ -123,7 +123,7 @@ function Register() {
             <Form.Label className='text-white'>Repetir Contraseña:</Form.Label>
             <Form.Control
               required
-              maxLength='50'
+              maxLength='20'
               type="password"
               aria-describedby="confirmPasswordHelpBlock"
               placeholder='Repetir contraseña'
