@@ -160,7 +160,7 @@ function Usuarios() {
           <div className='col-lg-4 text-center mt-2'>
             <label className='col-12 producto-texto fs-6' htmlFor="nombre">Nombre Usuario</label>
             <input
-              className='input-productos p-1 rounded border border-black border-opacity-50'
+              className='input-productos col-4 p-1 rounded border border-black border-opacity-50'
               type="text"
               name="nombre"
               id="nombre"
@@ -173,7 +173,7 @@ function Usuarios() {
           <div className='col d-flex justify-content-center flex-column align-items-center text-center'>
             <label className='fs-6' htmlFor="email">Email Usuario</label>
             <input
-              className='input-productos p-1 rounded border border-black border-opacity-50'
+              className='input-productos col-4 p-1 rounded border border-black border-opacity-50'
               type="text"
               name="email"
               id="email"
@@ -188,7 +188,7 @@ function Usuarios() {
           <div className='col-lg-4 text-center mt-2'>
             <label className='col-12 producto-texto fs-6' htmlFor="password">Contraseña Usuario</label>
             <input
-              className='input-productos p-1 input-nombre rounded border border-black border-opacity-50'
+              className='input-productos col-4 p-1 input-nombre rounded border border-black border-opacity-50'
               type="text"
               name="password"
               id="password"
@@ -218,7 +218,7 @@ function Usuarios() {
           <div className='col-lg-4 text-center mt-2'>
             <label className='col-12 producto-texto fs-6' htmlFor="direc">Dirección Usuario</label>
             <input
-              className='input-productos p-1 input-nombre rounded border border-black border-opacity-50'
+              className='input-productos col-4 p-1 input-nombre rounded border border-black border-opacity-50'
               name="direc"
               id="direc"
               placeholder="Dirección del Usuario"

@@ -9,6 +9,7 @@ const PedidosResultado = ({ pedidos, modificarPedidos }) => {
       icon: 'question',
       iconHtml: '?',
       confirmButtonText: 'Si',
+      confirmButtonColor: "#2c4b45",
       cancelButtonText: 'No',
       showCancelButton: true,
       showCloseButton: true
@@ -25,7 +26,6 @@ const PedidosResultado = ({ pedidos, modificarPedidos }) => {
           <div className='col my-auto'>
             <div className='row'>
               <p><span className='fw-semibold'>Codigo de Orden:</span> {pedido._id}</p>
-              <p><span className='fw-semibold'>ID del Usuario:</span> {pedido.user}</p>
               <p><span className='fw-semibold'>Costo Total:</span> ${pedido.totalCost}</p>
               <p> <span className='fw-semibold'>Estado:</span> {pedido.status}</p>
             </div>
