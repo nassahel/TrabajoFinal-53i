@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import UsuariosResultado from './usuariosResultado'
+import Swal from 'sweetalert2'
 
 function Usuarios() {
 
@@ -50,8 +51,12 @@ function Usuarios() {
       if (!response.ok) {
         throw new Error('No se pudo agregar el usuario');
       }
+      Swal.fire({
+        icon: 'success',
+        title: 'Genial!',
+        text: 'Usuario agregado con éxito',
+      })
 
-      console.log('Producto agregado con éxito');
       obtenerUsuarios();
     } catch (error) {
       console.error('Error al agregar el usuario:', error);
@@ -96,17 +101,32 @@ function Usuarios() {
       })
 
       if (!response.ok) {
-        throw new Error('No se pudo editar el usuario');
+        throw new Error(
+          Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: 'No se pudo editar el usuario',
+          }));
       }
 
       setEditUser(false)
 
-      console.log('Usuario editado con éxito');
+      Swal.fire({
+        icon: 'success',
+        title: 'Genial!',
+        text: 'Usuario editado con éxito',
+      })
 
       obtenerUsuarios();
 
     } catch (error) {
-      console.error('Error al editar el usuario:', error);
+      console.error(      
+        Swal.fire({
+        icon: 'error',
+        title: 'Oops...',
+        text: 'Error al editar el usuario',
+      }), error);
+
     }
   };
 
@@ -122,6 +142,11 @@ function Usuarios() {
       })
 
       const data = await resp.json();
+      Swal.fire({
+        icon: 'success',
+        title: 'Genial!',
+        text: 'Producto eliminado con éxito',
+      })
       obtenerUsuarios();
       return data;
     } catch (error) {
@@ -134,7 +159,11 @@ function Usuarios() {
     e.preventDefault();
 
     if (!nombre || !correo || !rol || !direc) {
-      console.log('Todos los campos deben estar completos');
+      Swal.fire({
+        icon: 'error',
+        title: 'Oops...',
+        text: 'Todos los campos deben estar completos',
+      })
       return;
     }
 
