@@ -21,7 +21,7 @@ const Pedidos = () => {
         },
       });
       const data = await response.json();
-      console.log(data);
+
       if (!response.ok) {
         throw new Error('No se pudo agregar el pedido');
       }
@@ -65,12 +65,12 @@ const Pedidos = () => {
       if (!response.ok) {
         throw new Error('No se pudo editar el Pedido');
       }
-      Swal.fire(
-        'Pedido editado con exito',
-        '',
-        'success'
-      )
-      pedidosGet(); // Actualizar la lista de usuarios
+      Swal.fire({
+        icon: 'success',
+        title: 'Genial!',
+        text: 'Producto eliminado con éxito',
+      })
+      pedidosGet();
     } catch (error) {
       Swal.fire({
         icon: 'error',

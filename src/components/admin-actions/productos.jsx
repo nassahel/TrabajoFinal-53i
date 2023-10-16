@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import Resultado from './productoResultado';
+import Swal from 'sweetalert2'
 
 function Productos() {
 
@@ -53,13 +54,28 @@ function Productos() {
       });
 
       if (!response.ok) {
-        throw new Error('No se pudo agregar el producto');
+        throw new Error(        
+          Swal.fire({
+          icon: 'error',
+          title: 'Oops...',
+          text: 'No se pudo agregar el producto',
+        }));
       }
 
-      console.log('Producto agregado con éxito');
+      Swal.fire({
+        icon: 'success',
+        title: 'Genial!',
+        text: 'Producto agregado con éxito',
+      })
+
       productsStore();
     } catch (error) {
-      console.error('Error al agregar el usuario:', error);
+      console.error(
+        Swal.fire({
+        icon: 'error',
+        title: 'Oops...',
+        text: 'Todos los campos deben estar completos',
+      }), error);
     }
   };
 
@@ -102,10 +118,19 @@ function Productos() {
       });
 
       if (!response.ok) {
-        throw new Error('No se pudo editar el producto');
+        throw new Error(        
+          Swal.fire({
+          icon: 'error',
+          title: 'Oops...',
+          text: 'No se pudo editar el producto',
+        }));
       }
+      Swal.fire({
+        icon: 'success',
+        title: 'Genial!',
+        text: 'Producto editado con éxito',
+      })
 
-      console.log('Producto editado con éxito');
       productsStore();
       setEditProduct(false)
     } catch (error) {
@@ -128,6 +153,11 @@ function Productos() {
       });
 
       const data = await resp.json();
+      Swal.fire({
+        icon: 'success',
+        title: 'Genial!',
+        text: 'Producto eliminado con éxito',
+      })
       productsStore();
       return data;
     } catch (error) {
@@ -142,7 +172,11 @@ function Productos() {
 
 
     if (!name || !detail || !image || !price || !category) {
-      console.log('Todos los campos deben estar completos');
+      Swal.fire({
+        icon: 'error',
+        title: 'Oops...',
+        text: 'Todos los campos deben estar completos',
+      })
       return;
     }
 
