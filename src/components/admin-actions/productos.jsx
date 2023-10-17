@@ -273,7 +273,7 @@ function Productos() {
               value={category}
               onChange={(e) => setCategory(e.target.value)}
             >
-              <option selected>Seleccione Opción</option>
+              <option selected>Productos</option>
               <option value={"pizzas"}>Pizzas</option>
               <option value={"entradas"}>Entradas</option>
               <option value={"carnes"}>Carnes</option>
