@@ -4,10 +4,7 @@ import Swal from 'sweetalert2'
 
 function Productos() {
 
-  // Estados para manejar productos
   const [productos, setProductos] = useState([]);
-
-  // Estados para los campos del formulario
   const [idProducto, setidProduct] = useState()
   const [name, setName] = useState('');
   const [detail, setDetail] = useState('');
@@ -54,14 +51,8 @@ function Productos() {
       });
 
       if (!response.ok) {
-        throw new Error(        
-          Swal.fire({
-          icon: 'error',
-          title: 'Oops...',
-          text: 'No se pudo agregar el producto',
-        }));
+        throw new Error('No se pudo agregar el producto');
       }
-
       Swal.fire({
         icon: 'success',
         title: 'Genial!',
@@ -70,12 +61,7 @@ function Productos() {
 
       productsStore();
     } catch (error) {
-      console.error(
-        Swal.fire({
-        icon: 'error',
-        title: 'Oops...',
-        text: 'Todos los campos deben estar completos',
-      }), error);
+      console.error('Error al agregar el usuario:', error);
     }
   };
 
@@ -105,7 +91,7 @@ function Productos() {
         active: active
       };
 
-      const editIdProduct = idProducto
+      const editIdProduct = idProducto;
 
       const url = `https://backend-rolling53i.onrender.com/api/menu/${editIdProduct}`; // Incluir el ID en la URL
       const response = await fetch(url, {
@@ -114,17 +100,20 @@ function Productos() {
           'Content-type': 'application/json; charset=UTF-8',
           'x-token': token,
         },
-        body: JSON.stringify(updatedProduct),
+        body: JSON.stringify(updatedProduct)
       });
 
       if (!response.ok) {
-        throw new Error(        
-          Swal.fire({
+        Swal.fire({
           icon: 'error',
           title: 'Oops...',
           text: 'No se pudo editar el producto',
-        }));
+        })
+        throw new Error('No se pudo editar el producto');
       }
+
+      setEditProduct(false)
+
       Swal.fire({
         icon: 'success',
         title: 'Genial!',
@@ -132,7 +121,7 @@ function Productos() {
       })
 
       productsStore();
-      setEditProduct(false)
+
     } catch (error) {
       console.error('Error al editar el Producto:', error);
     }
@@ -141,7 +130,6 @@ function Productos() {
 
   //ELIMINAR LOS PRODUCTOS DEL BACKEND
   const eliminarProducto = async (id) => {
-
     try {
       const url = `https://backend-rolling53i.onrender.com/api/menu`;
       const resp = await fetch(url + "/" + id, {
@@ -149,7 +137,7 @@ function Productos() {
         headers: {
           "Content-type": "application/json; charset=UTF-8",
           "x-token": token,
-        },
+        }
       });
 
       const data = await resp.json();

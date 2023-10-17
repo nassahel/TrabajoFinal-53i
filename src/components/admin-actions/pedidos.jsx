@@ -72,12 +72,6 @@ const Pedidos = () => {
       })
       pedidosGet();
     } catch (error) {
-      Swal.fire({
-        icon: 'error',
-        title: 'Oops...',
-        text: 'Error al editar el pedido',
-        footer: ''
-      })
       console.error('Error al editar el pedido:', error);
     }
   };

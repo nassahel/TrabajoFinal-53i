@@ -24,6 +24,7 @@ function SearchBar({ setSearchTerm }) {
       <Form className="containter-fluid d-flex col-lg-5 col-12 my-4">
         <Form.Control onChange={(e) => setQuery(e.target.value)} value={query} onKeyDown={handleKeyPress}
           type="search"
+          name='searcher'
           placeholder="Buscar..."
           className="me-2 form-control-lg"
           aria-label="Search"

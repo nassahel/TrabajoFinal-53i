@@ -101,12 +101,12 @@ function Usuarios() {
       })
 
       if (!response.ok) {
-        throw new Error(
-          Swal.fire({
-            icon: 'error',
-            title: 'Oops...',
-            text: 'No se pudo editar el usuario',
-          }));
+        Swal.fire({
+          icon: 'error',
+          title: 'Oops...',
+          text: 'No se pudo editar el usuario',
+        })
+        throw new Error('No se pudo editar el usuario');
       }
 
       setEditUser(false)
@@ -120,13 +120,7 @@ function Usuarios() {
       obtenerUsuarios();
 
     } catch (error) {
-      console.error(
-        Swal.fire({
-          icon: 'error',
-          title: 'Oops...',
-          text: 'Error al editar el usuario',
-        }), error);
-
+      console.error('Error al editar el usuario:', error);
     }
   };
 
