@@ -33,9 +33,9 @@ function Login() {
 						icon: 'warning',
 						iconHtml: '!',
 						confirmButtonText: 'Ok',
-						confirmButtonColor: "#2c4b45",					  
+						confirmButtonColor: "#2c4b45",
 						showCloseButton: true
-					  })
+					})
 				} else {
 
 					const data = await response.json();
