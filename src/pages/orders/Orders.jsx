@@ -19,7 +19,6 @@ const Orders = () => {
           iconHtml: '!',
           confirmButtonText: 'Ok',
           confirmButtonColor: "#2c4b45",
-
           showCloseButton: true
         })
       }
