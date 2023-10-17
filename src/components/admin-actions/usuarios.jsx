@@ -250,7 +250,7 @@ function Usuarios() {
               className='input-productos col-4 p-1 input-nombre rounded border border-black border-opacity-50'
               name="direc"
               id="direc"
-              placeholder="Dirección del Usuario"
+              placeholder="Dirección"
               value={direc}
               onChange={(e) => setDirec(e.target.value)}
             />
@@ -265,7 +265,7 @@ function Usuarios() {
               value={rol}
               onChange={(e) => setRol(e.target.value)}
             >
-              <option selected>Seleccione el rol</option>
+              <option selected>Roles</option>
               <option value={"USER_ADMIN"}>Administrador</option>
               <option value={"USER_NORMAL"}>Normal</option>
             </select>
