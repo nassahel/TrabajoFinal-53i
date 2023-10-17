@@ -19,7 +19,7 @@ const Orders = () => {
           iconHtml: '!',
           confirmButtonText: 'Ok',
           confirmButtonColor: "#2c4b45",
-        
+
           showCloseButton: true
         })
       }
@@ -41,14 +41,14 @@ const Orders = () => {
 
       if (!response.ok) {
         throw new Error('No se pudo enviar el pedido');
-        
+
       }
 
       Swal.fire({
         title: 'Pedido enviado con exito!',
         icon: 'success',
         confirmButtonText: 'Ok',
-        confirmButtonColor: "#2c4b45",      
+        confirmButtonColor: "#2c4b45",
         showCloseButton: true
       })
       limpiarCarrito();
@@ -84,7 +84,7 @@ const Orders = () => {
   };
 
   const handleEmptyCart = () => {
-    
+
     Swal.fire({
       title: "¿Estas seguro de querer limpiar el carrito?",
       icon: 'question',

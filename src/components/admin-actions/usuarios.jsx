@@ -120,17 +120,16 @@ function Usuarios() {
       obtenerUsuarios();
 
     } catch (error) {
-      console.error(      
+      console.error(
         Swal.fire({
-        icon: 'error',
-        title: 'Oops...',
-        text: 'Error al editar el usuario',
-      }), error);
+          icon: 'error',
+          title: 'Oops...',
+          text: 'Error al editar el usuario',
+        }), error);
 
     }
   };
 
-  //ELIMINAR LOS PRODUCTOS DEL BACKEND
   const eliminarUsuario = async (id) => {
     try {
       const resp = await fetch(`https://backend-rolling53i.onrender.com/api/usuarios/${id}`, {
@@ -145,7 +144,7 @@ function Usuarios() {
       Swal.fire({
         icon: 'success',
         title: 'Genial!',
-        text: 'Producto eliminado con éxito',
+        text: 'Usuario eliminado con éxito',
       })
       obtenerUsuarios();
       return data;

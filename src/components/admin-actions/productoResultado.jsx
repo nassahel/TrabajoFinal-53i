@@ -17,7 +17,7 @@ const Resultado = ({ productos, editarProducto, eliminarProducto }) => {
         eliminarProducto(id);
       }
     });
-  }  
+  }
 
   const handleEditar = (id) => {
     const respuesta = Swal.fire({

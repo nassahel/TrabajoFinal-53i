@@ -9,6 +9,7 @@ import Navbar from "react-bootstrap/Navbar";
 import logoResto from '../../assets/img/hnb.png'
 import "./navbar.css";
 import { CartContext } from '../cart-context/CartContext';
+import Swal from 'sweetalert2'
 
 function Navbarr({ auth, userAdmin }) {
 
@@ -64,8 +65,22 @@ function Navbarr({ auth, userAdmin }) {
 
 
   const handleLogout = () => {
-    localStorage.removeItem('token');
-    window.location.href = '/';
+    Swal.fire({
+      title: '¿Estas seguro que deseas cerrar sesión?',
+      confirmButtonText: 'Si',
+      confirmButtonColor: "#2c4b45",
+      cancelButtonText: 'No',
+      showCancelButton: true,
+      showCloseButton: true
+    }).then((result) => {
+      if (result.isConfirmed) {
+        localStorage.removeItem('token');
+        window.location.href = '/';
+      }
+    });
+
+
+
   };
 
 
