@@ -8,7 +8,6 @@ function Usuarios() {
   const [idUsuario, setidUsuario] = useState()
   const [nombre, setNombre] = useState('');
   const [correo, setCorreo] = useState('');
-  const [password, setPassword] = useState('');
   const [estado, setEstado] = useState(false);
   const [rol, setRol] = useState('');
   const [direc, setDirec] = useState('');
@@ -36,7 +35,6 @@ function Usuarios() {
         nombre,
         correo,
         direc,
-        password,
         rol,
         estado
       }
@@ -71,7 +69,6 @@ function Usuarios() {
       setEditUser(true)
       setNombre(usuarioFind.nombre)
       setCorreo(usuarioFind.correo)
-      setPassword(usuarioFind.password)
       setRol(usuarioFind.rol)
       setEstado(usuarioFind.estado)
       setDirec(usuarioFind.direc)
@@ -83,7 +80,6 @@ function Usuarios() {
       const updatedUser = {
         nombre: nombre,
         correo: correo,
-        password: password,
         rol: rol,
         estado: estado,
         direc: direc
@@ -168,7 +164,6 @@ function Usuarios() {
 
     setNombre('');
     setCorreo('');
-    setPassword('');
     setEstado(false);
     setRol('');
     setDirec('');
@@ -179,7 +174,7 @@ function Usuarios() {
     <main className='container-fluid col-lg-11'>
       <form className=" m-auto producto-contenedor bg-white p-2 rounded" onSubmit={handleSubmit}>
         <div className='row mt-4'>
-          <div className='col-lg-4 text-center mt-2'>
+          <div className='col-lg-6 text-center mt-2'>
             <label className='col-12 producto-texto fs-6' htmlFor="nombre">Nombre Usuario</label>
             <input
               className='input-productos col-4 p-1 rounded border border-black border-opacity-50'
@@ -192,7 +187,7 @@ function Usuarios() {
               onChange={(e) => setNombre(e.target.value)}
             />
           </div>
-          <div className='col d-flex justify-content-center flex-column align-items-center text-center'>
+          <div className='col-6 d-flex justify-content-center flex-column align-items-center text-center'>
             <label className='fs-6' htmlFor="email">Email Usuario</label>
             <input
               className='input-productos col-4 p-1 rounded border border-black border-opacity-50'
@@ -203,20 +198,6 @@ function Usuarios() {
               value={correo}
               maxLength={50}
               onChange={(e) => setCorreo(e.target.value)}
-            />
-          </div>
-
-
-          <div className='col-lg-4 text-center mt-2'>
-            <label className='col-12 producto-texto fs-6' htmlFor="password">Contraseña Usuario</label>
-            <input
-              className='input-productos col-4 p-1 input-nombre rounded border border-black border-opacity-50'
-              type="text"
-              name="password"
-              id="password"
-              placeholder="Contraseña"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
             />
           </div>
         </div>
