@@ -69,6 +69,7 @@ const Pedidos = () => {
         icon: 'success',
         title: 'Genial!',
         text: 'Producto eliminado con éxito',
+        confirmButtonColor: "#2c4b45"
       })
       pedidosGet();
     } catch (error) {
@@ -86,7 +87,7 @@ const Pedidos = () => {
         icon: 'error',
         title: 'Oops...',
         text: 'Estado de pedido no válido',
-        footer: ''
+        confirmButtonColor: "#2c4b45"
       })
     }
 
@@ -106,7 +107,7 @@ const Pedidos = () => {
               value={status}
               onChange={(e) => setStatus(e.target.value)}
             >
-              <option selected>Seleccione Opción</option>
+              <option value={"seleccionar"}>Seleccione Opción</option>
               <option value={"pendiente"}>Pendiente</option>
               <option value={"realizado"}>Realizado</option>
             </select>

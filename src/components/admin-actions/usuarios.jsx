@@ -53,6 +53,7 @@ function Usuarios() {
         icon: 'success',
         title: 'Genial!',
         text: 'Usuario agregado con éxito',
+        confirmButtonColor: "#2c4b45"
       })
 
       obtenerUsuarios();
@@ -101,6 +102,7 @@ function Usuarios() {
           icon: 'error',
           title: 'Oops...',
           text: 'No se pudo editar el usuario',
+          confirmButtonColor: "#2c4b45"
         })
         throw new Error('No se pudo editar el usuario');
       }
@@ -111,6 +113,7 @@ function Usuarios() {
         icon: 'success',
         title: 'Genial!',
         text: 'Usuario editado con éxito',
+        confirmButtonColor: "#2c4b45"
       })
 
       obtenerUsuarios();
@@ -135,6 +138,7 @@ function Usuarios() {
         icon: 'success',
         title: 'Genial!',
         text: 'Usuario eliminado con éxito',
+        confirmButtonColor: "#2c4b45"
       })
       obtenerUsuarios();
       return data;
@@ -152,6 +156,7 @@ function Usuarios() {
         icon: 'error',
         title: 'Oops...',
         text: 'Todos los campos deben estar completos',
+        confirmButtonColor: "#2c4b45"
       })
       return;
     }
@@ -212,7 +217,7 @@ function Usuarios() {
               value={estado}
               onChange={(e) => setEstado(e.target.value)}
             >
-              <option selected>Seleccione el estado</option>
+              <option value={"seleccionar"}>Seleccione el estado</option>
               <option value={true}>Si</option>
               <option value={false}>No</option>
             </select>
@@ -239,7 +244,7 @@ function Usuarios() {
               value={rol}
               onChange={(e) => setRol(e.target.value)}
             >
-              <option selected>Roles</option>
+              <option value={"roles"}>Roles</option>
               <option value={"USER_ADMIN"}>Administrador</option>
               <option value={"USER_NORMAL"}>Normal</option>
             </select>
