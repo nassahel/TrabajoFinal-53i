@@ -44,7 +44,7 @@ function Productos() {
       const response = await fetch(url, {
         method: 'POST',
         headers: {
-          'Content-type': 'application/json; charset=UTF-8',
+          'Content-type': 'application/json',
           'x-token': token,
         },
         body: JSON.stringify(newProduct),
@@ -57,6 +57,7 @@ function Productos() {
         icon: 'success',
         title: 'Genial!',
         text: 'Producto agregado con éxito',
+        confirmButtonColor: "#2c4b45"
       })
 
       productsStore();
@@ -97,7 +98,7 @@ function Productos() {
       const response = await fetch(url, {
         method: 'PUT',
         headers: {
-          'Content-type': 'application/json; charset=UTF-8',
+          'Content-type': 'application/json',
           'x-token': token,
         },
         body: JSON.stringify(updatedProduct)
@@ -108,6 +109,7 @@ function Productos() {
           icon: 'error',
           title: 'Oops...',
           text: 'No se pudo editar el producto',
+          confirmButtonColor: "#2c4b45"
         })
         throw new Error('No se pudo editar el producto');
       }
@@ -118,6 +120,7 @@ function Productos() {
         icon: 'success',
         title: 'Genial!',
         text: 'Producto editado con éxito',
+        confirmButtonColor: "#2c4b45"
       })
 
       productsStore();
@@ -135,7 +138,7 @@ function Productos() {
       const resp = await fetch(url + "/" + id, {
         method: "DELETE",
         headers: {
-          "Content-type": "application/json; charset=UTF-8",
+          "Content-type": "application/json",
           "x-token": token,
         }
       });
@@ -145,6 +148,7 @@ function Productos() {
         icon: 'success',
         title: 'Genial!',
         text: 'Producto eliminado con éxito',
+        confirmButtonColor: "#2c4b45"
       })
       productsStore();
       return data;
@@ -164,6 +168,7 @@ function Productos() {
         icon: 'error',
         title: 'Oops...',
         text: 'Todos los campos deben estar completos',
+        confirmButtonColor: "#2c4b45"
       })
       return;
     }
@@ -196,7 +201,6 @@ function Productos() {
               id="nombre"
               placeholder="Nombre"
               value={name}
-              minLength={3}
               maxLength={30}
               onChange={(e) => setName(e.target.value)}
             />
@@ -246,7 +250,7 @@ function Productos() {
               value={active}
               onChange={(e) => setActive(e.target.value === 'true')}
             >
-              <option>Seleccionar</option>
+              <option value={"seleccionar"}>Seleccionar</option>
               <option value={true}>Si</option>
               <option value={false}>No</option>
             </select>
@@ -261,12 +265,12 @@ function Productos() {
               value={category}
               onChange={(e) => setCategory(e.target.value)}
             >
-              <option selected>Productos</option>
-              <option value={"pizzas"}>Pizzas</option>
-              <option value={"entradas"}>Entradas</option>
-              <option value={"carnes"}>Carnes</option>
-              <option value={"bebidas"}>Bebidas</option>
-              <option value={"pastas"}>Pastas</option>
+              <option value={"Productos"} >Productos</option>
+              <option value={"Pizzas"}>Pizzas</option>
+              <option value={"Entradas"}>Entradas</option>
+              <option value={"Carnes"}>Carnes</option>
+              <option value={"Bebidas"}>Bebidas</option>
+              <option value={"Pastas"}>Pastas</option>
             </select>
           </div>
 

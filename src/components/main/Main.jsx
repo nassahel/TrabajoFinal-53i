@@ -14,6 +14,7 @@ function Main({ products, searchTerm, loading }) {
     const catPizzas = filteredProducts.filter((comi) => comi.category == 'Pizzas')
     const catMeat = filteredProducts.filter((comi) => comi.category == 'Carnes')
     const catDrink = filteredProducts.filter((comi) => comi.category == 'Bebidas')
+    const catPasta = filteredProducts.filter((comi) => comi.category == 'Pastas')
 
     return (
         <div className='container-fluid pb-4'>
@@ -55,6 +56,34 @@ function Main({ products, searchTerm, loading }) {
                                 <Spiner />
                             ) : (
                                 catPizzas.map((product) => (
+                                    <CardComidas
+                                        key={product._id}
+                                        product={product}
+                                        id={product._id}
+                                        name={product.name}
+                                        category={product.category}
+                                        price={product.price}
+                                        image={product.image}
+                                    />
+                                ))
+                            )}
+                        </div>
+                    )}
+                </div>
+            </div>
+
+
+            <div className="green container-fluid col-xl-10 my-4 p-3 rounded">
+                <div className="container">
+                    <h2 className='text-center mt-3 text-white display-1 py-3 sacramentoFont'>Pastas</h2>
+                    {catPasta.length === 0 && !loading ? (
+                        <p className='p-2 text-center bg-light bg-opacity-75 col-lg-6 mx-auto rounded'>No se encontró nada en esta sección...</p>
+                    ) : (
+                        <div className='row row-cols-lg-4 row-cols-1 row-cols-md-2 g-5 mb-5'>
+                            {loading ? (
+                                <Spiner />
+                            ) : (
+                                catPasta.map((product) => (
                                     <CardComidas
                                         key={product._id}
                                         product={product}
