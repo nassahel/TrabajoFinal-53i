@@ -10,11 +10,11 @@ import Productos from '../../components/admin-actions/productos';
 function Admin() {
   return (
     <div className='container-fluid contenedor-completo mt-4'>
-      <Tabs
+      <Tabs  
         defaultActiveKey="home"
         id="uncontrolled-tab-example"
         className="mb-3">
-        <Tab eventKey="home" title="Productos">
+        <Tab eventKey="home" title="Productos" >
           <Productos />
         </Tab>
         <Tab eventKey="profile" title="Usuarios">
