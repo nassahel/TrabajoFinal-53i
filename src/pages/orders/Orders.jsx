@@ -1,6 +1,7 @@
 import React, { useContext, useEffect, useState } from "react";
 import { AiFillDelete } from "react-icons/ai";
 import { CartContext } from "../../components/cart-context/CartContext";
+import Swal from 'sweetalert2'
 
 const Orders = () => {
   const [cart, setCart] = useContext(CartContext);
@@ -12,7 +13,14 @@ const Orders = () => {
     try {
 
       if (cart.length === 0) {
-        return alert('Debes seleccionar al menos 1 producto')
+        return Swal.fire({
+          title: 'Debes seleccionar al menos 1 producto',
+          icon: 'warning',
+          iconHtml: '!',
+          confirmButtonText: 'Ok',
+          confirmButtonColor: "#2c4b45",
+          showCloseButton: true
+        })
       }
 
       const newOrder = {
@@ -32,9 +40,16 @@ const Orders = () => {
 
       if (!response.ok) {
         throw new Error('No se pudo enviar el pedido');
+
       }
 
-      alert('Pedido enviado con exito! 🎉')
+      Swal.fire({
+        title: 'Pedido enviado con exito!',
+        icon: 'success',
+        confirmButtonText: 'Ok',
+        confirmButtonColor: "#2c4b45",
+        showCloseButton: true
+      })
       limpiarCarrito();
     } catch (error) {
       if (!tokenUser) {
@@ -49,20 +64,40 @@ const Orders = () => {
   };
 
   const eliminarProducto = (id, nombre) => {
-    const carritoEliminar = confirm(`¿Seguro que quieres eliminar ${nombre} de tu orden?`);
 
-    if (carritoEliminar) {
-      const updatedItems = cart.filter(item => item.id !== id);
-      setCart(updatedItems);
-    }
+    Swal.fire({
+      title: `¿Seguro que quieres eliminar ${nombre} de tu orden?`,
+      icon: 'question',
+      showCancelButton: true,
+      confirmButtonText: 'Si',
+      cancelButtonText: `No`,
+      confirmButtonColor: '#2c4b45',
+    }).then((result) => {
+      if (result.isConfirmed) {
+        const updatedItems = cart.filter(item => item.id !== id);
+        setCart(updatedItems);
+        Swal.fire('Producto eliminado', '', 'success')
+      }
+    })
+
   };
 
   const handleEmptyCart = () => {
-    const carritoLimpiar = confirm("¿Estas seguro de querer limpiar el carrito?")
 
-    if (carritoLimpiar) {
-      limpiarCarrito();
-    }
+    Swal.fire({
+      title: "¿Estas seguro de querer limpiar el carrito?",
+      icon: 'question',
+      showCancelButton: true,
+      confirmButtonText: 'Si',
+      cancelButtonText: `No`,
+      confirmButtonColor: '#2c4b45',
+    }).then((result) => {
+      if (result.isConfirmed) {
+        limpiarCarrito();
+        Swal.fire('Carrito eliminado', '', 'success')
+      }
+    })
+
 
   };
 
@@ -86,13 +121,13 @@ const Orders = () => {
         <h2>Tu pedido</h2>
       </div>
       <div className="container text-center py-4 bg-dark bg-opacity-75 my-4 rounded">
-        {cart ? cart.map((item, index) => (
-          <div className="row bg-light col-10 border border-success rounded m-3 py-3 mx-auto" key={item.id}>
-            <div className="col text-start"><img className='img-fluid w-50 rounded' src={item.image} alt={item.name} /></div>
-            <div className="col my-auto"><h5 className="card-title">{item.name}</h5></div>
-            <div className="col my-auto"><h5 className='card-title'>${item.price}</h5></div>
-            <div className="col my-auto"><h5 className='card-title'>Unidades: {item.quantity}</h5></div>
-            <div className="col my-auto text-end pe-4"> <AiFillDelete role="button" size={25} color='brown' onClick={() => eliminarProducto(item.id, item.name)} /></div>
+        {cart ? cart.map((item) => (
+          <div className="row bg-light col-12 border border-success rounded m-3 py-3 mx-auto" key={item.id}>
+            <div className="col-12 col-md-2 text-center m-2 mx-auto"><img className='img-fluid w-75 rounded' src={item.image} alt={item.name} /></div>
+            <div className="col-12 col-md-2 m-auto"><h5 className="card-title">{item.name}</h5></div>
+            <div className="col-12 col-md-2 m-auto"><h5 className='card-title'>${item.price}</h5></div>
+            <div className="col-12 col-md-2 m-auto"><h5 className='card-title'>Unidades: {item.quantity}</h5></div>
+            <div className="col-12 col-md-2 m-auto text-end pe-4"> <AiFillDelete role="button" size={25} color='brown' onClick={() => eliminarProducto(item.id, item.name)} /></div>
           </div>
         )) :
           <div className="container text-center py-4 bg-dark bg-opacity-75 my-4 rounded">

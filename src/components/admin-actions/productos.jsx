@@ -1,22 +1,17 @@
 import { useEffect, useState } from 'react';
-import Resultado from './ProductoResultado';
+import Resultado from './productoResultado';
+import Swal from 'sweetalert2'
 
 function Productos() {
 
-  // Estados para manejar productos
   const [productos, setProductos] = useState([]);
-  const [producto, setProducto] = useState({});
-
-  // Estados para los campos del formulario
   const [idProducto, setidProduct] = useState()
   const [name, setName] = useState('');
   const [detail, setDetail] = useState('');
   const [image, setImage] = useState('');
-  const [price, setPrice] = useState('');
+  const [price, setPrice] = useState(0);
   const [category, setCategory] = useState('');
   const [active, setActive] = useState(false);
-
-
   const [editProduct, setEditProduct] = useState(false)
 
   let token = localStorage.getItem('token');
@@ -49,7 +44,7 @@ function Productos() {
       const response = await fetch(url, {
         method: 'POST',
         headers: {
-          'Content-type': 'application/json; charset=UTF-8',
+          'Content-type': 'application/json',
           'x-token': token,
         },
         body: JSON.stringify(newProduct),
@@ -58,8 +53,13 @@ function Productos() {
       if (!response.ok) {
         throw new Error('No se pudo agregar el producto');
       }
+      Swal.fire({
+        icon: 'success',
+        title: 'Genial!',
+        text: 'Producto agregado con éxito',
+        confirmButtonColor: "#2c4b45"
+      })
 
-      console.log('Producto agregado con éxito');
       productsStore();
     } catch (error) {
       console.error('Error al agregar el usuario:', error);
@@ -72,7 +72,7 @@ function Productos() {
     if (productoFind) {
       setidProduct(productoFind._id)
       setEditProduct(true)
-      setName(productoFind.name)
+      setName(productoFind.name.toLowerCase())
       setDetail(productoFind.detail)
       setImage(productoFind.image)
       setPrice(productoFind.price)
@@ -92,25 +92,39 @@ function Productos() {
         active: active
       };
 
-      const editIdProduct = idProducto
+      const editIdProduct = idProducto;
 
       const url = `https://backend-rolling53i.onrender.com/api/menu/${editIdProduct}`; // Incluir el ID en la URL
       const response = await fetch(url, {
         method: 'PUT',
         headers: {
-          'Content-type': 'application/json; charset=UTF-8',
+          'Content-type': 'application/json',
           'x-token': token,
         },
-        body: JSON.stringify(updatedProduct),
+        body: JSON.stringify(updatedProduct)
       });
 
       if (!response.ok) {
+        Swal.fire({
+          icon: 'error',
+          title: 'Oops...',
+          text: 'No se pudo editar el producto',
+          confirmButtonColor: "#2c4b45"
+        })
         throw new Error('No se pudo editar el producto');
       }
 
-      console.log('Producto editado con éxito');
-      productsStore();
       setEditProduct(false)
+
+      Swal.fire({
+        icon: 'success',
+        title: 'Genial!',
+        text: 'Producto editado con éxito',
+        confirmButtonColor: "#2c4b45"
+      })
+
+      productsStore();
+
     } catch (error) {
       console.error('Error al editar el Producto:', error);
     }
@@ -119,18 +133,23 @@ function Productos() {
 
   //ELIMINAR LOS PRODUCTOS DEL BACKEND
   const eliminarProducto = async (id) => {
-
     try {
       const url = `https://backend-rolling53i.onrender.com/api/menu`;
       const resp = await fetch(url + "/" + id, {
         method: "DELETE",
         headers: {
-          "Content-type": "application/json; charset=UTF-8",
+          "Content-type": "application/json",
           "x-token": token,
-        },
+        }
       });
 
       const data = await resp.json();
+      Swal.fire({
+        icon: 'success',
+        title: 'Genial!',
+        text: 'Producto eliminado con éxito',
+        confirmButtonColor: "#2c4b45"
+      })
       productsStore();
       return data;
     } catch (error) {
@@ -145,7 +164,12 @@ function Productos() {
 
 
     if (!name || !detail || !image || !price || !category) {
-      console.log('Todos los campos deben estar completos');
+      Swal.fire({
+        icon: 'error',
+        title: 'Oops...',
+        text: 'Todos los campos deben estar completos',
+        confirmButtonColor: "#2c4b45"
+      })
       return;
     }
 
@@ -158,24 +182,10 @@ function Productos() {
     setName('');
     setDetail('');
     setImage('');
-    setPrice('');
+    setPrice(0);
     setCategory('');
     setActive(false);
   };
-
-  const cargarProductos = () => {
-    if (Object.keys(producto.length > 0)) {
-      setName(producto.name)
-      setDetail(producto.detail)
-      setImage(producto.image)
-      setPrice(producto.price)
-      setActive(producto.active)
-      setCategory(producto.category)
-    } else {
-      console.log('No hay nada en el array de tarea');
-    }
-  }
-
 
   return (
     <main className='container-fluid col-lg-11'>
@@ -191,6 +201,7 @@ function Productos() {
               id="nombre"
               placeholder="Nombre"
               value={name}
+              maxLength={30}
               onChange={(e) => setName(e.target.value)}
             />
           </div>
@@ -199,12 +210,17 @@ function Productos() {
             <label className='col-12 producto-texto fs-6' htmlFor="precio">Precio del Producto</label>
             <input
               className='input-productos col-4 p-1 input-nombre rounded border border-black border-opacity-50'
-              type="text"
+              type="number"
               name="precio"
               id="precio"
               placeholder="Precio del Producto"
               value={price}
-              onChange={(e) => setPrice(e.target.value)}
+              onChange={(e) => {
+                const inputValue = parseFloat(e.target.value);
+                if (!isNaN(inputValue) && inputValue >= 0 && inputValue <= 99999) {
+                  setPrice(inputValue);
+                }
+              }}
             />
           </div>
 
@@ -216,48 +232,45 @@ function Productos() {
               name="imagen"
               id="imagen"
               placeholder="Imagen"
+              maxLength={100}
               value={image}
               onChange={(e) => setImage(e.target.value)}
             />
           </div>
 
         </div>
-
         <div className='row mt-lg-4 mt-2'>
           <div className='col-lg-4 text-center'>
             <label className='col-12 producto-texto fs-6' htmlFor="activo">Producto Activo</label>
             <select
-              className='col-lg-6 col-4 input-productos p-1  input-nombre rounded border border-black border-opacity-50'
+              className='col-lg-4 col-4 input-productos p-1  input-nombre rounded border border-black border-opacity-50'
               name="activo"
               id="activo"
               placeholder="Producto Activo"
               value={active}
               onChange={(e) => setActive(e.target.value === 'true')}
             >
-              <option>Seleccionar</option>
+              <option value={"seleccionar"}>Seleccionar</option>
               <option value={true}>Si</option>
               <option value={false}>No</option>
             </select>
           </div>
-
-
-
           <div className='col-lg-4 mt-2 text-center'>
             <label className='col-12 producto-texto fs-6' htmlFor="categoria">Categoría del Producto</label>
             <select
-              className='col-lg-6 col-4 input-productos p-1 input-nombre rounded border border-black border-opacity-50'
+              className='col-lg-4 col-4 input-productos p-1 input-nombre rounded border border-black border-opacity-50'
               name="categoria"
               id="categoria"
               placeholder="Categoría del Producto"
               value={category}
               onChange={(e) => setCategory(e.target.value)}
             >
-              <option>Seleccione Opción</option>
-              <option>Pizzas</option>
-              <option>Entradas</option>
-              <option>Carnes</option>
-              <option>Bebidas</option>
-              <option>Pastas</option>
+              <option value={"Productos"} >Productos</option>
+              <option value={"Pizzas"}>Pizzas</option>
+              <option value={"Entradas"}>Entradas</option>
+              <option value={"Carnes"}>Carnes</option>
+              <option value={"Bebidas"}>Bebidas</option>
+              <option value={"Pastas"}>Pastas</option>
             </select>
           </div>
 
@@ -271,6 +284,7 @@ function Productos() {
               id="descripcion"
               placeholder="Descripción"
               value={detail}
+              maxLength={50}
               onChange={(e) => setDetail(e.target.value)}
             />
           </div>

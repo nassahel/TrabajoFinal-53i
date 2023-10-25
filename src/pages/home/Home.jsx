@@ -10,13 +10,37 @@ function Home() {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(false);
 
+
+
+
   const productsStore = async () => {
-    setLoading(true);
-    const data = await fetch('https://backend-rolling53i.onrender.com/api/menu');
-    const prom = await data.json();
-    setProducts(prom.menues);
-    setLoading(false);
+    try {
+      setLoading(true);
+      const data = await fetch('https://backend-rolling53i.onrender.com/api/menu');
+      
+      if (!data.ok) {
+        throw new Error('No se pudo obtener los datos del servidor');
+      }
+  
+      const prom = await data.json();
+      const menues = prom.menues;
+
+
+      const filtered = menues.filter((prod)=> prod.active == true )
+
+      console.log(filtered);
+      
+      setProducts(filtered);
+      setLoading(false);
+
+
+    } catch (error) {
+      console.error('Ocurrió un error:', error);
+      
+    }
   }
+  
+
 
   useEffect(() => {
     productsStore();

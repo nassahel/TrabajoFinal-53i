@@ -1,15 +1,14 @@
 import React, { useState, useEffect } from "react";
-import PedidosResultado from "./PedidosResultado";
+import PedidosResultado from "./pedidosResultado";
+import Swal from 'sweetalert2'
+
 
 const Pedidos = () => {
   const [pedidos, setPedidos] = useState([]);
-  const [pedido, setPedido] = useState({});
   const [status, setStatus] = useState("");
-  const [idPedidos, setidPedidos] = useState()
-  const [editPedidos, setEditPedidos] = useState(false)
+  const [idPedidos, setidPedidos] = useState();
 
   let token = localStorage.getItem('token');
-
 
   const pedidosGet = async () => {
 
@@ -22,13 +21,13 @@ const Pedidos = () => {
         },
       });
       const data = await response.json();
-      console.log(data);
+
       if (!response.ok) {
-        throw new Error('No se pudo agregar el producto');
+        throw new Error('No se pudo agregar el pedido');
       }
       setPedidos(data.orders)
     } catch (error) {
-      console.error('Error al agregar el Pedido:', error);
+      console.error('Error al agregar el pedido:', error);
     }
   }
 
@@ -43,7 +42,6 @@ const Pedidos = () => {
 
     if (pedidoFind) {
       setidPedidos(pedidoFind)
-      setEditPedidos(true)
       setStatus(pedidoFind.status)
     }
   }
@@ -67,20 +65,30 @@ const Pedidos = () => {
       if (!response.ok) {
         throw new Error('No se pudo editar el Pedido');
       }
-
-      console.log('Pedido editado con éxito');
-      pedidosGet(); // Actualizar la lista de usuarios
-      setEditPedidos(false)
+      Swal.fire({
+        icon: 'success',
+        title: 'Genial!',
+        text: 'Producto eliminado con éxito',
+        confirmButtonColor: "#2c4b45"
+      })
+      pedidosGet();
     } catch (error) {
-      console.error('Error al editar el Producto:', error);
+      console.error('Error al editar el pedido:', error);
     }
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    if (editPedidos) {
-      modificarPedidos()
+    if (status === 'pendiente' || status === 'realizado') {
+      modificarPedidos();
+    } else {
+      Swal.fire({
+        icon: 'error',
+        title: 'Oops...',
+        text: 'Estado de pedido no válido',
+        confirmButtonColor: "#2c4b45"
+      })
     }
 
   };
@@ -91,7 +99,6 @@ const Pedidos = () => {
         <div className="row mt-4">
           <div className=' d-flex justify-content-center flex-column align-items-center text-center'>
             <label className='ps-2 producto-texto fs-6' htmlFor="descripcion">Pedido Status</label>
-            <p className="mt-2">Orden Id: {idPedidos._id}</p>
             <select
               className='mt-3 input-productos col-6 col-lg-2 p-1 input-nombre rounded border border-black border-opacity-50'
               name="status"
@@ -100,7 +107,7 @@ const Pedidos = () => {
               value={status}
               onChange={(e) => setStatus(e.target.value)}
             >
-              <option>Seleccione Opción</option>
+              <option value={"seleccionar"}>Seleccione Opción</option>
               <option value={"pendiente"}>Pendiente</option>
               <option value={"realizado"}>Realizado</option>
             </select>
@@ -110,7 +117,7 @@ const Pedidos = () => {
               <input
                 className="my-2 mb-3 btn btn-dark"
                 type="submit"
-                value={editPedidos ? 'Editar Pedido' : 'Agregar Pedido'}
+                value={'Editar Pedido'}
               />
             </div>
           </div>

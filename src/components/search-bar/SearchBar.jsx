@@ -13,23 +13,20 @@ function SearchBar({ setSearchTerm }) {
     setSearchTerm(query);
   }
 
-  const handleKeyPress = (e) => {
-    if (e.key === 'Enter') {
-      handleSearch();
-    }
-  };
+
 
   return (
     <div className='container-fluid flex-column d-flex justify-content-center align-items-center'>
       <Form className="containter-fluid d-flex col-lg-5 col-12 my-4">
-        <Form.Control onChange={(e) => setQuery(e.target.value)} value={query} onKeyDown={handleKeyPress}
+        <Form.Control onChange={(e) => setQuery(e.target.value)} value={query}
           type="search"
+          name='searcher'
           placeholder="Buscar..."
           className="me-2 form-control-lg"
           aria-label="Search"
           data-bs-theme="light"
         />
-        <Button className='bg-dark btn btn-md' onKeyDown={handleKeyPress} onClick={handleSearch} variant="outline-light"><BsSearch size='2rem' /></Button>
+        <Button className='bg-dark btn btn-md' onClick={handleSearch} variant="outline-light"><BsSearch size='2rem' /></Button>
       </Form>
     </div>
   )

@@ -1,17 +1,17 @@
 import React from 'react';
 import { Routes, Route, Navigate } from 'react-router-dom';
-import Admin from '../pages/Admin/Admin';
+import Admin from '../pages/admin-actions/Admin'
 
 export default function ProtectedRouteWrapper({ auth, userAdmin }) {
-    if (!auth) {
+  if (!auth) {
     return <Navigate to='/' />;
-    }
+  }
 
-    userAdmin();
+  userAdmin();
 
-    return (
+  return (
     <Routes>
       <Route path='/*' element={<Admin />} />
     </Routes>
-    );
+  );
 }
