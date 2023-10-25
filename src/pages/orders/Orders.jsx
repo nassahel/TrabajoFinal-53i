@@ -121,13 +121,13 @@ const Orders = () => {
         <h2>Tu pedido</h2>
       </div>
       <div className="container text-center py-4 bg-dark bg-opacity-75 my-4 rounded">
-        {cart ? cart.map((item, index) => (
-          <div className="row bg-light col-10 border border-success rounded m-3 py-3 mx-auto" key={item.id}>
-            <div className="col text-start"><img className='img-fluid w-50 rounded' src={item.image} alt={item.name} /></div>
-            <div className="col my-auto"><h5 className="card-title">{item.name}</h5></div>
-            <div className="col my-auto"><h5 className='card-title'>${item.price}</h5></div>
-            <div className="col my-auto"><h5 className='card-title'>Unidades: {item.quantity}</h5></div>
-            <div className="col my-auto text-end pe-4"> <AiFillDelete role="button" size={25} color='brown' onClick={() => eliminarProducto(item.id, item.name)} /></div>
+        {cart ? cart.map((item) => (
+          <div className="row bg-light col-12 border border-success rounded m-3 py-3 mx-auto" key={item.id}>
+            <div className="col-12 col-md-2 text-center m-2 mx-auto"><img className='img-fluid w-75 rounded' src={item.image} alt={item.name} /></div>
+            <div className="col-12 col-md-2 m-auto"><h5 className="card-title">{item.name}</h5></div>
+            <div className="col-12 col-md-2 m-auto"><h5 className='card-title'>${item.price}</h5></div>
+            <div className="col-12 col-md-2 m-auto"><h5 className='card-title'>Unidades: {item.quantity}</h5></div>
+            <div className="col-12 col-md-2 m-auto text-end pe-4"> <AiFillDelete role="button" size={25} color='brown' onClick={() => eliminarProducto(item.id, item.name)} /></div>
           </div>
         )) :
           <div className="container text-center py-4 bg-dark bg-opacity-75 my-4 rounded">
